@@ -627,13 +627,14 @@ Deletes an existing project.
 
 ### Get all Discussions of a project
 
-Returns all the discussions on a given project.
+Returns all the community discussions on a given project.
+These are non-developer related posts (Don't belong to any of the developers working on the project)
 
 - Require Authentication: false
 - Request
 
   - Method: GET
-  - URL: /api/users/:userId/reviews
+  - URL: /api/projects/:projectId/discussions
   - Body: none
 
 - Successful Response
@@ -645,53 +646,68 @@ Returns all the discussions on a given project.
 
     ```json
     {
-      "Reviews": [
+      "Posts": [
         {
           "id": 1,
-          "userId": 1,
-          "spotId": 1,
-          "review": "This was an awesome spot!",
-          "stars": 5,
-          "createdAt": "2021-11-19 20:39:36",
-          "updatedAt": "2021-11-19 20:39:36",
+          "userId": 2,
+          "projectId": 1,
+          "desciption": "I seriously can't wait for this to finish!",
+          "likes": 32,
+          "dislikes": 2,
+          "createdAt": "04/06/2024",
+          "updatedAt": "04/06/2024",
           "User": {
-            "id": 1,
-            "firstName": "John",
-            "lastName": "Smith"
+            "id": 2,
+            "firstName": "Abel",
+            "lastName": "Johnson",
+            "userName": "DontEndMe"
           },
-          "Spot": {
-            "id": 1,
-            "ownerId": 1,
-            "address": "123 Disney Lane",
-            "city": "San Francisco",
-            "state": "California",
-            "country": "United States of America",
-            "lat": 37.7645358,
-            "lng": -122.4730327,
-            "name": "App Academy",
-            "price": 123,
-            "previewImage": "image url"
+          {
+          "id": 2,
+          "userId": 3,
+          "projectId": 1,
+          "desciption": "Bold claim to be the best game 'EVAR!' I'm not holding my breath on this one. Prob another cash grab scheme.",
+          "likes": 540,
+          "dislikes": 220,
+          "createdAt": "04/06/2024",
+          "updatedAt": "04/06/2024",
+          "User": {
+            "id": 3,
+            "firstName": "Rose",
+            "lastName": "Carlton",
+            "userName": "CandyCarlyRosy"
+            },
           },
-          "ReviewImages": [
-            {
-              "id": 1,
-              "url": "image url"
-            }
-          ]
-        }
+          {
+          "id": 5,
+          "userId": 12,
+          "projectId": 1,
+          "desciption": "I saw that you got a lot of spaghetti code going on. I know it's early in dev, but I highly recommend getting some kind of universal system in place to keep the code clean. Juss saiyan, it'll save you a boatload of issues later.",
+          "likes": 5542,
+          "dislikes": 3,
+          "createdAt": "04/06/2024",
+          "updatedAt": "04/06/2024",
+          "User": {
+            "id": 12,
+            "firstName": "Ayr",
+            "lastName": "Isbul",
+            "userName": "I-is-the-Bull"
+            },
+          },
+        },
       ]
     }
     ```
 
-### Get all Reviews by a Spot's id
+### Get all developer's Discussions posts for a Project
 
-Returns all the reviews that belong to a spot specified by id.
+Returns all the developer discussions that were posted for the project by the developer(s).
 
 - Require Authentication: false
 - Request
 
   - Method: GET
-  - URL: /api/spots/:spotId/reviews
+  - URL: /api/projects/:projectId/discussions/developers
   - Body: none
 
 - Successful Response
@@ -703,32 +719,45 @@ Returns all the reviews that belong to a spot specified by id.
 
     ```json
     {
-      "Reviews": [
+      "Posts": [
         {
-          "id": 1,
-          "userId": 1,
-          "spotId": 1,
-          "review": "This was an awesome spot!",
-          "stars": 5,
-          "createdAt": "2021-11-19 20:39:36",
-          "updatedAt": "2021-11-19 20:39:36",
+          "id": 6,
+          "userId": 24,
+          "projectId": 1,
+          "desciption": "Nothing crazy this week, working through a few bugs on a new mechanic we're trying to implement. Obviously can't say too much on that right now, so stay tuned.",
+          "likes": 658,
+          "dislikes": 25,
+          "createdAt": "04/06/2024",
+          "updatedAt": "04/06/2024",
           "User": {
             "id": 1,
             "firstName": "John",
-            "lastName": "Smith"
+            "lastName": "Smith",
+            "userName": "VanillaBe-a-nMan"
           },
-          "ReviewImages": [
-            {
-              "id": 1,
-              "url": "image url"
-            }
-          ]
+          {
+          "id": 9,
+          "userId": 21,
+          "projectId": 1,
+          "desciption": "Heyall! We got through those pesky bugs from last week and got the super awesome new mechanic working great! Can't wait to show you guys. Until then, loves and kisses!",
+          "likes": 25578,
+          "dislikes": 0,
+          "createdAt": "04/11/2024",
+          "updatedAt": "04/11/2024",
+          "User": {
+            "id": 21,
+            "firstName": "Selina",
+            "lastName": "Stout",
+            "userName": "twistNd_SH0UT"
+          },
         }
+        }
+
       ]
     }
     ```
 
-- Error response: Couldn't find a Spot with the specified id
+- Error response: Couldn't find a Project with the specified id
 
   - Status Code: 404
   - Headers:
@@ -737,27 +766,26 @@ Returns all the reviews that belong to a spot specified by id.
 
     ```json
     {
-      "message": "Spot couldn't be found"
+      "message": "Project couldn't be found"
     }
     ```
 
-### Create a Review for a Spot based on the Spot's id
+### Create a Discussion for a Project based on the Spot's id (non-developer)
 
-Create and return a new review for a spot specified by id.
+Create and return a new discussion for a project specified by id while not being the developer for the project. A check will be put in place to verify if the user is a developer and the projectId doesn't match any of the user's projectIds.
 
 - Require Authentication: true
 - Request
 
   - Method: POST
-  - URL: /api/spots/:spotId
+  - URL: /api/projects/:projectId/discussions
   - Headers:
     - Content-Type: application/json
   - Body:
 
     ```json
     {
-      "review": "This was an awesome spot!",
-      "stars": 5
+      "description": "Confidence is key, but this feels arrogant to call it the greatest game ever made in gaming history. Presses 'X' to doubt"
     }
     ```
 
@@ -770,13 +798,14 @@ Create and return a new review for a spot specified by id.
 
     ```json
     {
-      "id": 1,
-      "userId": 1,
-      "spotId": 1,
-      "review": "This was an awesome spot!",
-      "stars": 5,
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36"
+      "id": 18,
+      "userId": 55,
+      "projectId": 1,
+      "desciption": "Confidence is key, but this feels arrogant to call it the greatest game ever made in gaming history. Presses 'X' to doubt",
+      "likes": 0,
+      "dislikes": 0,
+      "createdAt": "04/07/2024",
+      "updatedAt": "04/07/2024"
     }
     ```
 
@@ -791,8 +820,7 @@ Create and return a new review for a spot specified by id.
     {
       "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
       "errors": {
-        "review": "Review text is required",
-        "stars": "Stars must be an integer from 1 to 5"
+        "description": "Description is required"
       }
     }
     ```
@@ -806,121 +834,46 @@ Create and return a new review for a spot specified by id.
 
     ```json
     {
-      "message": "Spot couldn't be found"
+      "message": "Project couldn't be found"
     }
     ```
 
-- Error response: Review from the current user already exists for the Spot
+### Create a Discussion for a Project based on the Spot's id (developer)
 
-  - Status Code: 500
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "message": "User already has a review for this spot"
-    }
-    ```
-
-### Add an Image to a Review based on the Review's id
-
-Create and return a new image for a review specified by id.
+Create and return a new discussion for a project specified by id as the developer for the project. Project must belong to the developer. A check will be put in place to verify if the user is a developer and the projectId matches user's projectId.
 
 - Require Authentication: true
-- Require proper authorization: Review must belong to the current user
 - Request
 
   - Method: POST
-  - URL: /api/reviews/:reviewId/images
+  - URL: /api/projects/:projectId/discussions/developer
   - Headers:
     - Content-Type: application/json
   - Body:
 
     ```json
     {
-      "url": "image url"
+      "description": "Ya'll are gonna hate me, but I tried sneaky adding back in the twerking lobster meme ya'll liked, and ended up breaking the code. Which resulted in me getting a stern talking to and time-out from my team. Please don't destroy me, I'm terribly sorry and working diligently to solve it. Hopefully, I can still get the meme working too. Wish me luck."
     }
     ```
 
 - Successful Response
 
-  - Status Code: 200
+  - Status Code: 201
   - Headers:
     - Content-Type: application/json
   - Body:
 
     ```json
     {
-      "id": 1,
-      "url": "image url"
-    }
-    ```
-
-- Error response: Couldn't find a Review with the specified id
-
-  - Status Code: 404
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "message": "Review couldn't be found"
-    }
-    ```
-
-- Error response: Cannot add any more images because there is a maximum of 10
-  images per resource
-
-  - Status Code: 403
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "message": "Maximum number of images for this resource was reached"
-    }
-    ```
-
-### Edit a Review
-
-Update and return an existing review.
-
-- Require Authentication: true
-- Require proper authorization: Review must belong to the current user
-- Request
-
-  - Method: PUT
-  - URL: /api/reviews/:reviewId
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "review": "This was an awesome spot!",
-      "stars": 5
-    }
-    ```
-
-- Successful Response
-
-  - Status Code: 200
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "id": 1,
-      "userId": 1,
-      "spotId": 1,
-      "review": "This was an awesome spot!",
-      "stars": 5,
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-20 10:06:40"
+      "id": 47,
+      "userId": 34,
+      "projectId": 1,
+      "description": "Ya'll are gonna hate me, but I tried sneaky adding back in the twerking lobster meme ya'll liked, and ended up breaking the code. Which resulted in me getting a stern talking to and time-out from my team. Please don't destroy me, I'm terribly sorry and working diligently to solve it. Hopefully, I can still get the meme working too. Wish me luck.",
+      "likes": 0,
+      "dislikes": 0,
+      "createdAt": "04/12/2024",
+      "updatedAt": "04/12/2024"
     }
     ```
 
@@ -935,13 +888,12 @@ Update and return an existing review.
     {
       "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
       "errors": {
-        "review": "Review text is required",
-        "stars": "Stars must be an integer from 1 to 5"
+        "description": "Description is required"
       }
     }
     ```
 
-- Error response: Couldn't find a Review with the specified id
+- Error response: Couldn't find a Spot with the specified id
 
   - Status Code: 404
   - Headers:
@@ -950,20 +902,158 @@ Update and return an existing review.
 
     ```json
     {
-      "message": "Review couldn't be found"
+      "message": "Project couldn't be found"
     }
     ```
 
-### Delete a Review
+### Edit a Discussion (non-developer)
 
-Delete an existing review.
+Update and return an existing discussion for a project specified by id while not being the developer for the project.
 
 - Require Authentication: true
-- Require proper authorization: Review must belong to the current user
+- Require proper authorization: Discussion must belong to the current user
+- Request
+
+  - Method: PUT
+  - URL: /api/projects/:projectId/discussions/:discussionId
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "description": "Confidence is key, but this feels arrogant to call it the greatest game ever made in gaming history. Presses 'X' to doubt. Edit: Glad to see I ain't the only one. Then again, I love seeing the mighty crumble, so that'll be a fun laugh down the road."
+    }
+    ```
+
+- Successful Response
+
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "id": 18,
+      "userId": 55,
+      "projectId": 1,
+      "desciption": "Confidence is key, but this feels arrogant to call it the greatest game ever made in gaming history. Presses 'X' to doubt. Edit: Glad to see I ain't the only one. Then again, I love seeing the mighty crumble, so that'll be a fun laugh down the road.",
+      "likes": 0,
+      "dislikes": 0,
+      "createdAt": "04/07/2024",
+      "updatedAt": "04/15/2024"
+    }
+    ```
+
+- Error Response: Body validation errors
+
+  - Status Code: 400
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
+      "errors": {
+        "description": "Description is required"
+      }
+    }
+    ```
+
+- Error response: Couldn't find a Spot with the specified id
+
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Project couldn't be found"
+    }
+    ```
+
+### Edit a Discussion (developer)
+
+Update and return an existing discussion for a project specified by id while being the developer for the project.
+
+- Require Authentication: true
+- Require proper authorization: Discussion and project must belong to the current user
+- Request
+
+  - Method: PUT
+  - URL: /api/projects/:projectId/delevopers/discussions/:discussionsId/
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "description": "Ya'll are gonna hate me, but I tried sneaky adding back in the twerking lobster meme ya'll liked, and ended up breaking the code. Which resulted in me getting a stern talking to and time-out from my team. Please don't destroy me, I'm terribly sorry and working diligently to solve it. Hopefully, I can still get the meme working too. Wish me luck. MINOR UPDATE: Got it fixed! Ya'll can stop yelling at me now T_T"
+    }
+    ```
+
+- Successful Response
+
+  - Status Code: 201
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "id": 47,
+      "userId": 34,
+      "projectId": 1,
+      "description": "Ya'll are gonna hate me, but I tried sneaky adding back in the twerking lobster meme ya'll liked, and ended up breaking the code. Which resulted in me getting a stern talking to and time-out from my team. Please don't destroy me, I'm terribly sorry and working diligently to solve it. Hopefully, I can still get the meme working too. Wish me luck. MINOR UPDATE: Got it fixed! Ya'll can stop yelling at me now T_T",
+      "likes": 0,
+      "dislikes": 0,
+      "createdAt": "04/12/2024",
+      "updatedAt": "04/20/2024"
+    }
+    ```
+
+- Error Response: Body validation errors
+
+  - Status Code: 400
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
+      "errors": {
+        "description": "Description is required"
+      }
+    }
+    ```
+
+- Error response: Couldn't find a Spot with the specified id
+
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Project couldn't be found"
+    }
+    ```
+
+### Delete a Discussion (non-developer)
+
+Delete an existing discussion.
+
+- Require Authentication: true
+- Require proper authorization: Discussion must belong to the current user
 - Request
 
   - Method: DELETE
-  - URL: /api/reviews/:reviewId
+  - URL: /api/projects/:projectId/discussions/:discussionId
   - Body: none
 
 - Successful Response
@@ -988,7 +1078,45 @@ Delete an existing review.
 
     ```json
     {
-      "message": "Review couldn't be found"
+      "message": "Discussion couldn't be found"
+    }
+    ```
+
+### Delete a Discussion (developer)
+
+Delete an existing developer discussion.
+
+- Require Authentication: true
+- Require proper authorization: Discussion must belong to the current user and is the developer of the project
+- Request
+
+  - Method: DELETE
+  - URL: /api/projects/:projectId/developers/discussions/:discussionId/
+  - Body: none
+
+- Successful Response
+
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Successfully deleted"
+    }
+    ```
+
+- Error response: Couldn't find a Review with the specified id
+
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Discussion couldn't be found"
     }
     ```
 
