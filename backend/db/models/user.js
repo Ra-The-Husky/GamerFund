@@ -56,13 +56,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         unique: true,
         allowNull: true,
-        // validate: {
-        //   isADev() {
-        //     if (developer) {
-        //       allowNull = false;
-        //     }
-        //   },
-        // },
       },
     },
     {
