@@ -15,11 +15,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
+      firstname: {
         type: Sequelize.STRING(),
         allowNull: false,
       },
-      lastName: {
+      lastname: {
         type: Sequelize.STRING(),
         allowNull: false,
       },
@@ -40,6 +40,7 @@ module.exports = {
       developer: {
         type: Sequelize.BOOLEAN(),
         defaultValue: false,
+        allowNull: true,
       },
       companyName: {
         type: Sequelize.STRING(),
@@ -55,7 +56,7 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       }
-    });
+    }, options);
   },
 
   async down(queryInterface, Sequelize) {
