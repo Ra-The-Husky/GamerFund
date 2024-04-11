@@ -8,10 +8,10 @@ const { User } = require("../../db/models");
 const router = express.Router();
 
 const validateSignup = [
-  check("firstname")
+  check("firstName")
     .exists({ checkFalsy: true })
     .withMessage("Please provide your first name"),
-  check("lastname")
+  check("lastName")
     .exists({ checkFalsy: true })
     .withMessage("Please provide your last name"),
   check("email")
@@ -33,8 +33,8 @@ const validateSignup = [
 // Sign up
 router.post("/", validateSignup, async (req, res) => {
   const {
-    firstname,
-    lastname,
+    firstName,
+    lastName,
     email,
     password,
     username,
@@ -43,8 +43,8 @@ router.post("/", validateSignup, async (req, res) => {
   } = req.body;
   const hashedPassword = bcrypt.hashSync(password);
   const user = await User.create({
-    firstname,
-    lastname,
+    firstName,
+    lastName,
     email,
     username,
     hashedPassword,
@@ -53,8 +53,8 @@ router.post("/", validateSignup, async (req, res) => {
   });
 
   const safeUser = {
-    firstName: user.firstname,
-    lastName: user.lastname,
+    firstName: user.firstName,
+    lastName: user.lastName,
     id: user.id,
     email: user.email,
     username: user.username,
