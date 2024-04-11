@@ -10,14 +10,18 @@ const router = express.Router();
 router.post(
     '/',
     async (req, res) => {
-      const { email, password, username } = req.body;
+      const { firstname, lastname, email, password, username, developer, companyName } = req.body;
       const hashedPassword = bcrypt.hashSync(password);
-      const user = await User.create({ email, username, hashedPassword });
+      const user = await User.create({ firstname, lastname, email, username, hashedPassword, developer, companyName });
 
       const safeUser = {
+        firstName: user.firstname,
+        lastName: user.lastname,
         id: user.id,
         email: user.email,
         username: user.username,
+        developer: user.developer,
+        companyName: user.companyName,
       };
 
       await setTokenCookie(res, safeUser);
@@ -27,5 +31,5 @@ router.post(
       });
     }
   );
-  
+
 module.exports = router;
