@@ -5,11 +5,10 @@ if (process.env.NODE_ENV === "production") {
   options.schema = process.env.SCHEMA; // define your schema in options object
 }
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      "Users",
+      "Discussions",
       {
         id: {
           allowNull: false,
@@ -17,36 +16,25 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
-        firstName: {
-          type: Sequelize.STRING(),
-          allowNull: false,
+        userId: {
+          type: Sequelize.INTEGER,
         },
-        lastName: {
-          type: Sequelize.STRING(),
-          allowNull: false,
+        projectId: {
+          type: Sequelize.INTEGER,
         },
-        username: {
-          type: Sequelize.STRING(30),
-          allowNull: false,
-          unique: true,
-        },
-        email: {
-          type: Sequelize.STRING(256),
-          allowNull: false,
-          unique: true,
-        },
-        hashedPassword: {
+        post: {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        developer: {
-          type: Sequelize.BOOLEAN(),
-          defaultValue: false,
-          allowNull: true,
+        likes: {
+          type: Sequelize.INTEGER,
         },
-        companyName: {
-          type: Sequelize.STRING(),
-          unique: true,
+        dislikes: {
+          type: Sequelize.INTEGER,
+        },
+        devPost: {
+          type: Sequelize.BOOLEAN,
+          default: false,
         },
         createdAt: {
           allowNull: false,
@@ -62,9 +50,8 @@ module.exports = {
       options
     );
   },
-
   async down(queryInterface, Sequelize) {
-    options.tableName = "Users";
+    options.tableName = "Discussions";
     return queryInterface.dropTable(options);
   },
 };
