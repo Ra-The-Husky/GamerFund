@@ -17,9 +17,6 @@ function Navigation({ isLoaded }) {
       <li>
         <ProfileButton user={sessionUser} />
       </li>
-      <li>
-        <button onClick={logout}>Log Out</button>
-      </li>
     </>
   ) : (
     <>
