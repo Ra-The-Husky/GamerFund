@@ -77,7 +77,8 @@ module.exports = {
         {
           userId: 3,
           projectId: 3,
-          post: "Thanks to all vestors for the last couple months we've managed to speed up production. We had extra time, so our team got a bunch of mocap actors and animals together, and our team of animators go to work. You'll be able to play with the character's guardian spirit when you feel stressed out in-game. You can hold your applause for game release. Your welcome.",
+          post: "Big thanks to all of our vestors this far into production. We really appreciate you all!",
+          // post: "Thanks to all vestors for the last couple months we've managed to speed up production. We had extra time, so our team got a bunch of mocap actors and animals together, and our team of animators go to work. You'll be able to play with the character's guardian spirit when you feel stressed out in-game. You can hold your applause for game release. Your welcome.",
           likes: 98754,
           dislikes: 0,
           devPost: true,
