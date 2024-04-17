@@ -34,7 +34,7 @@ function LandingPage() {
         <div className="projects">
           {allProjects &&
             allProjects.map((project) => (
-              <div className="project" key={project.id}>
+              <div className="project" key={project.id} onClick={() => navigate(`/${project.id}`)}>
                 <div>{project.name}</div>
                 <div>{project.info}</div>
                 <div>{project.genre}</div>

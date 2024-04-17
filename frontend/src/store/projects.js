@@ -18,10 +18,10 @@ export const loadProject = (project) => ({
   project,
 });
 
-// export const  loadUserProjects = (projects) => ({
-//     type: LOAD_USER_PROJECTS,
-//     projects
-// })
+export const  loadUserProjects = (projects) => ({
+    type: LOAD_USER_PROJECTS,
+    projects
+})
 
 // export const  newProject = (project) => ({
 //     type:
@@ -46,6 +46,16 @@ export const getAllProjects = () => async (dispatch) => {
   }
 };
 
+export const getOneProject = (projectId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/projects/${projectId}`);
+
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(loadProject(data));
+    return data;
+  }
+};
+
 //reducers
 const initState = {};
 
@@ -53,6 +63,9 @@ const projectReducer = (state = initState, action) => {
   switch (action.type) {
     case LOAD_PROJECTS:
       return { ...state, projects: action.projects };
+    case LOAD_PROJECT:
+      const projectState = {}
+      return { ...projectState, project: action.project };
     default:
       return state;
   }

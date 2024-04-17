@@ -21,11 +21,23 @@ router.get("/", async (req, res, next) => {
     allProjects.forEach((project) => {
       projectsList.push(project.toJSON());
     });
-    
+
     return res.json({
       Projects: projectsList,
     });
 
 });
 
+router.get('/:projectId', async (req, res) => {
+    const projectId = req.params.projectId
+    const project = await Project.findByPk(projectId)
+
+    if (!project){
+        res.status(404);
+        return res.json({
+          message: "Project couldn't be found",
+        });
+    }
+    return res.json(project)
+})
 module.exports = router

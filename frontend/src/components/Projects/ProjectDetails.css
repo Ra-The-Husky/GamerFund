@@ -1,0 +1,73 @@
+.Project {
+    border: 6px yellow solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.projectBio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.title {
+    font-size: 100px;
+    margin-bottom: 5px;
+}
+.projectDescription {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 15px;
+}
+.projectDemographics {
+    display: grid;
+    grid-template-areas: "a b";
+    grid-column-gap: 20px;
+}
+.discussionBar {
+    border: 2px red dashed;
+    font-size: larger;
+    font-weight: bolder;
+    display: grid;
+    grid-template-areas: "a b";
+    grid-column-gap: 45px;
+    cursor: pointer;
+}
+.projectInfo {
+    border: 5px green dotted;
+    margin-top: 20px;
+    margin-bottom: 45px;
+    width: 100%;
+}
+.projectContent {
+    border: 3px purple solid;
+    display: grid;
+    grid-template-areas: "a b c";
+    grid-column-gap: 5px;
+}
+.infoContainer {
+    grid-area: b;
+}
+
+.milestonesContainer {
+    grid-area: a;
+}
+.milestones:hover{
+    border: 5px plum solid;
+    box-shadow: 3px 3px black;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.tiersContainer {
+    grid-area: c;
+}
+.tiers:hover {
+    border: 5px pink solid;
+    box-shadow: 3px 3px white;
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+}
