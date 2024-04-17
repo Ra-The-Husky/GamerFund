@@ -1,21 +1,23 @@
 const router = require("express").Router();
-const sessionsRouter = require('./session.js')
-const usersRouter = require('./users.js');
+const sessionsRouter = require("./session.js");
+const usersRouter = require("./users.js");
+const projectsRouter = require("./projects.js");
 const { restoreUser } = require("../../utils/auth.js");
+
 // const { setTokenCookie } = require("../../utils/auth.js");
 // const { User } = require("../../db/models");
 
-router.post("/test", function (req, res) {
-  res.json({ requestBody: req.body });
-});
-
 router.use(restoreUser);
-router.use('/session', sessionsRouter)
-router.use('/users', usersRouter)
+router.use("/session", sessionsRouter);
 
-router.post('/test', (req, res) => {
+router.use("/users", usersRouter);
+
+router.use("/projects", projectsRouter);
+
+router.post("/test", (req, res) => {
   res.json({ requestBody: req.body });
 });
+
 // // GET /api/restore-user
 // router.get("/restore-user", (req, res) => {
 //   return res.json(req.user);
