@@ -1,0 +1,15 @@
+.navBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly
+}
+
+.signedIn {
+    display: flex;
+    border: 5px green solid;
+    width: 150%;
+    justify-content: center;
+    gap: 10px;
+}

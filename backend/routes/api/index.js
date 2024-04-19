@@ -19,9 +19,9 @@ router.post("/test", (req, res) => {
 });
 
 // // GET /api/restore-user
-// router.get("/restore-user", (req, res) => {
-//   return res.json(req.user);
-// });
+router.get("/restore-user", (req, res) => {
+  return res.json(req.user);
+});
 
 // // GET /api/set-token-cookie
 // router.get("/set-token-cookie", async (_req, res) => {
@@ -35,13 +35,13 @@ router.post("/test", (req, res) => {
 // });
 
 // // GET /api/require-auth
-// const { requireAuth } = require('../../utils/auth.js');
-// router.get(
-//   '/require-auth',
-//   requireAuth,
-//   (req, res) => {
-//     return res.json(req.user);
-//   }
-// );
+const { requireAuth } = require('../../utils/auth.js');
+router.get(
+  '/require-auth',
+  requireAuth,
+  (req, res) => {
+    return res.json(req.user);
+  }
+);
 
 module.exports = router;

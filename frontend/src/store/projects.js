@@ -46,6 +46,16 @@ export const getAllProjects = () => async (dispatch) => {
   }
 };
 
+export const getUserProjects = () => async (dispatch) => {
+  const res = await csrfFetch('/api/projects/account/projects')
+
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(loadUserProjects(data.Projects))
+    return data
+  }
+}
+
 export const getOneProject = (projectId) => async (dispatch) => {
   const res = await csrfFetch(`/api/projects/${projectId}`);
 
@@ -63,6 +73,9 @@ const projectReducer = (state = initState, action) => {
   switch (action.type) {
     case LOAD_PROJECTS:
       return { ...state, projects: action.projects };
+      case LOAD_USER_PROJECTS:
+        const accountState = {}
+        return {...accountState, projects: action.projects}
     case LOAD_PROJECT:
       const projectState = {}
       return { ...projectState, project: action.project };

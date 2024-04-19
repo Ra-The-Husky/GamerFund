@@ -28,6 +28,24 @@ router.get("/", async (req, res, next) => {
 
 });
 
+router.get('/account/projects', requireAuth, async (req, res) => {
+  const userId = req.user.id
+
+  const projects = await Project.findAll({
+    where: {
+      ownerId: userId
+    }
+  })
+
+  let userProjects = []
+  projects.forEach((project) => {
+    userProjects.push(project.toJSON())
+  })
+  return res.json({
+    Projects: userProjects
+  })
+})
+
 router.get('/:projectId', async (req, res) => {
     const projectId = req.params.projectId
     const project = await Project.findByPk(projectId)
