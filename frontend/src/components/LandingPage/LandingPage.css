@@ -1,59 +1,71 @@
-
+.all {
+  margin-top: 50px;
+}
 .phrases {
-    display: flex;
-    align-items: center;
+  margin-top: 10px;
+  display: flex;
+  border-bottom: 5px black solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.phrases {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 .projects {
-    display: flex;
-    justify-content: space-between;
+  display: grid;
+  grid-template-areas: "a b";
+  justify-items: center;
+  row-gap: 25px;
 }
 
 .project {
-    border: 3px black solid;
-    display: flex;
-    flex-direction: column;
-    height: 10rem;
-    width: 30%;
-    justify-content: space-evenly;
-    align-items: center;
-    cursor: pointer;
+  border: 3px black solid;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 25rem;
+  padding: 5px;
+  width: 75%;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 .project:hover {
-    box-shadow: 0px 4px 10px 0px black;
-}
-.userProjects {
-    display: flex;
-    justify-content: center;
-    border-top: 3px black solid;
-    padding: 5px;
-    font-size: larger;
-}
-.projectTile {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 2px;
-    width: 50%;
-    border: 3px black solid;
-    box-shadow: 3px 3px 3px rgba(0,0,0,0.5) ;
-    border-radius: 10px;
-}
-.projectTitle {
-    font-size: 30px;
+  box-shadow: 0px 4px 10px 0px black;
 }
 
+.projectTile {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 2px;
+  width: 50%;
+  border: 3px black solid;
+  border-radius: 10%;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+.projectTitle {
+  font-size: 30px;
+  font-weight: bolder;
+}
+.projectDemographic {
+  display: grid;
+  grid-template-areas: "a b";
+  column-gap: 6px;
+}
+.projectDescription {
+  margin-bottom: 10px;
+
+}
+.projectGenre {
+  margin-top: 30%;
+}
 
 /* .dropdown-content {
     display: none;
   } */
 
-  /* .project:hover .dropdown-content {
+/* .project:hover .dropdown-content {
     display: block;
     position: absolute;
     background-color: white;

@@ -31,18 +31,27 @@ function LandingPage() {
         </h1>
       </div>
       <div>
+        <h2>Games That Are Being Made As We SPEAK...</h2>
+      </div>
+      <div>
         <div className="projects">
           {allProjects &&
             allProjects.map((project) => (
-              <div className="project" key={project.id} onClick={() => navigate(`/${project.id}`)}>
-                <div>{project.name}</div>
-                <div>{project.info}</div>
-                <div>{project.genre}</div>
+              <div
+                className="project"
+                key={project.id}
+                onClick={() => navigate(`/${project.id}`)}
+              >
+                <div className="projectTitle">{project.name}</div>
+                <div className="projectDescription">{project.description}</div>
+                <div className="projectGenre">{project.genre}</div>
                 <div className="dropdown-content">
-                  <div>{project.country}</div>
-                  <div>
-                    Deadline:{" "}
-                    {project.deadline.split("T").splice(0, 1).join("")}
+                  <div className="projectDemographic">
+                    <div>{project.country}</div>
+                    <div>
+                      Deadline:{" "}
+                      {project.deadline.split("T").splice(0, 1).join("")}
+                    </div>
                   </div>
                 </div>
               </div>

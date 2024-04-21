@@ -6,56 +6,89 @@ const { requireAuth } = require("../../utils/auth");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 
-// const validateProject = [
-//     check()
-//     .exists()
-//     .withMessage()
-// ]
+const validateProject = [
+  check("name")
+    .exists({ checkFalsy: true })
+    .withMessage("Name of project required"),
+  check("description")
+    .exists({ checkFalsy: true })
+    .withMessage("Project information required")
+    .isLength({ min: 20 })
+    .withMessage("Project information needs to be atleast 45 characters long"),
+  check("genre")
+    .exists({ checkFalsy: true })
+    .withMessage("Please pick a genre"),
+  check("country").exists({ checkFalsy: true }).withMessage("Country required"),
+  check("deadline")
+    .exists({ checkFalsy: true })
+    .withMessage("Project contribution deadline required"),
+  handleValidationErrors,
+];
 
 // Get all Projects
 router.get("/", async (req, res, next) => {
   let allProjects;
 
-    allProjects = await Project.findAll();
-    let projectsList = [];
-    allProjects.forEach((project) => {
-      projectsList.push(project.toJSON());
-    });
+  allProjects = await Project.findAll();
+  let projectsList = [];
+  allProjects.forEach((project) => {
+    projectsList.push(project.toJSON());
+  });
 
-    return res.json({
-      Projects: projectsList,
-    });
-
+  return res.json({
+    Projects: projectsList,
+  });
 });
 
-router.get('/account/projects', requireAuth, async (req, res) => {
-  const userId = req.user.id
+//Get all user projects
+router.get("/account/projects", requireAuth, async (req, res) => {
+  const userId = req.user.id;
 
   const projects = await Project.findAll({
     where: {
-      ownerId: userId
-    }
-  })
+      ownerId: userId,
+    },
+  });
 
-  let userProjects = []
+  let userProjects = [];
   projects.forEach((project) => {
-    userProjects.push(project.toJSON())
-  })
+    userProjects.push(project.toJSON());
+  });
   return res.json({
-    Projects: userProjects
-  })
-})
+    Projects: userProjects,
+  });
+});
 
-router.get('/:projectId', async (req, res) => {
-    const projectId = req.params.projectId
-    const project = await Project.findByPk(projectId)
+// Get project info by id
+router.get("/:projectId", async (req, res) => {
+  const projectId = req.params.projectId;
+  const project = await Project.findByPk(projectId);
 
-    if (!project){
-        res.status(404);
-        return res.json({
-          message: "Project couldn't be found",
-        });
-    }
-    return res.json(project)
-})
-module.exports = router
+  if (!project) {
+    res.status(404);
+    return res.json({
+      message: "Project couldn't be found",
+    });
+  }
+  return res.json(project);
+});
+module.exports = router;
+
+// Add new project
+router.post("/new-project", requireAuth, validateProject, async (req, res) => {
+  const userId = req.user.id;
+  const { name, description, genre, country, deadline } = req.body;
+
+  const newProject = Project.build({
+    ownerId: userId,
+    name: name,
+    description: description,
+    genre: genre,
+    country: country,
+    deadline: deadline,
+  });
+
+  await newProject.save();
+  res.status(201);
+  return res.json(newProject);
+});

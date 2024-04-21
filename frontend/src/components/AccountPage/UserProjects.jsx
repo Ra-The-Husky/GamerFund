@@ -2,6 +2,7 @@ import { getUserProjects } from "../../store/projects";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import "../AccountPage/UserProjects.css";
 
 function UserProjects() {
   const dispatch = useDispatch();
@@ -20,13 +21,15 @@ function UserProjects() {
           userProjects.map((project) => (
             <div
               key={project.id}
-              className="projectTile"
+              className="userProjectTile"
               onClick={() => navigate(`/${project.id}`)}
             >
-              <div className="projectTitle">{project.name}</div>
-              <div>{project.info}</div>
-              <div>{project.genre}</div>
-              <div>{project.deadline.split("T").splice(0, 1).join("")}</div>
+              <div className="userProjectTitle">{project.name}</div>
+              <div className="userProjectDescription">{project.description}</div>
+              <div className="userProjectDemographic">
+                <div>{project.genre}</div>
+                <div>{project.deadline.split("T").splice(0, 1).join("")}</div>
+              </div>
             </div>
           ))}
       </div>

@@ -1,0 +1,38 @@
+.userProjects {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: column;
+  border-top: 3px black solid;
+  padding: 5px;
+  font-size: larger;
+  row-gap: 25px;
+}
+.userProjectTile {
+  border: 3px black solid;
+  border-radius: 8px;
+  width: 25%;
+}
+.userProjectTile:hover {
+  cursor: pointer;
+}
+.userProjectTitle {
+  font-size: 30px;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+.userProjectDescription {
+  display: flex;
+  justify-content: center;
+}
+.userProjectDemographic {
+  margin-top: 25px;
+  display: grid;
+  grid-template-areas: "a b";
+  margin-left: 25%;
+  margin-bottom: 10px;
+  padding: 5px;
+}
