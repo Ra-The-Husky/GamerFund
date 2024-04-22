@@ -18,14 +18,15 @@ export const loadProject = (project) => ({
   project,
 });
 
-export const  loadUserProjects = (projects) => ({
-    type: LOAD_USER_PROJECTS,
-    projects
-})
+export const loadUserProjects = (projects) => ({
+  type: LOAD_USER_PROJECTS,
+  projects,
+});
 
-// export const  newProject = (project) => ({
-//     type:
-// })
+export const newProject = (project) => ({
+  type: NEW_PROJECT,
+  project,
+});
 
 // export const updateProject = (project) => ({
 //     type:
@@ -47,14 +48,14 @@ export const getAllProjects = () => async (dispatch) => {
 };
 
 export const getUserProjects = () => async (dispatch) => {
-  const res = await csrfFetch('/api/projects/account/projects')
+  const res = await csrfFetch("/api/projects/account/projects");
 
   if (res.ok) {
-    const data = await res.json()
-    dispatch(loadUserProjects(data.Projects))
-    return data
+    const data = await res.json();
+    dispatch(loadUserProjects(data.Projects));
+    return data;
   }
-}
+};
 
 export const getOneProject = (projectId) => async (dispatch) => {
   const res = await csrfFetch(`/api/projects/${projectId}`);
@@ -66,6 +67,19 @@ export const getOneProject = (projectId) => async (dispatch) => {
   }
 };
 
+export const addProject = (project) => async (dispatch) => {
+  const res = await csrfFetch(`/api/projects/new-project`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(project),
+  });
+
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(newProject(data));
+    return data;
+  }
+};
 //reducers
 const initState = {};
 
@@ -73,12 +87,15 @@ const projectReducer = (state = initState, action) => {
   switch (action.type) {
     case LOAD_PROJECTS:
       return { ...state, projects: action.projects };
-      case LOAD_USER_PROJECTS:
-        const accountState = {}
-        return {...accountState, projects: action.projects}
+    case LOAD_USER_PROJECTS:
+      const accountState = {};
+      return { ...accountState, projects: action.projects };
     case LOAD_PROJECT:
-      const projectState = {}
+      const projectState = {};
       return { ...projectState, project: action.project };
+    case NEW_PROJECT:
+      const newProjectState = {};
+      return { ...newProjectState, project: action.project };
     default:
       return state;
   }

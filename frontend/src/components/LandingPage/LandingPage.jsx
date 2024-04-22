@@ -36,7 +36,23 @@ function LandingPage() {
       <div>
         <div className="projects">
           {allProjects &&
-            allProjects.map((project) => (
+            allProjects.map((project) => {
+              const date = new Date(project.deadline)
+              const month = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December",
+              ];
+              return (
               <div
                 className="project"
                 key={project.id}
@@ -50,12 +66,14 @@ function LandingPage() {
                     <div>{project.country}</div>
                     <div>
                       Deadline:{" "}
-                      {project.deadline.split("T").splice(0, 1).join("")}
+                      {date.getMonth()}/{date.getDay()}/{date.getFullYear()}
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
+
+              )
+            })}
         </div>
       </div>
     </div>

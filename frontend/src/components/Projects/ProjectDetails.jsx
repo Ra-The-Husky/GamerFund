@@ -19,7 +19,7 @@ const ProjectDetails = () => {
       <div className="projectBio">
         <h1 className="title">{projectDeets?.name}</h1>
         <div className="projectDescription">
-          <div>{projectDeets?.info}</div>
+          <div>{projectDeets?.description}</div>
           <div className="projectDemographics">
             <div>Genre: {projectDeets?.genre} </div>
             <div>

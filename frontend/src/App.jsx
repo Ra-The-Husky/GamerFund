@@ -7,6 +7,7 @@ import LandingPage from "./components/LandingPage";
 import AccountPage from "./components/AccountPage";
 import UserProjects from "./components/AccountPage/UserProjects";
 import ProjectDetails from "./components/Projects/ProjectDetails";
+import AddProject from "./components/Projects/AddProject";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/:projectId",
         element: <ProjectDetails />,
+      },
+      {
+        path: "/new-project",
+        element: <AddProject />,
       },
     ],
   },

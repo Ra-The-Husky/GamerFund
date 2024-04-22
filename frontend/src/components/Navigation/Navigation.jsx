@@ -51,7 +51,7 @@ function Navigation({ isLoaded }) {
         </div>
         <input placeholder=""></input>
       </div>
-      <nav onClick={() => alert("Dev Feature Coming Soon!")}>Add Project</nav>
+      <nav onClick={() => navigate('/new-project')}>Add Project</nav>
       <div>
         {!sessionUser ? (
           <OpenModalMenuItem
