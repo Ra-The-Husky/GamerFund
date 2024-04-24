@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { editProject, getOneProject } from "../../../store/projects";
+import {
+  editProject,
+  getAllProjects,
+  getOneProject,
+} from "../../../store/projects";
 import { useNavigate, useParams } from "react-router-dom";
 import countryListAllIsoData from "../../../countries";
 import dateHelper from "../../../dateHelper";
@@ -10,12 +14,13 @@ import "../AddProject/AddProject.css";
 function EditProject() {
   const { projectId } = useParams();
   const projectInfo = useSelector((state) => state.projects?.project);
+  const projects = useSelector((state) => state.projects?.projects);
+  const projectNames = projects && projects?.map((project) => project.name);
   const [name, setName] = useState(projectInfo?.name);
   const [description, setDescription] = useState(projectInfo?.description);
   const [genre, setGenre] = useState(projectInfo?.genre);
   const [country, setCountry] = useState(projectInfo?.country);
   const [allowedDeadline, setAllowedDeadline] = useState();
-
   const [deadline, setDeadline] = useState(projectInfo?.deadline);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
@@ -33,13 +38,25 @@ function EditProject() {
       setCountry(project?.country);
       setDeadline(project?.deadline);
     });
+    dispatch(getAllProjects());
   }, [dispatch, projectId]);
+
+  useEffect(() => {
+    const errs = {};
+
+
+    setErrors(errs);
+  }, [name]);
+
   const submitEdits = async (e) => {
     e.preventDefault();
     const errs = {};
 
     if (!name) {
       errs.name = "Name of your game is required";
+    }
+    if (projectNames.includes(name) && name !== projectInfo.name) {
+      errs.name = "Project Name Already Exists";
     }
     if (!description || description.length < 25) {
       errs.description =
@@ -51,9 +68,6 @@ function EditProject() {
     }
     if (!country) {
       errs.country = "Country of game origin is required";
-    }
-    if (deadline === projectInfo?.deadline) {
-      errs.deadline = "Vestor deadline cannot be current day";
     }
     setErrors(errs);
 
@@ -180,11 +194,13 @@ function EditProject() {
           <div className="fields">
             <input
               className="addDeadline"
-              selected={deadline?.split("T").splice(0,1).join("")}
+              selected={deadline?.split("T").splice(0, 1).join("")}
               type="date"
               min={allowedDeadline}
-              value={deadline?.split("T").splice(0,1).join("")}
-              onChange={(e) => setDeadline(dateHelper(new Date(e.target.value)))}
+              value={deadline?.split("T").splice(0, 1).join("")}
+              onChange={(e) =>
+                setDeadline(dateHelper(new Date(e.target.value)))
+              }
             ></input>
           </div>
         </div>

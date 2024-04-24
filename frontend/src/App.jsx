@@ -6,9 +6,10 @@ import * as sessionActions from "./store/session";
 import LandingPage from "./components/LandingPage";
 import AccountPage from "./components/AccountPage";
 import UserProjects from "./components/AccountPage/UserProjects";
-import ProjectDetails from "./components/Projects/ProjectDetails";
+import ProjectDetails from "./components/Projects/ProjectDetails/ProjectDetails";
 import AddProject from "./components/Projects/AddProject";
 import UpdateProject from "./components/Projects/UpdateProject";
+import RemovedSuccess from "./components/Projects/DestroyProject";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -54,8 +55,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/:projectId/edit",
-        element: <UpdateProject />
-      }
+        element: <UpdateProject />,
+      },
+      {
+        path: "/remove-success",
+        element: <RemovedSuccess />,
+      },
     ],
   },
 ]);

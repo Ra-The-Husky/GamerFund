@@ -95,19 +95,19 @@ router.post("/new-project", requireAuth, validateProject, async (req, res) => {
 
 // Update a user's project
 router.put("/:projectId", requireAuth, validateProject, async (req, res) => {
-  const projectId = req.params.projectId
+  const projectId = req.params.projectId;
 
   const { ownerId, name, description, genre, country, deadline } = req.body;
 
   const updateProject = await Project.findOne({
-    where: {id: projectId},
-  })
+    where: { id: projectId },
+  });
 
   if (!updateProject) {
-    res.status(404)
+    res.status(404);
     return res.json({
-      message: "Project doesn't exist"
-    })
+      message: "Project doesn't exist",
+    });
   }
 
   updateProject.set({
@@ -117,7 +117,29 @@ router.put("/:projectId", requireAuth, validateProject, async (req, res) => {
     genre: genre,
     country: country,
     deadline: deadline,
-  })
-  await updateProject.save()
-  return res.json(updateProject)
-})
+  });
+  await updateProject.save();
+  return res.json(updateProject);
+});
+
+// Deletes Dev's Project
+router.delete("/:projectId", requireAuth, async (req, res) => {
+  const projectId = req.params.projectId
+  const deleteProject = await Project.findOne({
+    where: { id: projectId },
+  });
+  if (!deleteProject) {
+    return res.status(404).json({
+      message: "Project couldn't be found",
+    });
+  }
+  if (deleteProject.ownerId !== req.user.id) {
+    return res.status(403).json({
+      message: "Forbidden",
+    });
+  }
+  await deleteProject.destroy();
+  return res.json({
+    message: "Successfully deleted",
+  });
+});

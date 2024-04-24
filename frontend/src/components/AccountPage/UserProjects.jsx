@@ -1,8 +1,10 @@
 import { getUserProjects } from "../../store/projects";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../AccountPage/UserProjects.css";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import DestroyProjectModal from "../../components/Projects/DestroyProject/DestroyProjectModal";
 
 function UserProjects() {
   const dispatch = useDispatch();
@@ -20,9 +22,8 @@ function UserProjects() {
         {userProjects &&
           userProjects.map((project) => (
             <div className="userProjectContainer">
-              <div className="userProjectInfo">
+              <div key={project.id} className="userProjectInfo">
                 <div
-                  key={project.id}
                   className="userProjectTile"
                   onClick={() => navigate(`/${project.id}`)}
                 >
@@ -43,6 +44,11 @@ function UserProjects() {
                       className="fa-regular fa-pen-to-square"
                       onClick={() => navigate(`/${project.id}/edit`)}
                     ></i>
+                    <OpenModalButton
+                      modalComponent={
+                        <DestroyProjectModal projectId={project.id} />
+                      }
+                    />
                   </div>
                 </div>
               </div>

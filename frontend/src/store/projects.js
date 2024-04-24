@@ -33,9 +33,10 @@ export const updateProject = (project) => ({
   project,
 });
 
-// export const removeProject = (projectId) => ({
-//     type:
-// })
+export const removeProject = (project) => ({
+  type: REMOVE_PROJECT,
+  project,
+});
 
 //thunks
 export const getAllProjects = () => async (dispatch) => {
@@ -92,6 +93,17 @@ export const editProject = (projectId, edits) => async (dispatch) => {
   if (res.ok) {
     dispatch(getOneProject(data));
     dispatch(updateProject(data));
+    return data;
+  }
+};
+
+export const cancelProject = (projectId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/projects/${projectId}`, {
+    method: "DELETE",
+  });
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(removeProject(data));
     return data;
   }
 };

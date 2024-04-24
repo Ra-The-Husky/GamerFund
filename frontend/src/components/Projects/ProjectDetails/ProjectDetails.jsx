@@ -1,8 +1,10 @@
-import { getOneProject } from "../../store/projects";
+import { getOneProject } from "../../../store/projects";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import dateHelper from "../../dateHelper";
+import OpenModalButton from "../../OpenModalButton/OpenModalButton";
+import DeleteProjectModal from "../DestroyProject/DestroyProjectModal";
+// import dateHelper from "../../../dateHelper";
 import "./ProjectDetails.css";
 
 const ProjectDetails = () => {
@@ -24,7 +26,10 @@ const ProjectDetails = () => {
           <div>{projectDeets?.description}</div>
           <div className="projectDemographics">
             <div>Genre: {projectDeets?.genre} </div>
-            <div>Deadline: {projectDeets?.deadline.split("T").splice(0,1).join("")}</div>
+            <div>
+              Deadline:{" "}
+              {projectDeets?.deadline.split("T").splice(0, 1).join("")}
+            </div>
           </div>
         </div>
       </div>
@@ -62,9 +67,9 @@ const ProjectDetails = () => {
           <button onClick={() => navigate(`/${projectDeets.id}/edit`)}>
             Update Project
           </button>
-          <button onClick={() => alert("Dev Function coming soon!")}>
-            Destroy Project
-          </button>
+          <OpenModalButton
+            modalComponent={<DeleteProjectModal projectId={projectId} />}
+          />
         </div>
       )}
     </div>

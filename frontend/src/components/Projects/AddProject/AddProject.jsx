@@ -30,6 +30,8 @@ function AddProject() {
     setDescription(
       "Sweet new description for test game with the necessary length to pass validations."
     );
+    setGenre("Action")
+    setCountry(countryListAllIsoData[45].name)
     setDeadline(dateHelper(new Date("12-24-2024")));
   };
 
