@@ -234,7 +234,7 @@ const countryListAllIsoData = [
 	{"code": "AE", "code3": "ARE", "name": "United Arab Emirates (the)", "number": "784"},
 	{"code": "GB", "code3": "GBR", "name": "United Kingdom of Great Britain and Northern Ireland (the)", "number": "826"},
 	{"code": "UM", "code3": "UMI", "name": "United States Minor Outlying Islands (the)", "number": "581"},
-	{"code": "US", "code3": "USA", "name": "United States of America (the)", "number": "840"},
+	{"code": "US", "code3": "USA", "name": "United States of America", "number": "840"},
 	{"code": "UY", "code3": "URY", "name": "Uruguay", "number": "858"},
 	{"code": "UZ", "code3": "UZB", "name": "Uzbekistan", "number": "860"},
 	{"code": "VU", "code3": "VUT", "name": "Vanuatu", "number": "548"},

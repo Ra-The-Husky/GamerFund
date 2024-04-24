@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllProjects } from "../../store/projects";
 import { useNavigate } from "react-router-dom";
+import dateHelper from "../../dateHelper";
 import "../LandingPage/LandingPage.css";
 
 function LandingPage() {
@@ -37,7 +38,7 @@ function LandingPage() {
         <div className="projects">
           {allProjects &&
             allProjects.map((project) => {
-              const date = new Date(project.deadline)
+              const date = dateHelper(new Date(project.deadline))
               const month = [
                 "January",
                 "February",
@@ -66,7 +67,7 @@ function LandingPage() {
                     <div>{project.country}</div>
                     <div>
                       Deadline:{" "}
-                      {date.getMonth()}/{date.getDay()}/{date.getFullYear()}
+                      {date}
                     </div>
                   </div>
                 </div>

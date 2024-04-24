@@ -61,7 +61,7 @@ const genres = [
     },
     {
       id: 15,
-      name: "Strategy Game",
+      name: "Strategy",
     },
     {
       id: 16,

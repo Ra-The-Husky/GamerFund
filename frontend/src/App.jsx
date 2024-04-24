@@ -8,6 +8,7 @@ import AccountPage from "./components/AccountPage";
 import UserProjects from "./components/AccountPage/UserProjects";
 import ProjectDetails from "./components/Projects/ProjectDetails";
 import AddProject from "./components/Projects/AddProject";
+import UpdateProject from "./components/Projects/UpdateProject";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
         path: "/new-project",
         element: <AddProject />,
       },
+      {
+        path: "/:projectId/edit",
+        element: <UpdateProject />
+      }
     ],
   },
 ]);

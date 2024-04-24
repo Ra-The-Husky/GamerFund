@@ -1,5 +1,5 @@
 .Project {
-    border: 6px yellow solid;
+    /* border: 6px yellow solid; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,7 +27,7 @@
     grid-column-gap: 20px;
 }
 .discussionBar {
-    border: 2px red dashed;
+    /* border: 2px red dashed; */
     font-size: larger;
     font-weight: bolder;
     display: grid;
@@ -36,13 +36,13 @@
     cursor: pointer;
 }
 .projectInfo {
-    border: 5px green dotted;
+    /* border: 5px green dotted; */
     margin-top: 20px;
     margin-bottom: 45px;
     width: 100%;
 }
 .projectContent {
-    border: 3px purple solid;
+    /* border: 3px purple solid; */
     display: grid;
     grid-template-areas: "a b c";
     grid-column-gap: 5px;
@@ -55,7 +55,7 @@
     grid-area: a;
 }
 .milestones:hover{
-    border: 5px plum solid;
+    /* border: 5px plum solid; */
     box-shadow: 3px 3px black;
     display: flex;
     flex-direction: column;
@@ -65,7 +65,7 @@
     grid-area: c;
 }
 .tiers:hover {
-    border: 5px pink solid;
+    /* border: 5px pink solid; */
     box-shadow: 3px 3px white;
     border-radius: 5%;
     display: flex;

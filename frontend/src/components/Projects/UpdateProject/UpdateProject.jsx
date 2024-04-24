@@ -1,39 +1,40 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { addProject } from "../../../store/projects";
-import { useNavigate } from "react-router-dom";
+import { editProject, getOneProject } from "../../../store/projects";
+import { useNavigate, useParams } from "react-router-dom";
 import countryListAllIsoData from "../../../countries";
 import dateHelper from "../../../dateHelper";
 import genres from "../../../genres";
 import "../AddProject/AddProject.css";
 
-function AddProject() {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [genre, setGenre] = useState("");
-  const [country, setCountry] = useState("");
-  let allowedDeadline = new Date();
-  allowedDeadline.setDate(allowedDeadline.getDate() + 1);
-  allowedDeadline = allowedDeadline
-    .toISOString()
-    .split("T")
-    .splice(0, 1)
-    .join("");
-  const [deadline, setDeadline] = useState(allowedDeadline);
+function EditProject() {
+  const { projectId } = useParams();
+  const projectInfo = useSelector((state) => state.projects?.project);
+  const [name, setName] = useState(projectInfo?.name);
+  const [description, setDescription] = useState(projectInfo?.description);
+  const [genre, setGenre] = useState(projectInfo?.genre);
+  const [country, setCountry] = useState(projectInfo?.country);
+  const [allowedDeadline, setAllowedDeadline] = useState();
+
+  const [deadline, setDeadline] = useState(projectInfo?.deadline);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
-  const testGame = () => {
-    setName("New Game Project!");
-    setDescription(
-      "Sweet new description for test game with the necessary length to pass validations."
-    );
-    setDeadline(dateHelper(new Date("12-24-2024")));
-  };
-
-  const submitProject = async (e) => {
+  useEffect(() => {
+    let startLine = new Date();
+    startLine.setDate(startLine.getDate() + 1);
+    startLine = startLine.toISOString().split("T").splice(0, 1).join("");
+    setAllowedDeadline(startLine);
+    dispatch(getOneProject(+projectId)).then((project) => {
+      setName(project?.name);
+      setDescription(project?.description);
+      setGenre(project?.genre);
+      setCountry(project?.country);
+      setDeadline(project?.deadline);
+    });
+  }, [dispatch, projectId]);
+  const submitEdits = async (e) => {
     e.preventDefault();
     const errs = {};
 
@@ -51,12 +52,12 @@ function AddProject() {
     if (!country) {
       errs.country = "Country of game origin is required";
     }
-    if (deadline === new Date()) {
+    if (deadline === projectInfo?.deadline) {
       errs.deadline = "Vestor deadline cannot be current day";
     }
     setErrors(errs);
 
-    const project = {
+    const edits = {
       name,
       description,
       genre,
@@ -67,20 +68,22 @@ function AddProject() {
     if (Object.values(errors).length) {
       return console.log(errors);
     } else {
-      await dispatch(addProject(project)).then((newProject) => navigate(`/${newProject.id}`));
+      await dispatch(editProject(projectId, edits)).then(() =>
+        navigate(`/${projectId}`)
+      );
     }
   };
 
   return (
     <div className="newProjectPage">
-      <h1 className="pageTitle">Add Your Game</h1>
-      <form className="newProjectForm" onSubmit={submitProject}>
+      <h1 className="pageTitle">Update Your Game</h1>
+      <form className="newProjectForm" onSubmit={submitEdits}>
         <h3 className="newProjectHeader">Title of Your Game</h3>
         <div className="subheader">
-          <div>Your game has a name right? Write that here</div>
+          <div>Finally settled on a name?</div>
           <div className="hint">
-            If your game's name is still a work in progress, add "WIP" in the
-            title too
+            If your game's title is no longer a work in progress, don't forget
+            to remove the "WIP from the title"
           </div>
         </div>
         <div className="fields">
@@ -92,12 +95,13 @@ function AddProject() {
             onChange={(e) => setName(e.target.value)}
           ></input>
         </div>
-        {Object.keys(errors) && !name && <div className="errors">{errors.name}</div>}
+        {Object.keys(errors) && !name && (
+          <div className="errors">{errors.name}</div>
+        )}
 
         <h3 className="newProjectHeader">Game Description</h3>
         <div className="subheader">
-          Add a quick description for your game. Make it short and sweet, but
-          catchy and interesting.
+          Change the description? Just don't make it too short or too sweet.
         </div>
         <div className="fields">
           <textarea
@@ -108,11 +112,13 @@ function AddProject() {
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
-        {Object.keys(errors) && !description && <div className="errors">{errors.description}</div>}
+        {Object.keys(errors) && !description && (
+          <div className="errors">{errors.description}</div>
+        )}
 
         <h3 className="newProjectHeader">Genre</h3>
         <div className="subheader">
-          Please select the genre that is closely associated with your game
+          The genre didn't match? Then it's time for a change.
         </div>
         <div className="fields">
           <select
@@ -123,9 +129,13 @@ function AddProject() {
               Genre
             </option>
             {genres &&
-              genres.map((genre) => (
-                <option key={genre.id} value={genre.name}>
-                  {genre.name}
+              genres.map((genre2) => (
+                <option
+                  key={genre2.id}
+                  selected={genre2.name === genre}
+                  value={genre2.name}
+                >
+                  {genre2.name}
                 </option>
               ))}
           </select>
@@ -136,7 +146,7 @@ function AddProject() {
 
         <h3 className="newProjectHeader">Country</h3>
         <div className="subheader">
-          Select the country your game is being published from
+          Your game is being published from somewhere else now?
         </div>
         <div className="fields">
           <select
@@ -147,48 +157,52 @@ function AddProject() {
               Country
             </option>
             {countryListAllIsoData &&
-              countryListAllIsoData.map((country) => (
-                <option key={country.number} value={country.name}>
-                  {country.name}
+              countryListAllIsoData.map((country2) => (
+                <option
+                  key={country2.number}
+                  selected={country2.name === country}
+                  value={country2.name}
+                >
+                  {country2.name}
                 </option>
               ))}
           </select>
         </div>
-        {Object.keys(errors) && !country && <div className="errors">{errors.country}</div>}
+        {Object.keys(errors) && !country && (
+          <div className="errors">{errors.country}</div>
+        )}
 
         <div>
           <h3 className="newProjectHeader">Vestor Deadline</h3>
           <div className="subheader">
-            How long do potential vestors have before you stop accepting
-            contributions?
+            So vestors have more time or less time to contribute now?
           </div>
           <div className="fields">
             <input
               className="addDeadline"
-              selected={deadline}
+              selected={deadline?.split("T").splice(0,1).join("")}
               type="date"
               min={allowedDeadline}
-              value={deadline}
-              onChange={(e) => setDeadline(e.target.value)}
+              value={deadline?.split("T").splice(0,1).join("")}
+              onChange={(e) => setDeadline(dateHelper(new Date(e.target.value)))}
             ></input>
           </div>
         </div>
-        {Object.keys(errors) && deadline && <div className="errors">{errors.deadline}</div>}
+        {Object.keys(errors) && deadline && (
+          <div className="errors">{errors.deadline}</div>
+        )}
 
         <div className="submitLine">
-          Everything set? Then there is only one thing left to do...
+          Cool with your changes? Let's get it back out there!
         </div>
         <div className="buttonContainer">
           <button className="button" type="submit">
-            Add This Game?
-          </button>
-          <button className="button" onClick={testGame}>
-            Test Game
+            Save Changes
           </button>
         </div>
       </form>
     </div>
   );
-};
+}
 
-export default AddProject;
+export default EditProject;

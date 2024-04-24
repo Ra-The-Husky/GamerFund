@@ -1,7 +1,8 @@
 import { getOneProject } from "../../store/projects";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import dateHelper from "../../dateHelper";
 import "./ProjectDetails.css";
 
 const ProjectDetails = () => {
@@ -9,6 +10,7 @@ const ProjectDetails = () => {
   const { projectId } = useParams();
   const projectDeets = useSelector((state) => state.projects.project);
   const sessionUser = useSelector((state) => state.session.user);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getOneProject(projectId));
@@ -22,10 +24,7 @@ const ProjectDetails = () => {
           <div>{projectDeets?.description}</div>
           <div className="projectDemographics">
             <div>Genre: {projectDeets?.genre} </div>
-            <div>
-              Deadline:{" "}
-              {projectDeets?.deadline.split("T").splice(0, 1).join("")}
-            </div>
+            <div>Deadline: {projectDeets?.deadline.split("T").splice(0,1).join("")}</div>
           </div>
         </div>
       </div>
@@ -60,7 +59,7 @@ const ProjectDetails = () => {
         <></>
       ) : (
         <div className="buttons">
-          <button onClick={() => alert("Dev Function coming Soon!")}>
+          <button onClick={() => navigate(`/${projectDeets.id}/edit`)}>
             Update Project
           </button>
           <button onClick={() => alert("Dev Function coming soon!")}>

@@ -28,9 +28,10 @@ export const newProject = (project) => ({
   project,
 });
 
-// export const updateProject = (project) => ({
-//     type:
-// })
+export const updateProject = (project) => ({
+  type: UPDATE_PROJECT,
+  project,
+});
 
 // export const removeProject = (projectId) => ({
 //     type:
@@ -80,6 +81,21 @@ export const addProject = (project) => async (dispatch) => {
     return data;
   }
 };
+
+export const editProject = (projectId, edits) => async (dispatch) => {
+  const res = await csrfFetch(`/api/projects/${projectId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(edits),
+  });
+  const data = await res.json();
+  if (res.ok) {
+    dispatch(getOneProject(data));
+    dispatch(updateProject(data));
+    return data;
+  }
+};
+
 //reducers
 const initState = {};
 
@@ -96,6 +112,9 @@ const projectReducer = (state = initState, action) => {
     case NEW_PROJECT:
       const newProjectState = {};
       return { ...newProjectState, project: action.project };
+    case UPDATE_PROJECT:
+      const updateProjectState = {};
+      return { ...updateProjectState, project: action.project };
     default:
       return state;
   }

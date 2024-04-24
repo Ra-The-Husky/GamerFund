@@ -19,16 +19,32 @@ function UserProjects() {
       <div className="userProjects">
         {userProjects &&
           userProjects.map((project) => (
-            <div
-              key={project.id}
-              className="userProjectTile"
-              onClick={() => navigate(`/${project.id}`)}
-            >
-              <div className="userProjectTitle">{project.name}</div>
-              <div className="userProjectDescription">{project.description}</div>
-              <div className="userProjectDemographic">
-                <div>{project.genre}</div>
-                <div>{project.deadline.split("T").splice(0, 1).join("")}</div>
+            <div className="userProjectContainer">
+              <div className="userProjectInfo">
+                <div
+                  key={project.id}
+                  className="userProjectTile"
+                  onClick={() => navigate(`/${project.id}`)}
+                >
+                  <div className="userProjectTitle">{project.name}</div>
+                  <div className="userProjectDescription">
+                    {project.description}
+                  </div>
+                  <div className="userProjectDemographic">
+                    <div>{project.genre}</div>
+                    <div>
+                      {project.deadline.split("T").splice(0, 1).join("")}
+                    </div>
+                  </div>
+                </div>
+                <div className="iconContainer">
+                  <div className="icons">
+                    <i
+                      className="fa-regular fa-pen-to-square"
+                      onClick={() => navigate(`/${project.id}/edit`)}
+                    ></i>
+                  </div>
+                </div>
               </div>
             </div>
           ))}

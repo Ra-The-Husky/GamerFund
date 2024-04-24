@@ -14,7 +14,7 @@ const validateProject = [
     .exists({ checkFalsy: true })
     .withMessage("Project information required")
     .isLength({ min: 20 })
-    .withMessage("Project information needs to be atleast 45 characters long"),
+    .withMessage("Project description needs to be atleast 20 characters long"),
   check("genre")
     .exists({ checkFalsy: true })
     .withMessage("Please pick a genre"),
@@ -74,7 +74,7 @@ router.get("/:projectId", async (req, res) => {
 });
 module.exports = router;
 
-// Add new project
+// Adds new project
 router.post("/new-project", requireAuth, validateProject, async (req, res) => {
   const userId = req.user.id;
   const { name, description, genre, country, deadline } = req.body;
@@ -92,3 +92,32 @@ router.post("/new-project", requireAuth, validateProject, async (req, res) => {
   res.status(201);
   return res.json(newProject);
 });
+
+// Update a user's project
+router.put("/:projectId", requireAuth, validateProject, async (req, res) => {
+  const projectId = req.params.projectId
+
+  const { ownerId, name, description, genre, country, deadline } = req.body;
+
+  const updateProject = await Project.findOne({
+    where: {id: projectId},
+  })
+
+  if (!updateProject) {
+    res.status(404)
+    return res.json({
+      message: "Project doesn't exist"
+    })
+  }
+
+  updateProject.set({
+    ownerId: ownerId,
+    name: name,
+    description: description,
+    genre: genre,
+    country: country,
+    deadline: deadline,
+  })
+  await updateProject.save()
+  return res.json(updateProject)
+})
