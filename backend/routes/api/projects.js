@@ -1,5 +1,5 @@
 const express = require("express");
-const { Project } = require("../../db/models");
+const { User, Project, Discussion } = require("../../db/models");
 const { Op } = require("sequelize");
 const router = express.Router();
 const { requireAuth } = require("../../utils/auth");
@@ -72,7 +72,6 @@ router.get("/:projectId", async (req, res) => {
   }
   return res.json(project);
 });
-module.exports = router;
 
 // Adds new project
 router.post("/new-project", requireAuth, validateProject, async (req, res) => {
@@ -124,7 +123,7 @@ router.put("/:projectId", requireAuth, validateProject, async (req, res) => {
 
 // Deletes Dev's Project
 router.delete("/:projectId", requireAuth, async (req, res) => {
-  const projectId = req.params.projectId
+  const projectId = req.params.projectId;
   const deleteProject = await Project.findOne({
     where: { id: projectId },
   });
@@ -143,3 +142,72 @@ router.delete("/:projectId", requireAuth, async (req, res) => {
     message: "Successfully deleted",
   });
 });
+
+// Get project's discussions
+router.get("/:projectId/discussions", async (req, res) => {
+  const projectId = req.params.projectId;
+  const project = await Project.findByPk(projectId);
+
+  const discussions = await Discussion.findAll({
+    where: {
+      projectId: projectId,
+      devPost: false,
+    },
+    include: [
+      {
+        model: User,
+        attributes: ["username"]
+      },
+    ],
+  });
+
+  if (!project) {
+    res.status(404);
+    return res.json({
+      message: "Project couldn't be found",
+    });
+  }
+
+  let allDiscussions = [];
+  discussions.forEach((discussion) => {
+    allDiscussions.push(discussion.toJSON());
+  });
+
+  return res.json(allDiscussions);
+});
+
+// Get project's devPosts
+router.get("/:projectId/devPosts", async (req, res) => {
+  const projectId = req.params.projectId;
+  const project = await Project.findByPk(projectId);
+
+  if (!project) {
+    res.status(404);
+    return res.json({
+      message: "Project couldn't be found",
+    });
+  }
+
+  const discussions = await Discussion.findAll({
+    where: {
+      projectId: projectId,
+      devPost: true,
+    },
+    include: [
+      {
+        model: User,
+        attributes: ["username"]
+      },
+    ],
+  });
+
+
+  let allDiscussions = [];
+  discussions.forEach((discussion) => {
+    allDiscussions.push(discussion.toJSON());
+  });
+
+  return res.json(allDiscussions);
+});
+
+module.exports = router;

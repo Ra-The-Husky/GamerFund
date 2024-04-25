@@ -2,6 +2,7 @@ const router = require("express").Router();
 const sessionsRouter = require("./session.js");
 const usersRouter = require("./users.js");
 const projectsRouter = require("./projects.js");
+const discussionsRouter = require('./discussions.js')
 const { restoreUser } = require("../../utils/auth.js");
 
 // const { setTokenCookie } = require("../../utils/auth.js");
@@ -13,6 +14,8 @@ router.use("/session", sessionsRouter);
 router.use("/users", usersRouter);
 
 router.use("/projects", projectsRouter);
+
+router.use("/discussions", discussionsRouter)
 
 router.post("/test", (req, res) => {
   res.json({ requestBody: req.body });

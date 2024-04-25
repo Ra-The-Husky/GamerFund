@@ -37,7 +37,7 @@ const ProjectDetails = () => {
       <div className="discussionBar">
         <div onClick={() => alert("Feature Coming Soon!")}>DevPosts</div>
 
-        <div onClick={() => alert("Feature Coming Soon!")}>
+        <div onClick={() => navigate(`/${projectId}/discussions`)}>
           Community Discussion
         </div>
       </div>
@@ -68,7 +68,7 @@ const ProjectDetails = () => {
             Update Project
           </button>
           <OpenModalButton
-            modalComponent={<DeleteProjectModal projectId={projectId} />}
+            modalComponent={<DeleteProjectModal projectId={projectId} navigate={navigate} />}
           />
         </div>
       )}

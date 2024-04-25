@@ -1,11 +1,10 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { cancelProject } from "../../../store/projects";
-// import { useNavigate } from "react-router-dom";
 import "../DestroyProject/DestroyModal.css";
-function DeleteProjectModal({ projectId }) {
+
+function DeleteProjectModal({ projectId, navigate }) {
   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
   const { closeModal } = useModal();
 
   const deleteMsgs = [
@@ -41,8 +40,10 @@ function DeleteProjectModal({ projectId }) {
   const destroyProject = (e) => {
     e.preventDefault();
 
-    return dispatch(cancelProject(projectId)).then(closeModal());
-    // .then(navigate("/remove-success"));
+    return dispatch(cancelProject(projectId)).then(() => {
+      navigate("/remove-success");
+      closeModal();
+    });
   };
 
   return (

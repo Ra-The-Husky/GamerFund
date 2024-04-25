@@ -1,20 +1,19 @@
-
-#modal-content{
- border: 3px black solid;
- border-radius: 25px;
- box-shadow: 3px green;
- height: 55%;
+#modal-content {
+  border: 3px black solid;
+  border-radius: 25px;
+  box-shadow: 3px green;
+  height: 55%;
 }
 .modal {
-    height: 99%;
+  height: 99%;
 }
 .deleteModal {
-    height: 99%;
+  height: 99%;
 }
 .destroyTitle {
-    display: flex;
-    justify-content: center;
-    font-size: 50px;
+  display: flex;
+  justify-content: center;
+  font-size: 50px;
 }
 .messages {
   display: flex;
@@ -24,9 +23,9 @@
   padding: 3px;
 }
 .warning {
-    padding: 5px;
-    margin-top: 35px;
-    font-size: 25px;
+  padding: 5px;
+  margin-top: 35px;
+  font-size: 25px;
 }
 .warningMessage {
   border-bottom: 10px yellow dashed;
@@ -50,17 +49,21 @@
 }
 .destroyButton {
   background-color: red;
+  border-bottom: 5px black solid;
+  border-radius: 5px;
   width: 25%;
 }
 .destroyButton:hover {
-    box-shadow: 0px 5px 5px 0px red ;
-    cursor: pointer;
+  box-shadow: 0px 3px 3px 0px black;
+  cursor: pointer;
 }
-.declineButton{
-    background-color: green;
-    width: 25%;
+.declineButton {
+  background-color: green;
+  border-bottom: 5px black solid;
+  border-radius: 5px;
+  width: 25%;
 }
 .declineButton:hover {
-    box-shadow: 0px 5px 5px 0px green ;
-    cursor: pointer;
+  box-shadow: 0px 5px 5px 0px black;
+  cursor: pointer;
 }

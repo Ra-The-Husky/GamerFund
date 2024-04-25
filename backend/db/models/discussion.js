@@ -21,12 +21,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       likes: DataTypes.INTEGER,
       dislikes: DataTypes.INTEGER,
+      flag: {
+        type: DataTypes.STRING,
+        defaultValue: "Comment",
+      },
       devPost: {
-
         type: DataTypes.BOOLEAN,
-        defaultValue: false
-      }
-
+        defaultValue: false,
+      },
     },
     {
       sequelize,

@@ -10,6 +10,9 @@ import ProjectDetails from "./components/Projects/ProjectDetails/ProjectDetails"
 import AddProject from "./components/Projects/AddProject";
 import UpdateProject from "./components/Projects/UpdateProject";
 import RemovedSuccess from "./components/Projects/DestroyProject";
+import AllDiscussions from "./components/Discussions/ProjectDiscussions/ProjectDiscussions";
+
+
 
 function Layout() {
   const dispatch = useDispatch();
@@ -48,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/:projectId",
         element: <ProjectDetails />,
+      },
+      {
+        path: '/:projectId/discussions',
+        element: <AllDiscussions />
       },
       {
         path: "/new-project",

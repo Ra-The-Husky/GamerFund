@@ -7,15 +7,15 @@ function RemovedSuccess() {
     "It's time to recoup, reimagine, and restart",
     "Gone for now, but you'll be back. They always come back",
   ];
+
   return (
-    <>
+    <div>
       <h1>Your Project Has Been Successfully Removed</h1>
-      {deletedMsgs &&
-        deletedMsgs.map((messages) => (
-          <div className="messages">{messages}</div>
-        ))}
-    </>
+      <div>
+    {deletedMsgs && deletedMsgs[Math.floor(Math.random()*deletedMsgs.length)]}
+      </div>
+    </div>
   );
 }
 
-export default RemovedSuccess
+export default RemovedSuccess;

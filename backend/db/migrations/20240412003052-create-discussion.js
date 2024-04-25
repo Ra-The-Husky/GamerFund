@@ -32,6 +32,10 @@ module.exports = {
         dislikes: {
           type: Sequelize.INTEGER,
         },
+        flag: {
+          type: Sequelize.STRING,
+          default: "Comment",
+        },
         devPost: {
           type: Sequelize.BOOLEAN,
           default: false,
