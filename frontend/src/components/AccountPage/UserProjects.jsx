@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../AccountPage/UserProjects.css";
-import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import OpenModalButton from "../OpenModal/OpenModalButton";
 import DestroyProjectModal from "../../components/Projects/DestroyProject/DestroyProjectModal";
 
 function UserProjects() {

@@ -26,11 +26,17 @@
   grid-area: b;
   width: 7vw;
   justify-self: end;
+  height: max-content;
 }
 .rules {
   display: flex;
   justify-content: center;
   height: fit-content;
+}
+.plus {
+  display: flex;
+  column-gap: 2px;
+  padding: 3px;
 }
 .discussions {
   /* border: 5px blue solid; */

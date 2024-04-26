@@ -25,6 +25,14 @@ const validateProject = [
   handleValidationErrors,
 ];
 
+const validateDiscussion = [
+  check("post")
+    .exists({ checkFalsy: true })
+    .withMessage("Discussion cannot be blank")
+    .isLength({ min: 5 })
+    .withMessage("Discussion cannot be less than five characters long"),
+];
+
 // Get all Projects
 router.get("/", async (req, res, next) => {
   let allProjects;
@@ -156,7 +164,7 @@ router.get("/:projectId/discussions", async (req, res) => {
     include: [
       {
         model: User,
-        attributes: ["username"]
+        attributes: ["username"],
       },
     ],
   });
@@ -172,8 +180,7 @@ router.get("/:projectId/discussions", async (req, res) => {
   discussions.forEach((discussion) => {
     allDiscussions.push(discussion.toJSON());
   });
-
-  return res.json(allDiscussions);
+  return res.json(allDiscussions.sort((b,a) => a["createdAt"] - b["createdAt"]));
 });
 
 // Get project's devPosts
@@ -196,18 +203,49 @@ router.get("/:projectId/devPosts", async (req, res) => {
     include: [
       {
         model: User,
-        attributes: ["username"]
+        attributes: ["username"],
       },
     ],
   });
-
 
   let allDiscussions = [];
   discussions.forEach((discussion) => {
     allDiscussions.push(discussion.toJSON());
   });
-
-  return res.json(allDiscussions);
+  return res.json(allDiscussions.sort((b,a) => a["createdAt"] - b["createdAt"]));
 });
 
+router.post(
+  "/:projectId/discussions",
+  requireAuth,
+  validateDiscussion,
+  async (req, res) => {
+    const userId = req.user.id;
+    const projectId = req.params.projectId;
+    let { post, flag, devPost } = req.body;
+
+    const project = await Project.findByPk(projectId);
+
+    if (!project) {
+      res.status(404);
+      return res.json({
+        message: "Project doesn't exist",
+      });
+    }
+
+    if (userId === project.ownerId){
+      devPost = true
+    }
+
+    const newDiscussion = Discussion.build({
+      projectId: projectId,
+      userId: userId,
+      post: post,
+      flag: flag,
+      devPost: devPost,
+    });
+    await newDiscussion.save()
+    return res.json(newDiscussion)
+  }
+);
 module.exports = router;

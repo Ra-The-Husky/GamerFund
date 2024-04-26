@@ -7,11 +7,5 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 
 
-// const validateDiscussion = [
-//   check().exists().withMessage()
-// ]
-
-
-
 
   module.exports = router
