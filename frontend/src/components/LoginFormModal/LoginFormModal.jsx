@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import * as sessionActions from '../../store/session';
-import { useDispatch } from 'react-redux';
-import { useModal } from '../../context/Modal';
-import './LoginForm.css';
+import { useState } from "react";
+import * as sessionActions from "../../store/session";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
+import "./LoginForm.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -10,7 +10,6 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,37 +25,47 @@ function LoginFormModal() {
   };
 
   return (
-    <>
+    <div className="modalContainer">
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username or Email
-          <input
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
-        <button type="submit">Log In</button>
-        <button type="submit" onClick={() => {
-          setCredential('demo@user.io')
-          setPassword('password')
-        }}>Demo User</button>
+      <form className="postForm" onSubmit={handleSubmit}>
+        <div className="credentials">
+          <label>
+            <input
+              placeholder="Username or Email"
+              type="text"
+              value={credential}
+              onChange={(e) => setCredential(e.target.value)}
+              required
+            />
+          </label>
+          <label>
+            <input
+              placeholder="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+        {errors.credential && <p>{errors.credential}</p>}
+        <div className="buttonContainer">
+          <button className="button" type="submit">
+            Log In
+          </button>
+          <button
+            className="button"
+            type="submit"
+            onClick={() => {
+              setCredential("demo@user.io");
+              setPassword("password");
+            }}
+          >
+            Demo User
+          </button>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
 

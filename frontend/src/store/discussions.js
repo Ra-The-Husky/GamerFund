@@ -119,15 +119,13 @@ const discussionReducer = (state = initState, action) => {
     case LOAD_DISCUSSIONS:
       return { ...state, discussions: action.discussions };
     case LOAD_USER_DISCUSSIONS:
-      const accountState = {};
-      return { ...accountState, discussions: action.discussions };
+      return { ...state, discussions: action.discussions };
     case LOAD_DISCUSSION:
       return { ...state, discussion: action.discussion };
     case NEW_DISCUSSION:
       return { ...state, discussion: action.discussion };
     case UPDATE_DISCUSSION:
-      const updateDiscussionState = {};
-      return { ...updateDiscussionState, discussion: action.discussion };
+      return { ...state, discussion: action.discussion };
     default:
       return state;
   }

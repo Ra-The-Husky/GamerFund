@@ -39,20 +39,6 @@ function LandingPage() {
           {allProjects &&
             allProjects.map((project) => {
               const date = dateHelper(new Date(project.deadline))
-              const month = [
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December",
-              ];
               return (
               <div
                 className="project"

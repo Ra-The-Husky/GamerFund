@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllDiscussions } from "../../../store/discussions";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getOneProject } from "../../../store/projects";
 import OpenModalAdd from "../../OpenModal/OpenModalAdd";
 import OpenModalEdit from "../../OpenModal/OpenModalEdit";
@@ -14,7 +14,6 @@ import "../ProjectDiscussions/ProjectDiscussions.css";
 function AllDiscussions() {
   const { projectId } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const projectDeets = useSelector((state) => state.projects?.project);
   const discussions = useSelector((state) => state.discussions?.discussions);

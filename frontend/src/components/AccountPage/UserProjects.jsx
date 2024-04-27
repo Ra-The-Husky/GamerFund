@@ -21,8 +21,8 @@ function UserProjects() {
       <div className="userProjects">
         {userProjects &&
           userProjects.map((project) => (
-            <div className="userProjectContainer">
-              <div key={project.id} className="userProjectInfo">
+            <div key={project.id} className="userProjectContainer">
+              <div className="userProjectInfo">
                 <div
                   className="userProjectTile"
                   onClick={() => navigate(`/${project.id}`)}

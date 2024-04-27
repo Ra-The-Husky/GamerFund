@@ -1,10 +1,10 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { addDiscussion } from "../../../store/discussions";
 import "../DiscussionModal.css";
 
-function AddDiscussionModal({ projectId, navigate }) {
+function AddDiscussionModal({ projectId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [post, setPost] = useState("");
@@ -30,6 +30,7 @@ function AddDiscussionModal({ projectId, navigate }) {
   ];
 
   const testPost = (e) => {
+    e.preventDefault()
     setPost("Test Post");
     setFlag("Comment");
   };

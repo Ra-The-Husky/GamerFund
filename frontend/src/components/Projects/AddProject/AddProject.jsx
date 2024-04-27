@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { addProject } from "../../../store/projects";
 import { useNavigate } from "react-router-dom";
 import countryListAllIsoData from "../../../countries";
@@ -81,7 +81,7 @@ function AddProject() {
         <div className="subheader">
           <div>Your game has a name right? Write that here</div>
           <div className="hint">
-            If your game's name is still a work in progress, add "WIP" in the
+            If your game&apos;s name is still a work in progress, add &quot;WIP&quot; in the
             title too
           </div>
         </div>
@@ -191,6 +191,6 @@ function AddProject() {
       </form>
     </div>
   );
-};
+}
 
 export default AddProject;

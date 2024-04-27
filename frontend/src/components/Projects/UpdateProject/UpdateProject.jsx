@@ -96,8 +96,8 @@ function EditProject() {
         <div className="subheader">
           <div>Finally settled on a name?</div>
           <div className="hint">
-            If your game's title is no longer a work in progress, don't forget
-            to remove the "WIP from the title"
+            If your game&apos;s title is no longer a work in progress, don&apos;t forget
+            to remove the &quot;WIP&apos; from the title
           </div>
         </div>
         <div className="fields">
@@ -115,7 +115,7 @@ function EditProject() {
 
         <h3 className="newProjectHeader">Game Description</h3>
         <div className="subheader">
-          Change the description? Just don't make it too short or too sweet.
+          Change the description? Just don&apos;t make it too short or too sweet.
         </div>
         <div className="fields">
           <textarea
@@ -132,7 +132,7 @@ function EditProject() {
 
         <h3 className="newProjectHeader">Genre</h3>
         <div className="subheader">
-          The genre didn't match? Then it's time for a change.
+          The genre didn&apos;t match? Then it&apos;s time for a change.
         </div>
         <div className="fields">
           <select
@@ -209,7 +209,7 @@ function EditProject() {
         )}
 
         <div className="submitLine">
-          Cool with your changes? Let's get it back out there!
+          Cool with your changes? Let&apos;s get it back out there!
         </div>
         <div className="buttonContainer">
           <button className="button" type="submit">

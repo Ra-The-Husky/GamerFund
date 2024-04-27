@@ -8,7 +8,7 @@ function AccountPage() {
 
   return (
     <>
-      <h1>Welcome Back {sessionUser.username}!</h1>
+      <h1>Welcome Back {sessionUser?.username}!</h1>
       <div className="accountControlBox">
         <div className="projectControlBox">
           <div className="controlTitle">Projects</div>
@@ -18,7 +18,7 @@ function AccountPage() {
                 Your Active Projects
               </div>
               <div onClick={() => alert("Vestor Information Coming Soon!")}>
-                Projects You're Vested In
+                Projects You&apos;re Vested In
               </div>
             </ul>
           </div>

@@ -63,15 +63,21 @@ const ProjectDetails = () => {
       {!sessionUser || sessionUser.id !== projectDeets?.ownerId ? (
         <></>
       ) : (
-        <div className="buttons">
-          <button onClick={() => navigate(`/${projectDeets.id}/edit`)}>
-            Update Project
-          </button>
-          <OpenModalDestroy
-            modalComponent={
-              <DeleteProjectModal projectId={projectId} navigate={navigate} />
-            }
-          />
+        <div className="projectButtons">
+          <div className="edit">
+            <i
+              className="fa-regular fa-pen-to-square"
+              onClick={() => navigate(`/${projectDeets.id}/edit`)}
+            ></i>
+          </div>
+
+          <div className="edit">
+            <OpenModalDestroy
+              modalComponent={
+                <DeleteProjectModal projectId={projectId} navigate={navigate} />
+              }
+            />
+          </div>
         </div>
       )}
     </div>

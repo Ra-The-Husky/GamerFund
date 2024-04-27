@@ -124,9 +124,9 @@
   justify-content: center;
   display: flex;
 }
-.remove-flag {
+/* .remove-flag {
 
-}
+} */
 .DiscussionPoster {
   font-size: 30px;
   font-weight: bold;
@@ -178,7 +178,7 @@
 .fa-arrow-down {
   font-size: 30px;
 }
-.fa-arrow-down {
+.fa-arrow-down:hover {
   cursor: pointer;
 }
 .edit-delete {
