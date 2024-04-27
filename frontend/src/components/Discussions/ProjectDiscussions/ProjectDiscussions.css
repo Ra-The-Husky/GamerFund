@@ -38,9 +38,13 @@
   column-gap: 2px;
   padding: 3px;
 }
+.fa-square-plus:hover {
+  cursor: pointer;
+  color: green;
+}
 .discussions {
   /* border: 5px blue solid; */
-  width: 70vw;
+  width: 60vw;
 
 }
 .discussionTile {
@@ -60,7 +64,7 @@
   row-gap: 10px;
 }
 .discussion:hover {
-  box-shadow: 0px 12px 12px 0px rgba(0, 0, 0, 0.9);
+  box-shadow: 12px 12px 12px 0px rgba(0, 0, 0, 0.9);
 }
 .postHeader {
   display: grid;
@@ -131,9 +135,33 @@
 .discussionPost:hover {
   cursor: pointer;
 }
-.votes {
+.edit-votes {
   display: flex;
-  justify-content: end;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+.editContainer {
+  /* border: 2px red solid; */
+  display: flex;
+  justify-content: left;
+  height: 50px;
+}
+.edit {
+  padding: 5px;
+  margin-top: 30px;
+}
+.edit:hover {
+  color: white;
+  display: block;
+  position: absolute;
+
+  cursor: pointer;
+}
+.votes {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   column-gap: 15px;
   font-size: 20px;
   margin-top: 10px;

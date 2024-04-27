@@ -3,12 +3,15 @@ import { useEffect } from "react";
 import { getAllDiscussions } from "../../../store/discussions";
 import { useParams, useNavigate } from "react-router-dom";
 import { getOneProject } from "../../../store/projects";
-import OpenModalItem from "../../OpenModal/OpenModalItem";
+import OpenModalAdd from "../../OpenModal/OpenModalAdd";
+import OpenModalEdit from "../../OpenModal/OpenModalEdit";
 import CreateDiscussionModal from "../CreateDiscussions/CreateDiscussionsModal";
+import EditDiscussionsModal from "../EditDiscussions/EditDiscussionModal";
 import "../ProjectDiscussions/ProjectDiscussions.css";
 
 function AllDiscussions() {
   const { projectId } = useParams();
+  const sessionUser = useSelector((state) => state.session.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const projectDeets = useSelector((state) => state.projects?.project);
@@ -23,6 +26,14 @@ function AllDiscussions() {
     "Discussion Feed for your Viewing Pleasure",
     "The Latest and Greatest In Vestor Feedback",
     `What the Vestors are saying about ${projectDeets?.name}`,
+    `Currently ${discussions?.length} Vestor Posts and Counting!`,
+  ];
+
+  const removedReasons = [
+    "Violated Terms of Service",
+    "Violated Discussion Rules",
+    "Offered Minimal Substance",
+    "Severe Negative Feedback",
   ];
 
   useEffect(() => {
@@ -46,12 +57,8 @@ function AllDiscussions() {
         </div>
 
         <div className="plus">
-          <OpenModalItem
-            modalComponent={
-              <CreateDiscussionModal
-                projectId={projectId}
-              />
-            }
+          <OpenModalAdd
+            modalComponent={<CreateDiscussionModal projectId={projectId} />}
           />
           Contribute to the Board
         </div>
@@ -86,26 +93,56 @@ function AllDiscussions() {
                         ) : (
                           <></>
                         )}
+                        {discussion?.flag === "REMOVED" ? (
+                          <div className="removed-flag">{discussion?.flag}</div>
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     </div>
-                    <div className="discussionPost">{discussion?.post}</div>
+                    {discussion?.flag === "REMOVED" ? (
+                      <div className="removedPost">
+                        The Post has been flag for deletion by the developer(s).
+                        Comment has been redacted for [insert reason]
+                      </div>
+                    ) : (
+                      <div className="discussionPost">{discussion?.post}</div>
+                    )}
                   </div>
-                  <div className="votes">
-                    <div className="likes">
-                      <i
-                        className="fa-solid fa-arrow-up"
-                        onClick={() => alert("Upvoting coming soon!")}
-                      ></i>
-                      Likes: {discussion?.likes}
-                    </div>
+                  <div className="edit-votes">
+                    <div className="votes">
+                      <div className="likes">
+                        <i
+                          className="fa-solid fa-arrow-up"
+                          onClick={() => alert("Upvoting coming soon!")}
+                        ></i>
+                        Likes: {discussion?.likes}
+                      </div>
 
-                    <div className="dislikes">
-                      <i
-                        className="fa-solid fa-arrow-down"
-                        onClick={() => alert("Downvoting coming soon!")}
-                      ></i>
-                      Dislikes: {discussion?.dislikes}
+                      <div className="dislikes">
+                        <i
+                          className="fa-solid fa-arrow-down"
+                          onClick={() => alert("Downvoting coming soon!")}
+                        ></i>
+                        Dislikes: {discussion?.dislikes}
+                      </div>
                     </div>
+                    {discussion.userId === sessionUser.id ? (
+                      <div className="editContainer">
+                        <div className="edit">
+                          <OpenModalEdit
+                            modalComponent={
+                              <EditDiscussionsModal
+                                discussionId={discussion.id}
+                                discussion={discussion}
+                              />
+                            }
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
               </div>

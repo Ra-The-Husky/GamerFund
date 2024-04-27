@@ -31,6 +31,7 @@ const validateDiscussion = [
     .withMessage("Discussion cannot be blank")
     .isLength({ min: 5 })
     .withMessage("Discussion cannot be less than five characters long"),
+    handleValidationErrors
 ];
 
 // Get all Projects

@@ -2,12 +2,10 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_DISCUSSIONS = "discussions/loadDiscussions";
 const LOAD_USER_DISCUSSIONS = "discussions/loadUserDiscussions";
-const LOAD_DISCUSSION = "discussions/loadDiscussions";
-const NEW_DISCUSSION = "discussions/newDiscussions";
-const UPDATE_DISCUSSION = "discussions/updateDiscussions";
-const REMOVE_DISCUSSION = "discussions/removeDiscussions";
-const LOAD_PROJECT = "discussions/loadProject";
-
+const LOAD_DISCUSSION = "discussions/loadDiscussion";
+const NEW_DISCUSSION = "discussions/newDiscussion";
+const UPDATE_DISCUSSION = "discussions/updateDiscussion";
+const REMOVE_DISCUSSION = "discussions/removeDiscussion";
 
 //actions
 export const loadDiscussions = (discussions) => ({
@@ -40,11 +38,6 @@ export const removeDiscussion = (discussion) => ({
   discussion,
 });
 
-export const loadProject = (project) => ({
-  type: LOAD_PROJECT,
-  project,
-})
-
 //thunks
 export const getAllDiscussions = (projectId) => async (dispatch) => {
   const res = await csrfFetch(`/api/projects/${projectId}/discussions`);
@@ -66,17 +59,17 @@ export const getUserDiscussions = () => async (dispatch) => {
   }
 };
 
-export const getOneDiscussions = (discussionId) => async (dispatch) => {
+export const getOneDiscussion = (discussionId) => async (dispatch) => {
   const res = await csrfFetch(`/api/discussions/${discussionId}`);
 
   if (res.ok) {
     const data = await res.json();
-    dispatch(loadDiscussions(data));
+    dispatch(loadDiscussion(data));
     return data;
   }
 };
 
-export const addDiscussions = (projectId, discussion) => async (dispatch) => {
+export const addDiscussion = (projectId, discussion) => async (dispatch) => {
   const res = await csrfFetch(`/api/projects/${projectId}/discussions`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -85,28 +78,28 @@ export const addDiscussions = (projectId, discussion) => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json();
+    dispatch(getAllDiscussions(projectId));
     dispatch(newDiscussion(data));
-    dispatch(loadProject(projectId))
-    dispatch(loadDiscussions(projectId))
     return data;
   }
 };
 
-export const editDiscussions = (discussionId, edits) => async (dispatch) => {
+export const editDiscussion = (discussionId, edits) => async (dispatch) => {
   const res = await csrfFetch(`/api/discussions/${discussionId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(edits),
   });
-  const data = await res.json();
+
   if (res.ok) {
-    dispatch(getOneDiscussions(data));
+    const data = await res.json();
+    dispatch(getAllDiscussions(data.projectId));
     dispatch(updateDiscussion(data));
     return data;
   }
 };
 
-export const cancelDiscussions = (discussionId) => async (dispatch) => {
+export const cancelDiscussion = (discussionId) => async (dispatch) => {
   const res = await csrfFetch(`/api/discussions/${discussionId}`, {
     method: "DELETE",
   });
@@ -128,8 +121,7 @@ const discussionReducer = (state = initState, action) => {
       const accountState = {};
       return { ...accountState, discussions: action.discussions };
     case LOAD_DISCUSSION:
-      const discussionState = {};
-      return { ...discussionState, discussion: action.discussion };
+      return { ...state, discussion: action.discussion };
     case NEW_DISCUSSION:
       return { ...state, discussion: action.discussion };
     case UPDATE_DISCUSSION:

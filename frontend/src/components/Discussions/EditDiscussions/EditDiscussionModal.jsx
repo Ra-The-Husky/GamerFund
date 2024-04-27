@@ -1,14 +1,15 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { useEffect, useState } from "react";
-import { addDiscussion } from "../../../store/discussions";
+import { editDiscussion } from "../../../store/discussions";
 import "../DiscussionModal.css";
 
-function AddDiscussionModal({ projectId, navigate }) {
+function EditDiscussionModal({ discussion, discussionId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
-  const [post, setPost] = useState("");
-  const [flag, setFlag] = useState();
+  const [post, setPost] = useState(discussion?.post);
+  const [flag, setFlag] = useState(discussion?.flag);
+  console.log(discussion)
   const [errors, setErrors] = useState("");
   const flags = [
     {
@@ -27,23 +28,24 @@ function AddDiscussionModal({ projectId, navigate }) {
       id: 3,
       name: "Praise",
     },
+    {
+      id: 4,
+      name: "REMOVED"
+    }
   ];
 
-  const testPost = (e) => {
-    setPost("Test Post");
-    setFlag("Comment");
-  };
-
-  const newDiscussion = (e) => {
-    e.preventDefault();
-
+  useEffect(() => {
     const errs = {};
     if (!post || post.length < 5) {
       errs.post = "Discussion post must be a minimum of five characters";
     }
     setErrors(errs);
+  }, [post]);
 
-    const discussion = {
+  const updateDiscussion = (e) => {
+    e.preventDefault();
+
+    const edits = {
       post,
       flag,
     };
@@ -51,18 +53,16 @@ function AddDiscussionModal({ projectId, navigate }) {
     if (Object.values(errors).length) {
       console.log(errors);
     } else {
-      return dispatch(addDiscussion(projectId, discussion)).then(() => {
-        closeModal();
-      });
+      return dispatch(editDiscussion(discussionId, edits)).then(closeModal());
     }
   };
 
   return (
     <div className="newPostContainer">
       <div className="newPost">
-        <div className="postTitle">Add to the Discussion Board</div>
+        <div className="postTitle">Edit Post</div>
       </div>
-      <form className="newPostForm" onSubmit={newDiscussion}>
+      <form className="newPostForm" onSubmit={updateDiscussion}>
         <textarea
           className="addPost"
           type="text"
@@ -76,22 +76,23 @@ function AddDiscussionModal({ projectId, navigate }) {
         <div className="flagSelect">
           <select className="flags" onChange={(e) => setFlag(e.target.value)}>
             <option selected disabled hidden>
-              Flag
+              flag
             </option>
             {flags &&
-              flags.map((flag) => (
-                <option key={flag.id} value={flag.name}>
-                  {flag.name}
+              flags.map((flag2) => (
+                <option key={flag2.id} selected={flag2.name === discussion.flag} value={flag2.name}>
+                  {flag2.name}
                 </option>
               ))}
           </select>
         </div>
         <div className="buttonContainer">
-          <button className="button" type="submit">
+          <button
+            className="button"
+            disabled={Object.values(errors).length}
+            type="submit"
+          >
             Post
-          </button>
-          <button className="button" onClick={testPost} type="submit">
-            Test Post
           </button>
         </div>
       </form>
@@ -99,4 +100,4 @@ function AddDiscussionModal({ projectId, navigate }) {
   );
 }
 
-export default AddDiscussionModal;
+export default EditDiscussionModal;

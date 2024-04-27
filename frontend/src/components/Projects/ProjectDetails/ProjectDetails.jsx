@@ -2,7 +2,7 @@ import { getOneProject } from "../../../store/projects";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import OpenModalButton from "../../OpenModal/OpenModalButton";
+import OpenModalDestroy from "../../OpenModal/OpenModalDestroy";
 import DeleteProjectModal from "../DestroyProject/DestroyProjectModal";
 // import dateHelper from "../../../dateHelper";
 import "./ProjectDetails.css";
@@ -67,7 +67,7 @@ const ProjectDetails = () => {
           <button onClick={() => navigate(`/${projectDeets.id}/edit`)}>
             Update Project
           </button>
-          <OpenModalButton
+          <OpenModalDestroy
             modalComponent={
               <DeleteProjectModal projectId={projectId} navigate={navigate} />
             }
