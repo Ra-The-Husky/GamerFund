@@ -58,11 +58,11 @@ function AddDiscussionModal({ projectId, navigate }) {
   };
 
   return (
-    <div className="newPostContainer">
-      <div className="newPost">
+    <div className="modalContainer">
+      <div className="post">
         <div className="postTitle">Add to the Discussion Board</div>
       </div>
-      <form className="newPostForm" onSubmit={newDiscussion}>
+      <form className="postForm" onSubmit={newDiscussion}>
         <textarea
           className="addPost"
           type="text"

@@ -18,16 +18,16 @@ const validateDiscussion = [
 // Get discussion
 router.get("/:discussionId", requireAuth, async (req, res) => {
   const discussionId = req.params.discussionId;
-  const discussion = await Project.findByPk(discussionId);
+  const discussion = await Discussion.findByPk(discussionId);
 
   if (!discussion) {
     res.status(404);
     return res.json({
-      message: "Project couldn't be found",
+      message: "Discussion doesn't exist",
     });
   }
   return res.json(discussion);
-})
+});
 
 // Edit a discussion
 router.put(
@@ -71,9 +71,33 @@ router.put(
         },
       }
     );
-    const updatedDiscussion = await Discussion.findByPk(discussionId)
+    const updatedDiscussion = await Discussion.findByPk(discussionId);
     return res.json(updatedDiscussion);
   }
 );
+
+// Deletes Project's Post
+router.delete("/:discussionId", requireAuth, async (req, res) => {
+  const discussionId = req.params.discussionId;
+  const discussion = await Discussion.findByPk(discussionId);
+  const project = await Project.findOne({
+    where: {id: discussion.projectId}
+  })
+  if (!discussion) {
+    return res.status(404).json({
+      message: "Discussion doesn't exist",
+    });
+  }
+  if (discussion.userId !== req.user.id) {
+    return res.status(403).json({
+      message: "Forbidden",
+    });
+  }
+  await discussion.destroy();
+  return res.json({
+    project: project,
+    message: "Successfully deleted",
+  });
+});
 
 module.exports = router;

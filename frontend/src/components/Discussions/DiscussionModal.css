@@ -4,13 +4,13 @@
   height: fit-content;
   box-shadow: 5px 5px 5px 0px black;
 }
-.newPostContainer {
+.modalContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
 }
-.newPost {
+.post {
   margin-top: 20px;
   margin-bottom: 30px;
   font-size: 35px;
@@ -22,7 +22,7 @@
   display: flex;
   justify-content: center;
 }
-.newPostForm {
+.postForm {
   width: 90%;
 }
 #textarea {
@@ -34,8 +34,6 @@
   width: 100%;
   font-size: large;
   margin-bottom: 5px;
-}
-.errors {
 }
 .flagSelect {
   display: flex;
@@ -82,4 +80,11 @@
   100% {
     background-position: 0% 50%;
   }
+}
+.warningMsgs {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  justify-content: center;
+  align-items: center;
 }

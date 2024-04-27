@@ -9,7 +9,6 @@ function EditDiscussionModal({ discussion, discussionId }) {
   const { closeModal } = useModal();
   const [post, setPost] = useState(discussion?.post);
   const [flag, setFlag] = useState(discussion?.flag);
-  console.log(discussion)
   const [errors, setErrors] = useState("");
   const flags = [
     {
@@ -58,11 +57,11 @@ function EditDiscussionModal({ discussion, discussionId }) {
   };
 
   return (
-    <div className="newPostContainer">
-      <div className="newPost">
+    <div className="modalContainer">
+      <div className="post">
         <div className="postTitle">Edit Post</div>
       </div>
-      <form className="newPostForm" onSubmit={updateDiscussion}>
+      <form className="postForm" onSubmit={updateDiscussion}>
         <textarea
           className="addPost"
           type="text"

@@ -1,9 +1,24 @@
 .navBar {
+    border-bottom: 6px black solid;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    justify-content: space-evenly
+    justify-content: space-between
+}
+.search {
+    border: 3px orange solid;
+    display: flex;
+    column-gap: 2px;
+    margin-right: 25vw;
+}
+.search input {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+.search input:hover {
+    box-shadow: 6px 6px 6px 0px rgba(0,0,0,0.5);
 }
 
 .signedIn {

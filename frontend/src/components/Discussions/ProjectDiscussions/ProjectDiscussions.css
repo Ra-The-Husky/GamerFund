@@ -44,7 +44,7 @@
 }
 .discussions {
   /* border: 5px blue solid; */
-  width: 60vw;
+  width: 65vw;
 
 }
 .discussionTile {
@@ -124,6 +124,9 @@
   justify-content: center;
   display: flex;
 }
+.remove-flag {
+
+}
 .DiscussionPoster {
   font-size: 30px;
   font-weight: bold;
@@ -135,27 +138,10 @@
 .discussionPost:hover {
   cursor: pointer;
 }
-.edit-votes {
+.control-votes {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
-}
-.editContainer {
-  /* border: 2px red solid; */
-  display: flex;
-  justify-content: left;
-  height: 50px;
-}
-.edit {
-  padding: 5px;
-  margin-top: 30px;
-}
-.edit:hover {
-  color: white;
-  display: block;
-  position: absolute;
-
-  cursor: pointer;
 }
 .votes {
   width: 15%;
@@ -193,5 +179,38 @@
   font-size: 30px;
 }
 .fa-arrow-down {
+  cursor: pointer;
+}
+.edit-delete {
+  /* border: 5px pink solid; */
+  display: flex;
+  flex-direction:column;
+  /* justify-content: center; */
+  width: 2%;
+  padding: 3px;
+}
+.editContainer {
+  display: flex;
+  justify-content: left;
+  column-gap: 5px;
+  height: 25px;
+}
+.edit {
+margin-top: 80%;
+}
+.edit:hover {
+  color: white;
+  cursor: pointer;
+}
+.deleteContainer {
+  /* border: 2px green solid; */
+  display: flex;
+  height: 50px
+}
+.delete {
+margin-top: 250% ;
+}
+.delete:hover {
+  color: white;
   cursor: pointer;
 }

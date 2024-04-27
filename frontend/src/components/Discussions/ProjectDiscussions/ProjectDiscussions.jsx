@@ -5,8 +5,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getOneProject } from "../../../store/projects";
 import OpenModalAdd from "../../OpenModal/OpenModalAdd";
 import OpenModalEdit from "../../OpenModal/OpenModalEdit";
+import OpenModalDestroy from "../../OpenModal/OpenModalDestroy";
 import CreateDiscussionModal from "../CreateDiscussions/CreateDiscussionsModal";
 import EditDiscussionsModal from "../EditDiscussions/EditDiscussionModal";
+import DeleteDiscussionsModal from "../DeleteDiscussions/DeleteDiscussionsModal";
 import "../ProjectDiscussions/ProjectDiscussions.css";
 
 function AllDiscussions() {
@@ -27,13 +29,6 @@ function AllDiscussions() {
     "The Latest and Greatest In Vestor Feedback",
     `What the Vestors are saying about ${projectDeets?.name}`,
     `Currently ${discussions?.length} Vestor Posts and Counting!`,
-  ];
-
-  const removedReasons = [
-    "Violated Terms of Service",
-    "Violated Discussion Rules",
-    "Offered Minimal Substance",
-    "Severe Negative Feedback",
   ];
 
   useEffect(() => {
@@ -109,7 +104,7 @@ function AllDiscussions() {
                       <div className="discussionPost">{discussion?.post}</div>
                     )}
                   </div>
-                  <div className="edit-votes">
+                  <div className="control-votes">
                     <div className="votes">
                       <div className="likes">
                         <i
@@ -127,6 +122,7 @@ function AllDiscussions() {
                         Dislikes: {discussion?.dislikes}
                       </div>
                     </div>
+                  <div className="edit-delete">
                     {discussion.userId === sessionUser.id ? (
                       <div className="editContainer">
                         <div className="edit">
@@ -139,10 +135,22 @@ function AllDiscussions() {
                             }
                           />
                         </div>
+                        <div className="deleteContainer">
+                          <div className="delete">
+                            <OpenModalDestroy
+                              modalComponent={
+                                <DeleteDiscussionsModal
+                                  discussionId={discussion.id}
+                                />
+                              }
+                            />
+                          </div>
+                        </div>
                       </div>
                     ) : (
                       <></>
                     )}
+                  </div>
                   </div>
                 </div>
               </div>

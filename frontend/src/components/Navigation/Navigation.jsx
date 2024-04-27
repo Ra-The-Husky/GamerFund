@@ -49,9 +49,15 @@ function Navigation({ isLoaded }) {
         <div>
           <HiSearch />
         </div>
-        <input placeholder=""></input>
+        <input placeholder="Search for projects"></input>
       </div>
-      <nav onClick={() => navigate('/new-project')}>Add Project</nav>
+      <div className="addOption">
+        <i
+          className="fa-solid fa-square-plus"
+          onClick={() => navigate("/new-project")}
+        ></i>
+        <nav className="addText">Add Project</nav>
+      </div>
       <div>
         {!sessionUser ? (
           <OpenModalMenuItem
@@ -61,7 +67,7 @@ function Navigation({ isLoaded }) {
         ) : (
           <nav className="signedIn">
             <div>
-            <NavLink to="/account">Account</NavLink>
+              <NavLink to="/account">Account</NavLink>
             </div>
             <div onClick={logout}>Logout</div>
           </nav>
