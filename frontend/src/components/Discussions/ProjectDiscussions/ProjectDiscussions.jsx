@@ -49,13 +49,16 @@ function AllDiscussions() {
             Discussion Rules: Will be added in the future!
           </div>
         </div>
-
-        <div className="plus">
-          <OpenModalAdd
-            modalComponent={<CreateDiscussionModal projectId={projectId} />}
-          />
-          Contribute to the Board
-        </div>
+        {!sessionUser ? (
+          <div>Log In to Contribute to the Board!</div>
+        ) : (
+          <div className="plus">
+            <OpenModalAdd
+              modalComponent={<CreateDiscussionModal projectId={projectId} />}
+            />
+            Contribute to the Board
+          </div>
+        )}
         <div className="discussions">
           {discussions &&
             discussions?.map((discussion) => (
@@ -121,35 +124,35 @@ function AllDiscussions() {
                         Dislikes: {discussion?.dislikes}
                       </div>
                     </div>
-                  <div className="edit-delete">
-                    {discussion.userId === sessionUser.id ? (
-                      <div className="editContainer">
-                        <div className="edit">
-                          <OpenModalEdit
-                            modalComponent={
-                              <EditDiscussionsModal
-                                discussionId={discussion.id}
-                                discussion={discussion}
-                              />
-                            }
-                          />
-                        </div>
-                        <div className="deleteContainer">
-                          <div className="delete">
-                            <OpenModalDestroy
+                    <div className="edit-delete">
+                      {discussion?.userId === sessionUser?.id ? (
+                        <div className="editContainer">
+                          <div className="edit">
+                            <OpenModalEdit
                               modalComponent={
-                                <DeleteDiscussionsModal
+                                <EditDiscussionsModal
                                   discussionId={discussion.id}
+                                  discussion={discussion}
                                 />
                               }
                             />
                           </div>
+                          <div className="deleteContainer">
+                            <div className="delete">
+                              <OpenModalDestroy
+                                modalComponent={
+                                  <DeleteDiscussionsModal
+                                    discussionId={discussion.id}
+                                  />
+                                }
+                              />
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

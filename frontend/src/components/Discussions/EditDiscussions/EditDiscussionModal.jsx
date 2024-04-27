@@ -27,10 +27,10 @@ function EditDiscussionModal({ discussion, discussionId }) {
       id: 3,
       name: "Praise",
     },
-    {
-      id: 4,
-      name: "REMOVED"
-    }
+    // {
+    //   id: 4,
+    //   name: "REMOVED"
+    // }
   ];
 
   useEffect(() => {

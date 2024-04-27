@@ -16,7 +16,7 @@ const validateDiscussion = [
 ];
 
 // Get discussion
-router.get("/:discussionId", requireAuth, async (req, res) => {
+router.get("/:discussionId", async (req, res) => {
   const discussionId = req.params.discussionId;
   const discussion = await Discussion.findByPk(discussionId);
 
