@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
       },
-      info: {
+      description: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -28,7 +28,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       country: DataTypes.STRING,
-      deadline: DataTypes.DATE,
+      deadline: {
+        type: DataTypes.DATE,
+        validate: {
+          isDate: true
+        }
+
+      }
     },
     {
       sequelize,

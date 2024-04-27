@@ -1,0 +1,62 @@
+h1 {
+  margin-top: 10vh;
+}
+.userProjects {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: column;
+  border-top: 3px black solid;
+  padding: 5px;
+  font-size: larger;
+  row-gap: 25px;
+}
+.userProjectContainer {
+  border: 3px black solid;
+  border-radius: 8px;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+}
+.userProjectContainer:hover{
+  box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.6);
+
+}
+.userProjectTile:hover {
+  cursor: pointer;
+}
+.userProjectTitle {
+  font-size: 30px;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+.userProjectDescription {
+  display: flex;
+  justify-content: center;
+}
+.userProjectDemographic {
+  margin-top: 25px;
+  display: grid;
+  grid-template-areas: "a b";
+  margin-left: 25%;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.iconContainer{
+  display: flex;
+  justify-content: right;
+}
+
+.icons {
+  width: 20%;
+  display: flex;
+  justify-content: right;
+
+}
+.icons:hover {
+  cursor: pointer;
+}

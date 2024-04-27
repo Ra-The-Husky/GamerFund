@@ -14,26 +14,26 @@ if (process.env.NODE_ENV === 'production') {
         {
           ownerId: 1,
           name: "Crisis Nexus",
-          info: "A tower defense game unlike anything you've ever seen",
+          description: "The NextGen of Tower-Defense Games",
           genre: "Strategy",
           country: "United States of America",
-          deadline: "4/30/2029"
+          deadline: new Date("03-25-2025")
         },
         {
           ownerId: 2,
           name: "Edge of Chaos",
-          info: "Action packed shooter, beat-em up, hack n' slash game that'll rock your socks off!",
+          description: "Action packed shooter, beat-em up, hack n' slash game that'll rock your socks off!",
           genre: "Action RPG",
           country: "United States of America",
-          deadline: "5/15/2027"
+          deadline: new Date("5-15-2027")
         },
         {
           ownerId: 3,
-          name: "Lost Ones",
-          info: "Narrative focused survival horror game that let's you play with one of five characters as you unravel the secrets of the their school's forbidden wing.",
+          name: "The Lost Ones",
+          description: "Darkness lurks in the halls of Milkonovich Elementary.",
           genre: "Horror",
           country: "Russia",
-          deadline: "09/24/2030"
+          deadline: new Date("09-24-2026")
         },
       ], { validate: true });
     },

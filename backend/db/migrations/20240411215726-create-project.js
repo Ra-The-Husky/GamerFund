@@ -23,12 +23,13 @@ module.exports = {
         name: {
           type: Sequelize.STRING(256),
           allowNull: false,
+          unique: true
         },
         genre: {
           type: Sequelize.STRING(),
           allowNull: false,
         },
-        info: {
+        description: {
           type: Sequelize.STRING(),
           allowNull: false,
         },

@@ -1,0 +1,15 @@
+.credentials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+.credentials input{
+    box-shadow: 5px 5px 5px black;
+    border-radius: 5px;
+}
+
+.buttonContainer {
+    height: 45px;
+    margin-bottom: 25px;
+}

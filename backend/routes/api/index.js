@@ -1,25 +1,30 @@
 const router = require("express").Router();
-const sessionsRouter = require('./session.js')
-const usersRouter = require('./users.js');
+const sessionsRouter = require("./session.js");
+const usersRouter = require("./users.js");
+const projectsRouter = require("./projects.js");
+const discussionsRouter = require('./discussions.js')
 const { restoreUser } = require("../../utils/auth.js");
+
 // const { setTokenCookie } = require("../../utils/auth.js");
 // const { User } = require("../../db/models");
 
-router.post("/test", function (req, res) {
-  res.json({ requestBody: req.body });
-});
-
 router.use(restoreUser);
-router.use('/session', sessionsRouter)
-router.use('/users', usersRouter)
+router.use("/session", sessionsRouter);
 
-router.post('/test', (req, res) => {
+router.use("/users", usersRouter);
+
+router.use("/projects", projectsRouter);
+
+router.use("/discussions", discussionsRouter)
+
+router.post("/test", (req, res) => {
   res.json({ requestBody: req.body });
 });
+
 // // GET /api/restore-user
-// router.get("/restore-user", (req, res) => {
-//   return res.json(req.user);
-// });
+router.get("/restore-user", (req, res) => {
+  return res.json(req.user);
+});
 
 // // GET /api/set-token-cookie
 // router.get("/set-token-cookie", async (_req, res) => {
@@ -33,13 +38,13 @@ router.post('/test', (req, res) => {
 // });
 
 // // GET /api/require-auth
-// const { requireAuth } = require('../../utils/auth.js');
-// router.get(
-//   '/require-auth',
-//   requireAuth,
-//   (req, res) => {
-//     return res.json(req.user);
-//   }
-// );
+const { requireAuth } = require('../../utils/auth.js');
+router.get(
+  '/require-auth',
+  requireAuth,
+  (req, res) => {
+    return res.json(req.user);
+  }
+);
 
 module.exports = router;

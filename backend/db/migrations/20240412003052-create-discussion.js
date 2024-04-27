@@ -28,9 +28,15 @@ module.exports = {
         },
         likes: {
           type: Sequelize.INTEGER,
+          default: 0
         },
         dislikes: {
           type: Sequelize.INTEGER,
+          default: 0
+        },
+        flag: {
+          type: Sequelize.STRING,
+          default: "Comment",
         },
         devPost: {
           type: Sequelize.BOOLEAN,

@@ -1,0 +1,216 @@
+.ProjectDiscussions {
+  /* border: 5px black solid; */
+}
+.discussionHeader {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.title {
+  border-bottom: 10px black solid;
+}
+.boardMessages {
+  display: flex;
+  justify-content: center;
+}
+.discussionBoard {
+  /* border: 5px orange solid; */
+  display: grid;
+  grid-template-areas: "a b";
+}
+.rulebox {
+  border: 5px green solid;
+  border-radius: 6px;
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.7);
+  grid-area: b;
+  width: 7vw;
+  justify-self: end;
+  height: max-content;
+}
+.rules {
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+}
+.plus {
+  display: flex;
+  column-gap: 2px;
+  padding: 3px;
+}
+.fa-square-plus:hover {
+  cursor: pointer;
+  color: green;
+}
+.discussions {
+  /* border: 5px blue solid; */
+  width: 65vw;
+
+}
+.discussionTile {
+  border-top: 5px indigo solid;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10%;
+  height: max-content;
+  padding: 5px;
+  width: 130%;
+}
+.discussion {
+  /* border: 5px indigo solid; */
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+.discussion:hover {
+  box-shadow: 12px 12px 12px 0px rgba(0, 0, 0, 0.9);
+}
+.postHeader {
+  display: grid;
+  grid-template-areas: "a b";
+}
+.flagContainer {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bolder;
+}
+.flag {
+  border: 5px white solid;
+  background-color: yellow;
+  border-radius: 20px;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+.red-flag {
+  border: 5px black solid;
+  background-color: red;
+  width: 15%;
+  border-radius: 20px;
+  margin-right: 5px;
+  margin-top: 5px;
+  justify-content: center;
+  display: flex;
+}
+.green-flag {
+  border: 5px white solid;
+  background-color: green;
+  width: 15%;
+  border-radius: 20px;
+  margin-right: 5px;
+  margin-top: 5px;
+  justify-content: center;
+  display: flex;
+}
+.pink-flag {
+  border: 5px lightblue solid;
+  background-color: pink;
+  width: 15%;
+  border-radius: 20px;
+  margin-right: 5px;
+  margin-top: 5px;
+  justify-content: center;
+  display: flex;
+}
+.yellow-flag {
+  border: 5px white solid;
+  background-color: yellow;
+  border-radius: 20px;
+  margin-right: 5px;
+  margin-top: 5px;
+  width: 15%;
+  justify-content: center;
+  display: flex;
+}
+/* .remove-flag {
+
+} */
+.DiscussionPoster {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 9px;
+}
+.discussionPost {
+  font-size: 20px;
+}
+.discussionPost:hover {
+  cursor: pointer;
+}
+.control-votes {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+.votes {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 15px;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 5px;
+  padding: 5px;
+}
+.likes {
+  color: green;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  column-gap: 3px;
+}
+.fa-arrow-up {
+  font-size: 30px;
+}
+.fa-arrow-up:hover {
+  cursor: pointer;
+}
+.dislikes {
+  color: red;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  column-gap: 3px;
+}
+.fa-arrow-down {
+  font-size: 30px;
+}
+.fa-arrow-down:hover {
+  cursor: pointer;
+}
+.edit-delete {
+  /* border: 5px pink solid; */
+  display: flex;
+  flex-direction:column;
+  /* justify-content: center; */
+  width: 2%;
+  padding: 3px;
+}
+.editContainer {
+  display: flex;
+  justify-content: left;
+  column-gap: 5px;
+  height: 25px;
+}
+.edit {
+margin-top: 80%;
+}
+.edit:hover {
+  color: white;
+  cursor: pointer;
+}
+.deleteContainer {
+  /* border: 2px green solid; */
+  display: flex;
+  height: 50px
+}
+.delete {
+margin-top: 250% ;
+}
+.delete:hover {
+  color: white;
+  cursor: pointer;
+}
