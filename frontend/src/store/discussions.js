@@ -6,6 +6,7 @@ const LOAD_DISCUSSION = "discussions/loadDiscussion";
 const NEW_DISCUSSION = "discussions/newDiscussion";
 const UPDATE_DISCUSSION = "discussions/updateDiscussion";
 const REMOVE_DISCUSSION = "discussions/removeDiscussion";
+const LIKE_DISCUSSION = "discussions/likeDiscussion";
 
 //actions
 export const loadDiscussions = (discussions) => ({
@@ -38,6 +39,10 @@ export const removeDiscussion = (discussion) => ({
   discussion,
 });
 
+export const likeDiscussion = (discussion) => ({
+  type: LIKE_DISCUSSION,
+  discussion,
+});
 //thunks
 export const getAllDiscussions = (projectId) => async (dispatch) => {
   const res = await csrfFetch(`/api/projects/${projectId}/discussions`);

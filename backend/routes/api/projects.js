@@ -216,6 +216,7 @@ router.get("/:projectId/devPosts", async (req, res) => {
   return res.json(allDiscussions.sort((b,a) => a["createdAt"] - b["createdAt"]));
 });
 
+// Create new discussion (nonDev)
 router.post(
   "/:projectId/discussions",
   requireAuth,

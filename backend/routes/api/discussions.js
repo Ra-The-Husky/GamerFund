@@ -81,8 +81,8 @@ router.delete("/:discussionId", requireAuth, async (req, res) => {
   const discussionId = req.params.discussionId;
   const discussion = await Discussion.findByPk(discussionId);
   const project = await Project.findOne({
-    where: {id: discussion.projectId}
-  })
+    where: { id: discussion.projectId },
+  });
   if (!discussion) {
     return res.status(404).json({
       message: "Discussion doesn't exist",
@@ -98,6 +98,29 @@ router.delete("/:discussionId", requireAuth, async (req, res) => {
     project: project,
     message: "Successfully deleted",
   });
+});
+
+// Likes a discussion
+router.put("/:discussionId/like", requireAuth, async (req, res) => {
+  const discussionId = req.params.discussionId;
+  let { likes } = req.body;
+  const likeDiscussion = await Discussion.findOne({
+    where: {
+      id: discussionId,
+    },
+  });
+
+  if (!likeDiscussion) {
+    return res.status(404).json({
+      message: "Discussion doesn't exist",
+    });
+  }
+
+  likeDiscussion.set({
+    likes: likes += 1,
+  });
+  await likeDiscussion.save()
+  return res.json(likeDiscussion)
 });
 
 module.exports = router;

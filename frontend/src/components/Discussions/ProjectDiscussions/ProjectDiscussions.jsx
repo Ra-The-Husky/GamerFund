@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllDiscussions } from "../../../store/discussions";
 import { useParams } from "react-router-dom";
 import { getOneProject } from "../../../store/projects";
@@ -17,6 +17,8 @@ function AllDiscussions() {
   const dispatch = useDispatch();
   const projectDeets = useSelector((state) => state.projects?.project);
   const discussions = useSelector((state) => state.discussions?.discussions);
+  const [like, setLike] = useState(false)
+  const [dislike, setDislike] = useState(false)
 
   const boardMsgs = [
     "What Are the People Saying Today?",
@@ -29,7 +31,12 @@ function AllDiscussions() {
     `What the Vestors are saying about ${projectDeets?.name}`,
     `Currently ${discussions?.length} Vestor Posts and Counting!`,
   ];
+console.log(like)
+  const liked = () => {
+    setLike(true)
+    dispatch()
 
+  }
   useEffect(() => {
     dispatch(getOneProject(projectId));
     dispatch(getAllDiscussions(projectId));
@@ -111,7 +118,7 @@ function AllDiscussions() {
                       <div className="likes">
                         <i
                           className="fa-solid fa-arrow-up"
-                          onClick={() => alert("Upvoting coming soon!")}
+                          onClick={liked}
                         ></i>
                         Likes: {discussion?.likes}
                       </div>
