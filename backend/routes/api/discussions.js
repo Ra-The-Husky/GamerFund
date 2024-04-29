@@ -117,10 +117,33 @@ router.put("/:discussionId/like", requireAuth, async (req, res) => {
   }
 
   likeDiscussion.set({
-    likes: likes += 1,
+    likes: likes,
   });
-  await likeDiscussion.save()
-  return res.json(likeDiscussion)
+  await likeDiscussion.save();
+  return res.json(likeDiscussion);
+});
+
+// Dislikes a discussion
+router.put("/:discussionId/dislike", requireAuth, async (req, res) => {
+  const discussionId = req.params.discussionId;
+  let { dislikes } = req.body;
+  const dislikeDiscussion = await Discussion.findOne({
+    where: {
+      id: discussionId,
+    },
+  });
+
+  if (!dislikeDiscussion) {
+    return res.status(404).json({
+      message: "Discussion doesn't exist",
+    });
+  }
+
+  dislikeDiscussion.set({
+    dislikes: dislikes,
+  });
+  await dislikeDiscussion.save();
+  return res.json(dislikeDiscussion);
 });
 
 module.exports = router;

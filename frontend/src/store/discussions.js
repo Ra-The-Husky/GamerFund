@@ -7,6 +7,7 @@ const NEW_DISCUSSION = "discussions/newDiscussion";
 const UPDATE_DISCUSSION = "discussions/updateDiscussion";
 const REMOVE_DISCUSSION = "discussions/removeDiscussion";
 const LIKE_DISCUSSION = "discussions/likeDiscussion";
+const DISLIKE_DISCUSSION = "discussions/dislikeDiscussion"
 
 //actions
 export const loadDiscussions = (discussions) => ({
@@ -41,6 +42,11 @@ export const removeDiscussion = (discussion) => ({
 
 export const likeDiscussion = (discussion) => ({
   type: LIKE_DISCUSSION,
+  discussion,
+});
+
+export const dislikeDiscussion = (discussion) => ({
+  type: DISLIKE_DISCUSSION,
   discussion,
 });
 //thunks
@@ -107,6 +113,8 @@ export const editDiscussion = (discussionId, edits) => async (dispatch) => {
 export const cancelDiscussion = (discussionId) => async (dispatch) => {
   const res = await csrfFetch(`/api/discussions/${discussionId}`, {
     method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(edits),
   });
   if (res.ok) {
     const data = await res.json();
@@ -116,6 +124,31 @@ export const cancelDiscussion = (discussionId) => async (dispatch) => {
   }
 };
 
+export const liked = (discussionId, likes) => async (dispatch) => {
+  const res = await csrfFetch(`/api/discussions/${discussionId}/like`, {
+    method: "PUT",
+    body: JSON.stringify(likes),
+  });
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(getAllDiscussions(data.projectId));
+    dispatch(likeDiscussion(data));
+    return data;
+  }
+};
+
+export const disliked = (discussionId, dislikes) => async (dispatch) => {
+  const res = await csrfFetch(`/api/discussions/${discussionId}/dislike`, {
+    method: "PUT",
+    body: JSON.stringify(dislikes),
+  });
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(getAllDiscussions(data.projectId));
+    dispatch(dislikeDiscussion(data));
+    return data;
+  }
+};
 //reducers
 const initState = {};
 

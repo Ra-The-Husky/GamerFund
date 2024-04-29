@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAllDiscussions } from "../../../store/discussions";
+import { disliked, getAllDiscussions, liked } from "../../../store/discussions";
 import { useParams } from "react-router-dom";
 import { getOneProject } from "../../../store/projects";
 import OpenModalAdd from "../../OpenModal/OpenModalAdd";
@@ -17,8 +17,8 @@ function AllDiscussions() {
   const dispatch = useDispatch();
   const projectDeets = useSelector((state) => state.projects?.project);
   const discussions = useSelector((state) => state.discussions?.discussions);
-  const [like, setLike] = useState(false)
-  const [dislike, setDislike] = useState(false)
+  const [clicked, setclicked] = useState(false)
+  // const [dislike, setDislike] = useState(false)
 
   const boardMsgs = [
     "What Are the People Saying Today?",
@@ -31,12 +31,7 @@ function AllDiscussions() {
     `What the Vestors are saying about ${projectDeets?.name}`,
     `Currently ${discussions?.length} Vestor Posts and Counting!`,
   ];
-console.log(like)
-  const liked = () => {
-    setLike(true)
-    dispatch()
 
-  }
   useEffect(() => {
     dispatch(getOneProject(projectId));
     dispatch(getAllDiscussions(projectId));
@@ -118,7 +113,7 @@ console.log(like)
                       <div className="likes">
                         <i
                           className="fa-solid fa-arrow-up"
-                          onClick={liked}
+                          onClick={() => dispatch(liked(discussion.id, {likes: discussion.likes+=1}))}
                         ></i>
                         Likes: {discussion?.likes}
                       </div>
@@ -126,7 +121,7 @@ console.log(like)
                       <div className="dislikes">
                         <i
                           className="fa-solid fa-arrow-down"
-                          onClick={() => alert("Downvoting coming soon!")}
+                          onClick={() => dispatch(disliked(discussion.id, {dislikes: discussion.dislikes+=1}))}
                         ></i>
                         Dislikes: {discussion?.dislikes}
                       </div>
