@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "ownerId",
       });
       Project.hasMany(models.Discussion, {
-        foreignKey: "projectId"
+        foreignKey: "id"
       })
     }
   }

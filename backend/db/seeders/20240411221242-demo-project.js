@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'production') {
     },
 
     async down (queryInterface, Sequelize) {
-      options.tableName = 'Users';
+      options.tableName = 'Projects';
       const Op = Sequelize.Op;
       return queryInterface.bulkDelete(options, {
         name: { [Op.in]: ['Crisis Nexus', 'Edge of Chaos', 'Lost Ones'] }

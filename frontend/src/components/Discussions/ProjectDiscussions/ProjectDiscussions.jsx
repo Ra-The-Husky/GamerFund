@@ -17,8 +17,7 @@ function AllDiscussions() {
   const dispatch = useDispatch();
   const projectDeets = useSelector((state) => state.projects?.project);
   const discussions = useSelector((state) => state.discussions?.discussions);
-  const [clicked, setclicked] = useState(false)
-  // const [dislike, setDislike] = useState(false)
+  const [clicked, setclicked] = useState(false);
 
   const boardMsgs = [
     "What Are the People Saying Today?",
@@ -32,6 +31,8 @@ function AllDiscussions() {
     `Currently ${discussions?.length} Vestor Posts and Counting!`,
   ];
 
+  const boardMessage = boardMsgs[Math.floor(Math.random() * boardMsgs.length)];
+
   useEffect(() => {
     dispatch(getOneProject(projectId));
     dispatch(getAllDiscussions(projectId));
@@ -41,9 +42,7 @@ function AllDiscussions() {
     <div className="ProjectDiscussions">
       <div className="discussionHeader">
         <h1 className="title">{projectDeets?.name}</h1>
-        <h2 className="boardMessages">
-          {boardMsgs[Math.floor(Math.random() * boardMsgs.length)]}
-        </h2>
+        <h2 className="boardMessages">{boardMessage}</h2>
       </div>
       <div className="discussionBoard">
         <div className="rulebox">
@@ -113,7 +112,18 @@ function AllDiscussions() {
                       <div className="likes">
                         <i
                           className="fa-solid fa-arrow-up"
-                          onClick={() => dispatch(liked(discussion.id, {likes: discussion.likes+=1}))}
+                          onClick={() =>
+                            dispatch(
+                              liked(discussion.id, {
+                                likes: (discussion.likes += 1),
+                              })
+                            ) &&
+                            dispatch(
+                              disliked(discussion.id, {
+                                dislikes: (discussion.dislikes -= 1),
+                              })
+                            )
+                          }
                         ></i>
                         Likes: {discussion?.likes}
                       </div>
@@ -121,7 +131,13 @@ function AllDiscussions() {
                       <div className="dislikes">
                         <i
                           className="fa-solid fa-arrow-down"
-                          onClick={() => dispatch(disliked(discussion.id, {dislikes: discussion.dislikes+=1}))}
+                          onClick={() =>
+                            dispatch(
+                              disliked(discussion.id, {
+                                dislikes: (discussion.dislikes += 1),
+                              })
+                            )
+                          }
                         ></i>
                         Dislikes: {discussion?.dislikes}
                       </div>

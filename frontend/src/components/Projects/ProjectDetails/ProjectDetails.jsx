@@ -11,6 +11,7 @@ const ProjectDetails = () => {
   const dispatch = useDispatch();
   const { projectId } = useParams();
   const projectDeets = useSelector((state) => state.projects.project);
+  const discussions = useSelector((state) => state.discussions.discussions)
   const sessionUser = useSelector((state) => state.session.user);
   const navigate = useNavigate();
 
@@ -38,7 +39,7 @@ const ProjectDetails = () => {
         <div onClick={() => alert("Feature Coming Soon!")}>DevPosts</div>
 
         <div onClick={() => navigate(`/${projectId}/discussions`)}>
-          Community Discussion
+          Community Discussion ({discussions?.length})
         </div>
       </div>
       <div className="projectInfo">

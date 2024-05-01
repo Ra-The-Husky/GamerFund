@@ -1,5 +1,5 @@
 const express = require("express");
-const { Project, Discussion } = require("../../db/models");
+const { Project, Discussion, Vote, User } = require("../../db/models");
 const { Op } = require("sequelize");
 const router = express.Router();
 const { requireAuth } = require("../../utils/auth");
@@ -18,7 +18,9 @@ const validateDiscussion = [
 // Get discussion
 router.get("/:discussionId", async (req, res) => {
   const discussionId = req.params.discussionId;
-  const discussion = await Discussion.findByPk(discussionId);
+  const discussion = await Discussion.findByPk(discussionId, {
+    include: { model: User },
+  });
 
   if (!discussion) {
     res.status(404);
@@ -105,22 +107,42 @@ router.put("/:discussionId/like", requireAuth, async (req, res) => {
   const discussionId = req.params.discussionId;
   let { likes } = req.body;
   const likeDiscussion = await Discussion.findOne({
+    include: { model: User, where: { id: req.user.id } },
     where: {
       id: discussionId,
     },
   });
+  const votes = await Vote.findAll({ where: {discussionId: discussionId, userId: req.user.id }})
 
-  if (!likeDiscussion) {
-    return res.status(404).json({
-      message: "Discussion doesn't exist",
-    });
+  if (votes) {
+    const updateVote = await Vote.update(
+      {
+        liked: true
+      },
+      {
+        where: {
+          discussionId: discussionId,
+          userId: req.user.id
+        },
+      }
+    );
   }
+  const updatedVote = await Vote.findOne(discussionId, {
+    where: {userId: req.user.id}
+  })
 
-  likeDiscussion.set({
-    likes: likes,
-  });
-  await likeDiscussion.save();
-  return res.json(likeDiscussion);
+  return res.json(updatedVote)
+  // if (!likeDiscussion) {
+  //   return res.status(404).json({
+  //     message: "Discussion doesn't exist",
+  //   });
+  // }
+
+  // likeDiscussion.set({
+  //   likes: likes,
+  // });
+  // await likeDiscussion.save();
+  // return res.json(likeDiscussion);
 });
 
 // Dislikes a discussion

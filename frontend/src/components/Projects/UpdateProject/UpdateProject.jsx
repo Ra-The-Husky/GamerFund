@@ -44,7 +44,6 @@ function EditProject() {
   useEffect(() => {
     const errs = {};
 
-
     setErrors(errs);
   }, [name]);
 
@@ -96,8 +95,8 @@ function EditProject() {
         <div className="subheader">
           <div>Finally settled on a name?</div>
           <div className="hint">
-            If your game&apos;s title is no longer a work in progress, don&apos;t forget
-            to remove the &quot;WIP&apos; from the title
+            If your game&apos;s title is no longer a work in progress,
+            don&apos;t forget to remove the &quot;WIP&apos; from the title
           </div>
         </div>
         <div className="fields">
@@ -115,7 +114,8 @@ function EditProject() {
 
         <h3 className="newProjectHeader">Game Description</h3>
         <div className="subheader">
-          Change the description? Just don&apos;t make it too short or too sweet.
+          Change the description? Just don&apos;t make it too short or too
+          sweet.
         </div>
         <div className="fields">
           <textarea
