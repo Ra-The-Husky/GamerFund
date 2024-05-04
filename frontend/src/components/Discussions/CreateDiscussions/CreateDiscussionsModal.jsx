@@ -28,11 +28,11 @@ function AddDiscussionModal({ projectId }) {
       name: "Praise",
     },
   ];
-
+  const questionFlag = flags.find((flag) => flag.name === "Question")
   const testPost = (e) => {
     e.preventDefault()
     setPost("Test Post");
-    setFlag("Comment");
+    setFlag(questionFlag);
   };
 
   const newDiscussion = (e) => {

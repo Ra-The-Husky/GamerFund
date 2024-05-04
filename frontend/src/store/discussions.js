@@ -113,8 +113,6 @@ export const editDiscussion = (discussionId, edits) => async (dispatch) => {
 export const cancelDiscussion = (discussionId) => async (dispatch) => {
   const res = await csrfFetch(`/api/discussions/${discussionId}`, {
     method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(edits),
   });
   if (res.ok) {
     const data = await res.json();

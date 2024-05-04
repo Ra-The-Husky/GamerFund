@@ -102,70 +102,156 @@ router.delete("/:discussionId", requireAuth, async (req, res) => {
   });
 });
 
-// Likes a discussion
+// Likes/Unlike a discussion
 router.put("/:discussionId/like", requireAuth, async (req, res) => {
   const discussionId = req.params.discussionId;
-  let { likes } = req.body;
-  const likeDiscussion = await Discussion.findOne({
-    include: { model: User, where: { id: req.user.id } },
+  let { likes, dislikes } = req.body;
+
+  const discussion = await Discussion.findOne({
+    // include: { model: User, where: { id: req.user.id } },
     where: {
       id: discussionId,
     },
   });
-  const votes = await Vote.findAll({ where: {discussionId: discussionId, userId: req.user.id }})
 
-  if (votes) {
-    const updateVote = await Vote.update(
-      {
-        liked: true
-      },
-      {
-        where: {
-          discussionId: discussionId,
-          userId: req.user.id
-        },
-      }
-    );
+  if (!discussion) {
+    res.status(404);
+    return res.json({
+      message: "Discussion doesn't exist",
+    });
   }
-  const updatedVote = await Vote.findOne(discussionId, {
-    where: {userId: req.user.id}
-  })
 
-  return res.json(updatedVote)
-  // if (!likeDiscussion) {
-  //   return res.status(404).json({
-  //     message: "Discussion doesn't exist",
-  //   });
-  // }
+  const vote = await Vote.findOne({
+    where: { discussionId: discussionId, userId: req.user.id },
+  });
+  console.log(vote, "VOTE");
 
-  // likeDiscussion.set({
-  //   likes: likes,
-  // });
-  // await likeDiscussion.save();
-  // return res.json(likeDiscussion);
+  if (!vote) {
+    const newVote = Vote.build({
+      userId: req.user.id,
+      discussionId: discussionId,
+      liked: true,
+      disliked: false,
+    });
+    discussion.set({
+      likes: likes + 1,
+    });
+    await newVote.save();
+    await discussion.save();
+    res.status(201);
+    return res.json(discussion);
+  }
+  if (vote.liked === true) {
+    vote.set({
+      liked: false,
+    });
+    await vote.save();
+    discussion.set({
+      likes: likes - 1,
+    });
+    await discussion.save();
+    return res.json(discussion);
+  }
+  if (vote.liked === false && vote.disliked === true) {
+    vote.set({
+      liked: true,
+      disliked: false,
+    });
+    await vote.save();
+    discussion.set({
+      likes: likes + 1,
+      dislikes: dislikes - 1,
+    });
+    await discussion.save();
+    return res.json(discussion);
+  }
+  if (vote.liked === false) {
+    vote.set({
+      liked: true,
+    });
+    await vote.save();
+    discussion.set({
+      likes: likes + 1,
+    });
+    await discussion.save();
+    return res.json(discussion);
+  }
 });
 
 // Dislikes a discussion
 router.put("/:discussionId/dislike", requireAuth, async (req, res) => {
   const discussionId = req.params.discussionId;
-  let { dislikes } = req.body;
-  const dislikeDiscussion = await Discussion.findOne({
+  let { likes, dislikes } = req.body;
+
+  const discussion = await Discussion.findOne({
+    // include: { model: User, where: { id: req.user.id } },
     where: {
       id: discussionId,
     },
   });
 
-  if (!dislikeDiscussion) {
-    return res.status(404).json({
+  if (!discussion) {
+    res.status(404);
+    return res.json({
       message: "Discussion doesn't exist",
     });
   }
 
-  dislikeDiscussion.set({
-    dislikes: dislikes,
+  const vote = await Vote.findOne({
+    where: { discussionId: discussionId, userId: req.user.id },
   });
-  await dislikeDiscussion.save();
-  return res.json(dislikeDiscussion);
+
+  if (!vote) {
+    const newVote = Vote.build({
+      userId: req.user.id,
+      discussionId: discussionId,
+      liked: false,
+      disliked: true,
+    });
+    discussion.set({
+      dislikes: dislikes += 1,
+    });
+    await newVote.save();
+    await discussion.save();
+    res.status(201);
+    return res.json(discussion);
+  }
+  if (vote.disliked === true) {
+    vote.set({
+      disliked: false,
+    });
+    await vote.save();
+    discussion.set({
+      dislikes: dislikes -= 1,
+    });
+    await discussion.save();
+    return res.json(discussion);
+  }
+  if (vote.disliked === false && vote.liked === true) {
+    vote.set({
+      liked: false,
+      disliked: true,
+    });
+    await vote.save();
+    discussion.set({
+      likes: likes -= 1,
+      dislikes: dislikes + 1,
+    });
+    await discussion.save();
+    return res.json(discussion);
+  }
+  if (vote.disliked === false) {
+    vote.set({
+      disliked: true,
+    });
+    await vote.save();
+    discussion.set({
+      dislikes: dislikes += 1,
+    });
+    await discussion.save();
+    return res.json(discussion);
+  }
+
 });
 
 module.exports = router;

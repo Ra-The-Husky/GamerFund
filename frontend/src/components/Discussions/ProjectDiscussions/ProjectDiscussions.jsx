@@ -17,7 +17,6 @@ function AllDiscussions() {
   const dispatch = useDispatch();
   const projectDeets = useSelector((state) => state.projects?.project);
   const discussions = useSelector((state) => state.discussions?.discussions);
-  const [clicked, setclicked] = useState(false);
 
   const boardMsgs = [
     "What Are the People Saying Today?",
@@ -115,14 +114,11 @@ function AllDiscussions() {
                           onClick={() =>
                             dispatch(
                               liked(discussion.id, {
-                                likes: (discussion.likes += 1),
-                              })
-                            ) &&
-                            dispatch(
-                              disliked(discussion.id, {
-                                dislikes: (discussion.dislikes -= 1),
+                                likes: (discussion.likes),
+                                dislikes: (discussion.dislikes)
                               })
                             )
+
                           }
                         ></i>
                         Likes: {discussion?.likes}
@@ -134,7 +130,8 @@ function AllDiscussions() {
                           onClick={() =>
                             dispatch(
                               disliked(discussion.id, {
-                                dislikes: (discussion.dislikes += 1),
+                                likes: (discussion.likes),
+                                dislikes: (discussion.dislikes),
                               })
                             )
                           }
