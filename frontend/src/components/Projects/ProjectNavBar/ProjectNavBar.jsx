@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../ProjectNavBar/ProjectNavBar.css";
 
-function ProjectNavBar({ projectId }) {
+function ProjectNavBar({ projectId, discussionCount }) {
   const navigate = useNavigate();
 
   return (
@@ -16,15 +16,16 @@ function ProjectNavBar({ projectId }) {
           <div onClick={() => alert("Feature Coming Soon!")}>DevPosts</div>
         </div>
         <div className="milestoneNav">
-          <div>Milestones</div>
+          <div onClick={() => alert("Feature Coming Soon!")}>Milestones</div>
         </div>
         <div className="incentiveNav">
-          <div>Vestor Incentives</div>
+          <div onClick={() => alert("Feature Coming Soon!")}>Vestor Incentives</div>
         </div>
         <div className="discussionsNav">
           <div onClick={() => navigate(`/${projectId}/discussions`)}>
             Vestor Discussions
           </div>
+          <div className="discussionNum">{discussionCount}</div>
         </div>
       </div>
     </div>

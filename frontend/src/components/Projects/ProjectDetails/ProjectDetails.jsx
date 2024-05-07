@@ -1,4 +1,5 @@
 import { getOneProject } from "../../../store/projects";
+import { getAllDiscussions } from "../../../store/discussions";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +19,7 @@ const ProjectDetails = () => {
 
   useEffect(() => {
     dispatch(getOneProject(projectId));
+    dispatch(getAllDiscussions(projectId))
   }, [dispatch, projectId]);
 
   return (
@@ -36,7 +38,7 @@ const ProjectDetails = () => {
         </div>
       </div>
       <div className="projectNavBar">
-        <ProjectNavBar projectId={projectDeets.id} />
+        <ProjectNavBar projectId={projectDeets?.id} discussionCount={discussions.length}/>
       </div>
 
       <div className="projectInfo">

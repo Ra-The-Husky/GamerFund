@@ -49,6 +49,7 @@ export const dislikeDiscussion = (discussion) => ({
   type: DISLIKE_DISCUSSION,
   discussion,
 });
+
 //thunks
 export const getAllDiscussions = (projectId) => async (dispatch) => {
   const res = await csrfFetch(`/api/projects/${projectId}/discussions`);

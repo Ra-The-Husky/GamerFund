@@ -60,6 +60,10 @@
   box-shadow: 3px 3px 3px 0 green;
   transform: translateY(4px);
 }
+.discussionsNav{
+  display: flex;
+  column-gap: 3px;
+}
 .discussionsNav:hover {
   cursor: pointer;
   box-shadow: 3px 3px 3px black;
@@ -68,4 +72,10 @@
 .discussionsNav:active{
   box-shadow: 3px 3px 3px 0 green;
   transform: translateY(4px);
+}
+.discussionNum{
+  font-style: italic;
+  font-size: 15px;
+  font-weight: bold;
+  color: grey;
 }
