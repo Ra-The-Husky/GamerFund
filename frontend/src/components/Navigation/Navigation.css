@@ -1,7 +1,7 @@
 .navBar {
   display: flex;
-
-  margin-bottom: 30px;
+border-bottom: 2px black solid;
+  /* margin-bottom: 30px; */
 }
 .logo {
   height: 150px;

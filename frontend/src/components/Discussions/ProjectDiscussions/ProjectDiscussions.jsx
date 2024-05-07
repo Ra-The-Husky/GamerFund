@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { disliked, getAllDiscussions, liked } from "../../../store/discussions";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getOneProject } from "../../../store/projects";
 import OpenModalAdd from "../../OpenModal/OpenModalAdd";
 import OpenModalEdit from "../../OpenModal/OpenModalEdit";
@@ -9,10 +9,12 @@ import OpenModalDestroy from "../../OpenModal/OpenModalDestroy";
 import CreateDiscussionModal from "../CreateDiscussions/CreateDiscussionsModal";
 import EditDiscussionsModal from "../EditDiscussions/EditDiscussionModal";
 import DeleteDiscussionsModal from "../DeleteDiscussions/DeleteDiscussionsModal";
+import ProjectNavBar from "../../Projects/ProjectNavBar/ProjectNavBar";
 import "../ProjectDiscussions/ProjectDiscussions.css";
 
 function AllDiscussions() {
   const { projectId } = useParams();
+  const navigate = useNavigate();
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const projectDeets = useSelector((state) => state.projects?.project);
@@ -40,9 +42,26 @@ function AllDiscussions() {
   return (
     <div className="ProjectDiscussions">
       <div className="discussionHeader">
-        <h1 className="title">{projectDeets?.name}</h1>
-        <h2 className="boardMessages">{boardMessage}</h2>
+        <div className="projectBio">
+          <h1 className="title">{projectDeets?.name}</h1>
+          <div className="projectDescription">
+            <div>{projectDeets?.description}</div>
+            <div className="projectDemographics">
+              <div>Genre: {projectDeets?.genre} </div>
+              <div>
+                Deadline:{" "}
+                {projectDeets?.deadline.split("T").splice(0, 1).join("")}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      <div className="projectNavBar">
+        <ProjectNavBar projectId={projectDeets?.id} />
+      </div>
+      <h2 className="boardMessages">
+        {boardMsgs[Math.floor(Math.random() * boardMsgs.length)]}
+      </h2>
       <div className="discussionBoard">
         <div className="rulebox">
           <div className="rules">

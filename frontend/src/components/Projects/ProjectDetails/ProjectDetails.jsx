@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OpenModalDestroy from "../../OpenModal/OpenModalDestroy";
+import ProjectNavBar from "../ProjectNavBar/ProjectNavBar";
 import DeleteProjectModal from "../DestroyProject/DestroyProjectModal";
 // import dateHelper from "../../../dateHelper";
 import "./ProjectDetails.css";
@@ -34,14 +35,10 @@ const ProjectDetails = () => {
           </div>
         </div>
       </div>
-
-      <div className="discussionBar">
-        <div onClick={() => alert("Feature Coming Soon!")}>DevPosts</div>
-
-        <div onClick={() => navigate(`/${projectId}/discussions`)}>
-          Community Discussion ({discussions?.length})
-        </div>
+      <div className="projectNavBar">
+        <ProjectNavBar projectId={projectDeets.id} />
       </div>
+
       <div className="projectInfo">
         <div className="projectContent">
           <div className="infoContainter">
