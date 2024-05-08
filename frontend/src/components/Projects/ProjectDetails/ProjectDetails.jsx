@@ -38,7 +38,7 @@ const ProjectDetails = () => {
         </div>
       </div>
       <div className="projectNavBar">
-        <ProjectNavBar projectId={projectDeets?.id} discussionCount={discussions.length}/>
+        <ProjectNavBar projectId={projectDeets?.id} discussionCount={discussions?.length}/>
       </div>
 
       <div className="projectInfo">

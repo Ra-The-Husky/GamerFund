@@ -1,10 +1,14 @@
 .navBar {
   display: flex;
-border-bottom: 2px black solid;
-  /* margin-bottom: 30px; */
+  align-items: center;
+  justify-content: center;
+  justify-content: space-evenly;
+  border-bottom: 1px black solid;
+
 }
 .logo {
   height: 150px;
+  border-radius: 5px;
   /* margin-left: 50%; */
 }
 .logo:hover {
@@ -26,13 +30,14 @@ border-bottom: 2px black solid;
   column-gap: 3px;
   height: 30px;
   align-items: center;
+  font-size: 35px;
 }
 .search input {
-  border-top: none;
-  border-right: none;
-  border-left: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px rgb(31, 31, 31);
   justify-self: left;
-  width: 10vw;
+  width: 20vw;
+  font-size: larger;
 }
 .search input:hover {
   box-shadow: 6px 6px 6px 0px rgba(0, 0, 0, 0.5);
@@ -44,21 +49,31 @@ border-bottom: 2px black solid;
   font-size: 30px;
 }
 .signedOut {
-    font-size: 20px;
-    display: flex;
-    column-gap: 20px;
-    justify-self: center;
+  font-size: 30px;
+  display: flex;
+  column-gap: 15px;
+  justify-self: center;
 }
 .signedOut:hover {
   cursor: pointer;
 }
 .signedIn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .icon {
-    /* border: 5px purple solid; */
-    height: 5vh;
+  /* border: 5px purple solid; */
+  height: 8vh;
+}
+.icon:hover{
+  cursor: pointer;
+}
+.logout{
+  font-size: 30px;
+}
+.logout:hover{
+  cursor: pointer;
+  color: rgb(207, 34, 34);
+  font-weight: bolder;
 }

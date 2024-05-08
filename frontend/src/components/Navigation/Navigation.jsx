@@ -18,6 +18,14 @@ function Navigation() {
 
   return (
     <div className="navBar">
+      <div>
+        <img
+          className="logo"
+          src="./GamerFund.jpg"
+          alt="GamerFund Logo"
+          onClick={() => navigate("/")}
+        />
+      </div>
       <div className="projectControls">
         <div className="search">
           <div className="searchIcon">
@@ -36,17 +44,11 @@ function Navigation() {
             <div className="addText">Add New Project</div>
           </div>
         )}
+      </div>
+      <div className="userControls">
         <div>
-          <img
-            className="logo"
-            src="./GamerFund.jpg"
-            alt="GamerFund Logo"
-            onClick={() => navigate("/")}
-          />
-        </div>
-        <div className="signedOut">
           {!sessionUser ? (
-            <>
+            <div className="signedOut">
               <OpenModalMenuItem
                 itemText="Log In"
                 modalComponent={<LoginFormModal />}
@@ -56,7 +58,7 @@ function Navigation() {
                 itemText="Sign Up"
                 modalComponent={<SignupFormModal />}
               />
-            </>
+            </div>
           ) : (
             <div className="signedIn">
               <div>
@@ -67,10 +69,9 @@ function Navigation() {
                   onClick={() => navigate("/account")}
                 />
               </div>
-              <div onClick={logout}>Logout</div>
+              <div className="logout" onClick={logout}>Logout</div>
             </div>
           )}
-          <div></div>
         </div>
       </div>
     </div>
