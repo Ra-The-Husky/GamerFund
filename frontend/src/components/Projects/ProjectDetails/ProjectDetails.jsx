@@ -45,17 +45,17 @@ const ProjectDetails = () => {
         <div className="projectContent">
           <div className="infoContainter">
             <div className="info">
-              Detailed Project Information about the game will go in this space
+              Detailed Project Info here
             </div>
           </div>
           <div className="milestonesContainer">
             <div className="milestones">
-              Milestones Coming Soon! Will appear on Left side
+              Milestones Coming Soon!
             </div>
           </div>
-          <div className="tiersContainer">
-            <div className="tiers">
-              Vestor Tiers Coming Soon! Will appear on Right side
+          <div className="incentivesContainer">
+            <div className="incentives">
+              Vestor Incentives Coming Soon!
             </div>
           </div>
         </div>
