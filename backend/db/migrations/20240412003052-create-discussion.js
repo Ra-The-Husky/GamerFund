@@ -22,6 +22,9 @@ module.exports = {
         projectId: {
           type: Sequelize.INTEGER,
         },
+        title: {
+          type: Sequelize.STRING
+        },
         post: {
           type: Sequelize.STRING,
           allowNull: false,

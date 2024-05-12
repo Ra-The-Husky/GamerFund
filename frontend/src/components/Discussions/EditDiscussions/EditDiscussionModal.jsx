@@ -7,6 +7,7 @@ import "../DiscussionModal.css";
 function EditDiscussionModal({ discussion, discussionId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
+  const [title, setTitle] = useState(discussion?.title)
   const [post, setPost] = useState(discussion?.post);
   const [flag, setFlag] = useState(discussion?.flag);
   const [errors, setErrors] = useState("");
@@ -45,6 +46,7 @@ function EditDiscussionModal({ discussion, discussionId }) {
     e.preventDefault();
 
     const edits = {
+      title,
       post,
       flag,
     };
@@ -62,6 +64,13 @@ function EditDiscussionModal({ discussion, discussionId }) {
         <div className="postTitle">Edit Post</div>
       </div>
       <form className="postForm" onSubmit={updateDiscussion}>
+        <input
+          className="discussionTitle"
+          type="text"
+          placeholder="Discussion Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        ></input>
         <textarea
           className="addPost"
           type="text"
@@ -79,7 +88,11 @@ function EditDiscussionModal({ discussion, discussionId }) {
             </option>
             {flags &&
               flags.map((flag2) => (
-                <option key={flag2.id} selected={flag2.name === discussion.flag} value={flag2.name}>
+                <option
+                  key={flag2.id}
+                  selected={flag2.name === discussion.flag}
+                  value={flag2.name}
+                >
                   {flag2.name}
                 </option>
               ))}

@@ -19,7 +19,7 @@ const validateDiscussion = [
 router.get("/:discussionId", async (req, res) => {
   const discussionId = req.params.discussionId;
   const discussion = await Discussion.findByPk(discussionId, {
-    include: { model: User },
+    include: { model: User}
   });
 
   if (!discussion) {
@@ -28,6 +28,13 @@ router.get("/:discussionId", async (req, res) => {
       message: "Discussion doesn't exist",
     });
   }
+  const user = await User.findOne({
+    where: {
+      id: discussion.userId
+    }
+  })
+
+  discussion.Users.push(user)
   return res.json(discussion);
 });
 
@@ -39,7 +46,7 @@ router.put(
   async (req, res) => {
     const userId = req.user.id;
     const discussionId = req.params.discussionId;
-    let { post, flag, devPost } = req.body;
+    let { title, post, flag, devPost } = req.body;
 
     const discussion = await Discussion.findOne({
       where: {
@@ -63,6 +70,7 @@ router.put(
 
     const updateDiscussion = await Discussion.update(
       {
+        title: title,
         post: post,
         flag: flag,
         devPost: devPost,
@@ -78,7 +86,7 @@ router.put(
   }
 );
 
-// Deletes Project's Post
+// Deletes Project's Discussion
 router.delete("/:discussionId", requireAuth, async (req, res) => {
   const discussionId = req.params.discussionId;
   const discussion = await Discussion.findByPk(discussionId);
@@ -102,13 +110,12 @@ router.delete("/:discussionId", requireAuth, async (req, res) => {
   });
 });
 
-// Likes/Unlike a discussion
+// Likes/Unlike/Undislike a discussion
 router.put("/:discussionId/like", requireAuth, async (req, res) => {
   const discussionId = req.params.discussionId;
   let { likes, dislikes } = req.body;
 
   const discussion = await Discussion.findOne({
-    // include: { model: User, where: { id: req.user.id } },
     where: {
       id: discussionId,
     },
@@ -178,7 +185,7 @@ router.put("/:discussionId/like", requireAuth, async (req, res) => {
   }
 });
 
-// Dislikes a discussion
+// Dislikes/Unlikes/Undislikes a discussion
 router.put("/:discussionId/dislike", requireAuth, async (req, res) => {
   const discussionId = req.params.discussionId;
   let { likes, dislikes } = req.body;
@@ -209,7 +216,7 @@ router.put("/:discussionId/dislike", requireAuth, async (req, res) => {
       disliked: true,
     });
     discussion.set({
-      dislikes: dislikes += 1,
+      dislikes: (dislikes += 1),
     });
     await newVote.save();
     await discussion.save();
@@ -222,7 +229,7 @@ router.put("/:discussionId/dislike", requireAuth, async (req, res) => {
     });
     await vote.save();
     discussion.set({
-      dislikes: dislikes -= 1,
+      dislikes: (dislikes -= 1),
     });
     await discussion.save();
     return res.json(discussion);
@@ -234,7 +241,7 @@ router.put("/:discussionId/dislike", requireAuth, async (req, res) => {
     });
     await vote.save();
     discussion.set({
-      likes: likes -= 1,
+      likes: (likes -= 1),
       dislikes: dislikes + 1,
     });
     await discussion.save();
@@ -246,12 +253,11 @@ router.put("/:discussionId/dislike", requireAuth, async (req, res) => {
     });
     await vote.save();
     discussion.set({
-      dislikes: dislikes += 1,
+      dislikes: (dislikes += 1),
     });
     await discussion.save();
     return res.json(discussion);
   }
-
 });
 
 module.exports = router;

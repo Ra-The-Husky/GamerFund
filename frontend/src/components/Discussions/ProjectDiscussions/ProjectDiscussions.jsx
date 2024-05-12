@@ -19,7 +19,7 @@ function AllDiscussions() {
   const dispatch = useDispatch();
   const projectDeets = useSelector((state) => state.projects?.project);
   const discussions = useSelector((state) => state.discussions?.discussions);
-
+ console.log(discussions)
   const boardMsgs = [
     "What Are the People Saying Today?",
     "The Voice of the Vestors",
@@ -32,8 +32,6 @@ function AllDiscussions() {
     `Currently ${discussions?.length} Vestor Posts and Counting!`,
   ];
 
-  const boardMessage = boardMsgs[Math.floor(Math.random() * boardMsgs.length)];
-
   useEffect(() => {
     dispatch(getOneProject(projectId));
     dispatch(getAllDiscussions(projectId));
@@ -41,7 +39,7 @@ function AllDiscussions() {
 
   return (
     <div className="ProjectDiscussions">
-      <div className="discussionHeader">
+      <div className="projectHeader">
         <div className="projectBio">
           <h1 className="title">{projectDeets?.name}</h1>
           <div className="projectDescription">
@@ -57,17 +55,15 @@ function AllDiscussions() {
         </div>
       </div>
       <div className="projectNavBar">
-        <ProjectNavBar projectId={projectDeets?.id} />
+        <ProjectNavBar
+          projectId={projectDeets?.id}
+          discussionCount={discussions?.length}
+        />
       </div>
       <h2 className="boardMessages">
         {boardMsgs[Math.floor(Math.random() * boardMsgs.length)]}
       </h2>
-      <div className="discussionBoard">
-        <div className="rulebox">
-          <div className="rules">
-            Discussion Rules: Will be added in the future!
-          </div>
-        </div>
+      <div className="discussionControls">
         {!sessionUser ? (
           <div>Log In to Contribute to the Board!</div>
         ) : (
@@ -78,6 +74,8 @@ function AllDiscussions() {
             Contribute to the Board
           </div>
         )}
+      </div>
+      <div className="discussionBoard">
         <div className="discussions">
           {discussions &&
             discussions?.map((discussion) => (
@@ -85,8 +83,13 @@ function AllDiscussions() {
                 <div className="discussion">
                   <div onClick={() => alert("Discussion Modal Coming Soon!")}>
                     <div className="postHeader">
-                      <div className="DiscussionPoster">
-                        {discussion.User?.username}
+                      <div className="title-author">
+                        <div className="postTitle">
+                        {discussion?.title}
+                        </div>
+                        <div className="author">
+                          {discussion.Users && discussion.Users?.map((user) => user.username)}
+                        </div>
                       </div>
                       <div className="flagContainer">
                         {discussion?.flag === "Comment" ? (
@@ -116,6 +119,7 @@ function AllDiscussions() {
                         )}
                       </div>
                     </div>
+
                     {discussion?.flag === "REMOVED" ? (
                       <div className="removedPost">
                         The Post has been flag for deletion by the developer(s).
@@ -133,11 +137,10 @@ function AllDiscussions() {
                           onClick={() =>
                             dispatch(
                               liked(discussion.id, {
-                                likes: (discussion.likes),
-                                dislikes: (discussion.dislikes)
+                                likes: discussion.likes,
+                                dislikes: discussion.dislikes,
                               })
                             )
-
                           }
                         ></i>
                         Likes: {discussion?.likes}
@@ -149,8 +152,8 @@ function AllDiscussions() {
                           onClick={() =>
                             dispatch(
                               disliked(discussion.id, {
-                                likes: (discussion.likes),
-                                dislikes: (discussion.dislikes),
+                                likes: discussion.likes,
+                                dislikes: discussion.dislikes,
                               })
                             )
                           }
@@ -160,7 +163,7 @@ function AllDiscussions() {
                     </div>
                     <div className="edit-delete">
                       {discussion?.userId === sessionUser?.id ? (
-                        <div className="editContainer">
+                        <>
                           <div className="edit">
                             <OpenModalEdit
                               modalComponent={
@@ -182,7 +185,7 @@ function AllDiscussions() {
                               />
                             </div>
                           </div>
-                        </div>
+                        </>
                       ) : (
                         <></>
                       )}
@@ -191,6 +194,11 @@ function AllDiscussions() {
                 </div>
               </div>
             ))}
+        </div>
+        <div className="rulebox">
+          <div className="rules">
+            Discussion Rules: Will be added in the future!
+          </div>
         </div>
       </div>
     </div>

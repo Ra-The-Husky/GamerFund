@@ -7,6 +7,7 @@ import "../DiscussionModal.css";
 function AddDiscussionModal({ projectId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
+  const [title, setTitle] = useState("");
   const [post, setPost] = useState("");
   const [flag, setFlag] = useState();
   const [errors, setErrors] = useState("");
@@ -28,11 +29,12 @@ function AddDiscussionModal({ projectId }) {
       name: "Praise",
     },
   ];
-  const questionFlag = flags.find((flag) => flag.name === "Question")
   const testPost = (e) => {
-    e.preventDefault()
-    setPost("Test Post");
-    setFlag(questionFlag);
+    e.preventDefault();
+    setTitle("Test Discussion Title");
+    setPost(
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere ipsa saepe illo labore quam consectetur recusandae obcaecati illum nisi a ratione, sit quo expedita qui, neque rem adipisci enim amet?"
+    );
   };
 
   const newDiscussion = (e) => {
@@ -45,6 +47,7 @@ function AddDiscussionModal({ projectId }) {
     setErrors(errs);
 
     const discussion = {
+      title,
       post,
       flag,
     };
@@ -64,6 +67,13 @@ function AddDiscussionModal({ projectId }) {
         <div className="postTitle">Add to the Discussion Board</div>
       </div>
       <form className="postForm" onSubmit={newDiscussion}>
+        <input
+          className="discussionTitle"
+          type="text"
+          placeholder="Discussion Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        ></input>
         <textarea
           className="addPost"
           type="text"
@@ -75,10 +85,10 @@ function AddDiscussionModal({ projectId }) {
           <div className="errors">{errors.post}</div>
         )}
         <div className="flagSelect">
+          <option selected disabled hidden>
+            Flag
+          </option>
           <select className="flags" onChange={(e) => setFlag(e.target.value)}>
-            <option selected disabled hidden>
-              Flag
-            </option>
             {flags &&
               flags.map((flag) => (
                 <option key={flag.id} value={flag.name}>

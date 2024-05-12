@@ -31,7 +31,7 @@ const validateDiscussion = [
     .withMessage("Discussion cannot be blank")
     .isLength({ min: 5 })
     .withMessage("Discussion cannot be less than five characters long"),
-    handleValidationErrors
+  handleValidationErrors,
 ];
 
 // Get all Projects
@@ -162,12 +162,7 @@ router.get("/:projectId/discussions", async (req, res) => {
       projectId: projectId,
       devPost: false,
     },
-    include: [
-      {
-        model: User,
-        attributes: ["username"],
-      },
-    ],
+    include: {model: User},
   });
 
   if (!project) {
@@ -176,12 +171,16 @@ router.get("/:projectId/discussions", async (req, res) => {
       message: "Project couldn't be found",
     });
   }
-
+const users = await User.findAll()
+console.log("Users", users)
   let allDiscussions = [];
   discussions.forEach((discussion) => {
     allDiscussions.push(discussion.toJSON());
   });
-  return res.json(allDiscussions.sort((b,a) => a["createdAt"] - b["createdAt"]));
+  allDiscussions.forEach((discussion) => discussion.Users.push(users.find((user) => user.id === discussion.userId)))
+  return res.json(
+    allDiscussions.sort((b, a) => a["createdAt"] - b["createdAt"])
+  );
 });
 
 // Get project's devPosts
@@ -204,7 +203,6 @@ router.get("/:projectId/devPosts", async (req, res) => {
     include: [
       {
         model: User,
-        attributes: ["username"],
       },
     ],
   });
@@ -213,7 +211,9 @@ router.get("/:projectId/devPosts", async (req, res) => {
   discussions.forEach((discussion) => {
     allDiscussions.push(discussion.toJSON());
   });
-  return res.json(allDiscussions.sort((b,a) => a["createdAt"] - b["createdAt"]));
+  return res.json(
+    allDiscussions.sort((b, a) => a["createdAt"] - b["createdAt"])
+  );
 });
 
 // Create new discussion (nonDev)
@@ -224,7 +224,7 @@ router.post(
   async (req, res) => {
     const userId = req.user.id;
     const projectId = req.params.projectId;
-    let { post, flag, devPost } = req.body;
+    let { title, post, flag, devPost } = req.body;
 
     const project = await Project.findByPk(projectId);
 
@@ -235,19 +235,20 @@ router.post(
       });
     }
 
-    if (userId === project.ownerId){
-      devPost = true
+    if (userId === project.ownerId) {
+      devPost = true;
     }
 
     const newDiscussion = Discussion.build({
-      projectId: projectId,
+      projectId: +projectId,
       userId: userId,
+      title: title,
       post: post,
       flag: flag,
       devPost: devPost,
     });
-    await newDiscussion.save()
-    return res.json(newDiscussion)
+    await newDiscussion.save();
+    return res.json(newDiscussion);
   }
 );
 module.exports = router;

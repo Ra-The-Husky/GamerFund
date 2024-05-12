@@ -1,6 +1,6 @@
 #modal-content {
   border: 5px black solid;
-  width: 20vw;
+  width: max-content;
   height: fit-content;
   box-shadow: 5px 5px 5px 0px black;
 }
@@ -10,28 +10,36 @@
   align-items: center;
   flex-wrap: wrap;
 }
+.title {
+  font-size: 20px;
+}
 .post {
   margin-top: 20px;
   margin-bottom: 30px;
   font-size: 35px;
-  width: 100%;
+  width: fit-content;
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 .postTitle {
   display: flex;
   justify-content: center;
+  padding: 3px;
 }
 .postForm {
-  width: 90%;
-}
-#textarea {
-  height: 75%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  width: fit-content;
+  height: fit-content;
 }
 .addPost {
-  /* border: 5px yellow dashed; */
-  border: none;
-  width: 100%;
+  border: 2px black solid;
+  box-shadow: 3px 3px black;
+  /* border: none; */
+  height: 35%;
+  border-radius: 3px;
   font-size: large;
   margin-bottom: 5px;
 }

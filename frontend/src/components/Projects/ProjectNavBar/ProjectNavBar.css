@@ -8,6 +8,7 @@
   width: 90vw;
 }
 .navigator {
+  background-color: rgb(233, 233, 233);
   display: flex;
   flex-direction: row;
 }
