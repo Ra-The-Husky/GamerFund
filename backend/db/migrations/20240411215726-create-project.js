@@ -35,10 +35,15 @@ module.exports = {
         },
         country: {
           type: Sequelize.STRING(),
-          allowNull: false,
         },
         deadline: {
           type: Sequelize.DATE(),
+        },
+        release: {
+          type: Sequelize.DATE()
+        },
+        imgUrl: {
+          type: Sequelize.STRING()
         },
         createdAt: {
           allowNull: false,

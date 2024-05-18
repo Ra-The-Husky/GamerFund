@@ -118,7 +118,7 @@ const projectReducer = (state = initState, action) => {
     case LOAD_USER_PROJECTS:
       return { ...state, projects: action.projects };
     case LOAD_PROJECT:
-      return { ...state, project: action.project };
+      return { ...state, project: action.project};
     case NEW_PROJECT:
       return { ...state, project: action.project };
     case UPDATE_PROJECT:

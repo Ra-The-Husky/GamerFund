@@ -7,8 +7,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "ownerId",
       });
       Project.hasMany(models.Discussion, {
-        foreignKey: "id"
-      })
+        foreignKey: "id",
+        onDelete: "CASCADE",
+      });
+      Project.hasMany(models.Milestone, {
+        foreignKey: "projectId",
+        onDelete: "CASCADE",
+      });
     }
   }
   Project.init(
@@ -27,14 +32,24 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      country: DataTypes.STRING,
+      country: {
+        type: DataTypes.STRING,
+      },
+      release: {
+        type: DataTypes.DATE,
+        validate: {
+          isDate: true,
+        },
+      },
       deadline: {
         type: DataTypes.DATE,
         validate: {
-          isDate: true
-        }
-
-      }
+          isDate: true,
+        },
+      },
+      imgUrl: {
+        type: DataTypes.STRING,
+      },
     },
     {
       sequelize,

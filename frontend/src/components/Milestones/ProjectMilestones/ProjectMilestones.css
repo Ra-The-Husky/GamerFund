@@ -1,0 +1,37 @@
+.ProjectMilestones {
+  border: 2px red solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.milestonesContainers {
+  border: 1px black solid;
+  display: flex;
+  width: 40vw;
+  height: max-content;
+  margin-top: 25px;
+  align-items: center;
+  justify-content: space-evenly;
+  column-gap: 30px;
+}
+.completed {
+  border: 3px orange solid;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+  align-items: center;
+}
+.inProgress {
+  border: 3px red solid;
+  width: 100%;
+  display: flex;
+  height: max-content;
+  flex-direction: column;
+  align-items: center;
+}
+
+.none {
+  display: none;
+}

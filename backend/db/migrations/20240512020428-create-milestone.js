@@ -1,5 +1,4 @@
 "use strict";
-
 let options = {};
 if (process.env.NODE_ENV === "production") {
   options.schema = process.env.SCHEMA; // define your schema in options object
@@ -9,7 +8,7 @@ if (process.env.NODE_ENV === "production") {
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      "Users",
+      "Milestones",
       {
         id: {
           allowNull: false,
@@ -17,58 +16,43 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
-        firstName: {
-          type: Sequelize.STRING(),
-          allowNull: false,
-        },
-        lastName: {
-          type: Sequelize.STRING(),
-          allowNull: false,
-        },
-        country: {
-          type: Sequelize.STRING(),
-          allowNull: false
-        },
-        username: {
-          type: Sequelize.STRING(30),
-          allowNull: false,
-          unique: true,
-        },
-        email: {
-          type: Sequelize.STRING(256),
-          allowNull: false,
-          unique: true,
-        },
-        hashedPassword: {
+        projectId: { type: Sequelize.INTEGER },
+        name: {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        developer: {
-          type: Sequelize.BOOLEAN(),
-          defaultValue: false,
-          allowNull: true,
+        description: {
+          type: Sequelize.STRING,
+          allowNull: false,
         },
-        companyName: {
-          type: Sequelize.STRING(),
-          unique: true,
+        progress: {
+          type: Sequelize.INTEGER,
+        },
+        goal: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+        },
+        type: {
+          type: Sequelize.STRING
+        },
+        achieved: {
+          type: Sequelize.BOOLEAN,
+          default: false,
         },
         createdAt: {
           allowNull: false,
           type: Sequelize.DATE,
-          defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         },
         updatedAt: {
           allowNull: false,
           type: Sequelize.DATE,
-          defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         },
       },
       options
     );
   },
-
   async down(queryInterface, Sequelize) {
-    options.tableName = "Users";
+    options.tableName = "Milestones";
     return queryInterface.dropTable(options);
   },
 };

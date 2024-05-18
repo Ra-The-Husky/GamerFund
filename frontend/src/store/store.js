@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import session from './session';
 import projects from './projects'
 import discussions from './discussions';
+import milestones from './milestones'
 
 const rootReducer = combineReducers({
   session,
   projects,
-  discussions
+  discussions,
+  milestones,
 });
 
 let enhancer;

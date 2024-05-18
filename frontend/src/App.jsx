@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Navigation from "./components/Navigation";
-import ProjectNavBar from "./components/Projects/ProjectNavBar";
 import * as sessionActions from "./store/session";
 import LandingPage from "./components/LandingPage";
 import AccountPage from "./components/AccountPage";
@@ -11,6 +10,7 @@ import ProjectDetails from "./components/Projects/ProjectDetails/ProjectDetails"
 import AddProject from "./components/Projects/AddProject";
 import UpdateProject from "./components/Projects/UpdateProject";
 import RemovedSuccess from "./components/Projects/DestroyProject";
+import ProjectMilestones from "./components/Milestones/ProjectMilestones";
 import AllDiscussions from "./components/Discussions/ProjectDiscussions/ProjectDiscussions";
 
 function Layout() {
@@ -51,6 +51,14 @@ const router = createBrowserRouter([
         path: "/:projectId",
         element: <ProjectDetails />,
       },
+      // {
+      //   path: '/:projectId/devPosts',
+      //   element: <ProjectDevPosts />
+      // },
+      {
+        path: '/:projectId/milestones',
+        element: <ProjectMilestones />
+      },
       {
         path: "/:projectId/discussions",
         element: <AllDiscussions />,
@@ -67,6 +75,7 @@ const router = createBrowserRouter([
         path: "/remove-success",
         element: <RemovedSuccess />,
       },
+
     ],
   },
 ]);

@@ -20,6 +20,7 @@ function EditProject() {
   const [description, setDescription] = useState(projectInfo?.description);
   const [genre, setGenre] = useState(projectInfo?.genre);
   const [country, setCountry] = useState(projectInfo?.country);
+  const [release, setRelease] = useState(projectInfo?.release);
   const [allowedDeadline, setAllowedDeadline] = useState();
   const [deadline, setDeadline] = useState(projectInfo?.deadline);
   const [errors, setErrors] = useState({});
@@ -35,7 +36,7 @@ function EditProject() {
       setName(project?.name);
       setDescription(project?.description);
       setGenre(project?.genre);
-      setCountry(project?.country);
+      setRelease(project?.release);
       setDeadline(project?.deadline);
     });
     dispatch(getAllProjects());
@@ -65,16 +66,14 @@ function EditProject() {
       errs.genre =
         "Please select a genre that is closely associated with your game";
     }
-    if (!country) {
-      errs.country = "Country of game origin is required";
-    }
+
     setErrors(errs);
 
     const edits = {
       name,
       description,
       genre,
-      country,
+      release,
       deadline,
     };
 

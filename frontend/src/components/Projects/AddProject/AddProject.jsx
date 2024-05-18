@@ -11,7 +11,7 @@ function AddProject() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [genre, setGenre] = useState("");
-  const [country, setCountry] = useState("");
+  const [release, setRelease] = useState();
   let allowedDeadline = new Date();
   allowedDeadline.setDate(allowedDeadline.getDate() + 1);
   allowedDeadline = allowedDeadline
@@ -20,24 +20,26 @@ function AddProject() {
     .splice(0, 1)
     .join("");
   const [deadline, setDeadline] = useState(allowedDeadline);
+  const [img, setImg] = useState("");
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const testGame = () => {
-    setName("New Game Project!");
+    setName("Big City Beatdown");
     setDescription(
-      "Sweet new description for test game with the necessary length to pass validations."
+      "The streets are tough in Big City but the fighter's are tougher. Fight, Prosper, and Conquer in Big City and become the next Big City Kingpin."
     );
-    setGenre("Action")
-    setCountry(countryListAllIsoData[45].name)
-    setDeadline(dateHelper(new Date("12-24-2024")));
+    setGenre("Fighting");
+    setRelease(dateHelper(new Date("01-01-2030")));
+    setDeadline(dateHelper(new Date("12-24-2029")));
+    setImg("https://i.imgur.com/IQoXNGS.jpg");
   };
 
   const submitProject = async (e) => {
     e.preventDefault();
     const errs = {};
+    const formats = ["jpg", "png", "jpeg", "mp4"];
 
     if (!name) {
       errs.name = "Name of your game is required";
@@ -50,11 +52,11 @@ function AddProject() {
       errs.genre =
         "Please select a genre that is closely associated with your game";
     }
-    if (!country) {
-      errs.country = "Country of game origin is required";
-    }
     if (deadline === new Date()) {
       errs.deadline = "Vestor deadline cannot be current day";
+    }
+    if (!img.includes(formats)) {
+      errs.img = "Only .jpg, .jpeg, .png, or .mp4 formats allowed";
     }
     setErrors(errs);
 
@@ -62,14 +64,17 @@ function AddProject() {
       name,
       description,
       genre,
-      country,
+      release,
       deadline,
+      img,
     };
 
     if (Object.values(errors).length) {
       return console.log(errors);
     } else {
-      await dispatch(addProject(project)).then((newProject) => navigate(`/${newProject.id}`));
+      await dispatch(addProject(project)).then((newProject) =>
+        navigate(`/${newProject.id}`)
+      );
     }
   };
 
@@ -81,8 +86,8 @@ function AddProject() {
         <div className="subheader">
           <div>Your game has a name right? Write that here</div>
           <div className="hint">
-            If your game&apos;s name is still a work in progress, add &quot;WIP&quot; in the
-            title too
+            If your game&apos;s name is still a work in progress, add
+            &quot;WIP&quot; in the title too
           </div>
         </div>
         <div className="fields">
@@ -94,7 +99,9 @@ function AddProject() {
             onChange={(e) => setName(e.target.value)}
           ></input>
         </div>
-        {Object.keys(errors) && !name && <div className="errors">{errors.name}</div>}
+        {Object.keys(errors) && !name && (
+          <div className="errors">{errors.name}</div>
+        )}
 
         <h3 className="newProjectHeader">Game Description</h3>
         <div className="subheader">
@@ -110,7 +117,9 @@ function AddProject() {
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
-        {Object.keys(errors) && !description && <div className="errors">{errors.description}</div>}
+        {Object.keys(errors) && !description && (
+          <div className="errors">{errors.description}</div>
+        )}
 
         <h3 className="newProjectHeader">Genre</h3>
         <div className="subheader">
@@ -136,27 +145,27 @@ function AddProject() {
           <div className="errors">{errors.genre}</div>
         )}
 
-        <h3 className="newProjectHeader">Country</h3>
-        <div className="subheader">
-          Select the country your game is being published from
+        <div>
+          <h3 className="newProjectHeader">Est. Release Date</h3>
+          <div className="subheader">
+            Unfortunately, projects have to end and the game needs to be
+            released. What is the expect/estimated time of release for your
+            game?
+          </div>
+          <div className="fields">
+            <input
+              className="addRelease"
+              selected={release}
+              type="date"
+              min={allowedDeadline}
+              value={release}
+              onChange={(e) => setRelease(e.target.value)}
+            ></input>
+          </div>
         </div>
-        <div className="fields">
-          <select
-            className="addCountry"
-            onChange={(e) => setCountry(e.target.value)}
-          >
-            <option selected disabled hidden>
-              Country
-            </option>
-            {countryListAllIsoData &&
-              countryListAllIsoData.map((country) => (
-                <option key={country.number} value={country.name}>
-                  {country.name}
-                </option>
-              ))}
-          </select>
-        </div>
-        {Object.keys(errors) && !country && <div className="errors">{errors.country}</div>}
+        {Object.keys(errors) && release && (
+          <div className="errors">{errors.release}</div>
+        )}
 
         <div>
           <h3 className="newProjectHeader">Vestor Deadline</h3>
@@ -175,7 +184,26 @@ function AddProject() {
             ></input>
           </div>
         </div>
-        {Object.keys(errors) && deadline && <div className="errors">{errors.deadline}</div>}
+        {Object.keys(errors) && deadline && (
+          <div className="errors">{errors.deadline}</div>
+        )}
+
+        <div>
+          <h3 className="newProjectHeader">Intro Image</h3>
+          <div className="subheader">
+            Spice up your game&apos;s page with an intro image or video
+          </div>
+          <div className="">
+            <input
+              className="addImg"
+              value={img}
+              onChange={(e) => setImg(e.target.value)}
+            ></input>
+          </div>
+        </div>
+        {Object.keys(errors) && img && (
+          <div className="errors">{errors.img}</div>
+        )}
 
         <div className="submitLine">
           Everything set? Then there is only one thing left to do...

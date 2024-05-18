@@ -1,5 +1,5 @@
 const express = require("express");
-const { User, Project, Discussion } = require("../../db/models");
+const { User, Project, Discussion, Milestone } = require("../../db/models");
 const { Op } = require("sequelize");
 const router = express.Router();
 const { requireAuth } = require("../../utils/auth");
@@ -19,6 +19,9 @@ const validateProject = [
     .exists({ checkFalsy: true })
     .withMessage("Please pick a genre"),
   check("country").exists({ checkFalsy: true }).withMessage("Country required"),
+  check("release")
+    .exists({ checkFalsy: true })
+    .withMessage("Project's estimate release date required"),
   check("deadline")
     .exists({ checkFalsy: true })
     .withMessage("Project contribution deadline required"),
@@ -33,6 +36,11 @@ const validateDiscussion = [
     .withMessage("Discussion cannot be less than five characters long"),
   handleValidationErrors,
 ];
+
+// const validateMilestone = [
+//   check().exists().withMessage(),
+//   handleValidationErrors
+// ]
 
 // Get all Projects
 router.get("/", async (req, res, next) => {
@@ -71,7 +79,21 @@ router.get("/account/projects", requireAuth, async (req, res) => {
 // Get project info by id
 router.get("/:projectId", async (req, res) => {
   const projectId = req.params.projectId;
-  const project = await Project.findByPk(projectId);
+  const project = await Project.findByPk(projectId, {
+    include: [
+      {
+        model: Milestone,
+        attributes: [
+          "id",
+          "name",
+          "description",
+          "progress",
+          "goal",
+          "achieved",
+        ],
+      },
+    ],
+  });
 
   if (!project) {
     res.status(404);
@@ -79,21 +101,41 @@ router.get("/:projectId", async (req, res) => {
       message: "Project couldn't be found",
     });
   }
-  return res.json(project);
+  const numDiscussions = await Discussion.count({
+    where: { devPost: false, projectId: projectId },
+  });
+
+  const data = {
+    id: project.id,
+    ownerId: project.ownerId,
+    name: project.name,
+    description: project.description,
+    genre: project.genre,
+    country: project.country,
+    deadline: project.deadline,
+    numDiscussions: numDiscussions,
+    Milestones: project.Milestones,
+  };
+
+  return res.json(data);
 });
 
 // Adds new project
 router.post("/new-project", requireAuth, validateProject, async (req, res) => {
   const userId = req.user.id;
-  const { name, description, genre, country, deadline } = req.body;
+  const { name, description, genre, release, deadline, imgUrl } = req.body;
+
+  const user = await User.findOne(userId)
 
   const newProject = Project.build({
     ownerId: userId,
     name: name,
     description: description,
     genre: genre,
-    country: country,
+    country: user.country,
+    release: release,
     deadline: deadline,
+    imgUrl: imgUrl
   });
 
   await newProject.save();
@@ -162,7 +204,7 @@ router.get("/:projectId/discussions", async (req, res) => {
       projectId: projectId,
       devPost: false,
     },
-    include: {model: User},
+    include: { model: User },
   });
 
   if (!project) {
@@ -171,13 +213,15 @@ router.get("/:projectId/discussions", async (req, res) => {
       message: "Project couldn't be found",
     });
   }
-const users = await User.findAll()
-console.log("Users", users)
+  const users = await User.findAll();
+
   let allDiscussions = [];
   discussions.forEach((discussion) => {
     allDiscussions.push(discussion.toJSON());
   });
-  allDiscussions.forEach((discussion) => discussion.Users.push(users.find((user) => user.id === discussion.userId)))
+  allDiscussions.forEach((discussion) =>
+    discussion.Users.push(users.find((user) => user.id === discussion.userId))
+  );
   return res.json(
     allDiscussions.sort((b, a) => a["createdAt"] - b["createdAt"])
   );
@@ -251,4 +295,38 @@ router.post(
     return res.json(newDiscussion);
   }
 );
+
+// Get Project's Milestones
+router.get("/:projectId/milestones", async (req, res) => {
+  const projectId = req.params.projectId;
+  const project = await Project.findByPk(projectId);
+
+  if (!project) {
+    res.status(404);
+    return res.json({
+      message: "Project couldn't be found",
+    });
+  }
+
+  const milestones = await Milestone.findAll({
+    where: {
+      projectId: projectId,
+    },
+  });
+
+  if (!milestones.length) {
+    res.status(404);
+    return res.json({
+      message: "Milestones not found",
+    });
+  }
+
+  // let allDiscussions = [];
+  // discussions.forEach((discussion) => {
+  //   allDiscussions.push(discussion.toJSON());
+  // });
+
+  return res.json(milestones);
+});
+
 module.exports = router;

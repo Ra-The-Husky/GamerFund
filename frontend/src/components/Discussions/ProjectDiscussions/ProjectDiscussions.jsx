@@ -19,7 +19,6 @@ function AllDiscussions() {
   const dispatch = useDispatch();
   const projectDeets = useSelector((state) => state.projects?.project);
   const discussions = useSelector((state) => state.discussions?.discussions);
- console.log(discussions)
   const boardMsgs = [
     "What Are the People Saying Today?",
     "The Voice of the Vestors",
@@ -84,11 +83,10 @@ function AllDiscussions() {
                   <div onClick={() => alert("Discussion Modal Coming Soon!")}>
                     <div className="postHeader">
                       <div className="title-author">
-                        <div className="postTitle">
-                        {discussion?.title}
-                        </div>
+                        <div className="postTitle">{discussion?.title}</div>
                         <div className="author">
-                          {discussion.Users && discussion.Users?.map((user) => user.username)}
+                          {discussion.Users &&
+                            discussion.Users?.map((user) => user.username)}
                         </div>
                       </div>
                       <div className="flagContainer">

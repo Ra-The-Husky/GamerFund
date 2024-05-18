@@ -38,28 +38,33 @@ function LandingPage() {
         <div className="projects">
           {allProjects &&
             allProjects.map((project) => {
-              const date = dateHelper(new Date(project.deadline))
+              const deadline = dateHelper(new Date(project.deadline));
+              const release = dateHelper(new Date(project.release));
               return (
-              <div
-                className="project"
-                key={project.id}
-                onClick={() => navigate(`/${project.id}`)}
-              >
-                <div className="projectTitle">{project.name}</div>
-                <div className="projectDescription">{project.description}</div>
-                <div className="projectGenre">{project.genre}</div>
-                <div className="dropdown-content">
-                  <div className="projectDemographic">
-                    <div>{project.country}</div>
-                    <div>
-                      Deadline:{" "}
-                      {date}
+                <div
+                  className="project"
+                  key={project.id}
+                  onClick={() => navigate(`/${project.id}`)}
+                >
+                  <div className="topHalf">
+                    <div className="projectTitle">{project.name}</div>
+                    <div className="projectDescription">
+                      {project.description}
+                    </div>
+                    <div className="projectMedia">
+                      <img src={project.imgUrl} className="media" />
+                    </div>
+                  </div>
+                  <div className="dropdown-content">
+                    <div className="projectDemographic">
+                      <div>{project.country}</div>
+                      <div className="projectGenre">{project.genre}</div>
+                      <div>Deadline: {deadline}</div>
+                      <div>Est. Release Date: {release}</div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              )
+              );
             })}
         </div>
       </div>

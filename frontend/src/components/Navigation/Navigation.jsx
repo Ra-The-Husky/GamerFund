@@ -21,7 +21,7 @@ function Navigation() {
       <div>
         <img
           className="logo"
-          src="./GamerFund.jpg"
+          src="https://i.imgur.com/gB7gJFb.jpg"
           alt="GamerFund Logo"
           onClick={() => navigate("/")}
         />
@@ -64,7 +64,7 @@ function Navigation() {
               <div>
                 <img
                   className="icon"
-                  src="UserIcon.png"
+                  src="https://i.imgur.com/RpBGZE1.png"
                   alt="userIcon"
                   onClick={() => navigate("/account")}
                 />
