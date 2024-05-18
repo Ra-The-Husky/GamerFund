@@ -31,7 +31,7 @@ module.exports = {
           name: "Edge of Chaos",
           caption: "The world of Aethis is on the brink of an apocalypse. Can the world be saved in this action packed RPG that'll blow your mind!?",
           description:
-            "Low resources, famine, war, and too much death plague the, once peaceful, world of Aethis. But a determined, Roland Maximoff, defies fate in an attempt to save his world from an apocalyptic end.",
+            "Roland Maximoff, defies fate in an attempt to save his world from an apocalyptic end.",
           genre: "Action RPG",
           deadline: new Date("05-15-2027"),
           release: new Date("06-01-2027"),

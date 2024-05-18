@@ -130,6 +130,7 @@ router.get("/:projectId", async (req, res) => {
     id: project.id,
     ownerId: project.ownerId,
     name: project.name,
+    caption: project.caption,
     description: project.description,
     genre: project.genre,
     country: project.country,
