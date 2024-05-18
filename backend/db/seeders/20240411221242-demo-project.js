@@ -16,18 +16,22 @@ module.exports = {
         {
           ownerId: 1,
           name: "Crisiis Nexus",
+          caption:
+            "Stop the dastardly Dr. R. Wright from changing history in out nextgen tower-defense game Crisiis Nexus.",
           description:
-            "Stop the dastardly Dr. R. Wrighter from changing history in out nextgen tower-defense game Crisiis Nexus. ",
+            "History as we know it is in danger! Travel throughout time and space to stop Dr. R. Wright and his evil henchmen, 'the wrighters', from altering history.",
           genre: "Strategy",
           deadline: new Date("03-25-2025"),
+          release: new Date("04-25-2025"),
           country: "United States of America",
           imgUrl: "https://i.imgur.com/voPU80u.jpg",
         },
         {
           ownerId: 2,
           name: "Edge of Chaos",
+          caption: "The world of Aethis is on the brink of an apocalypse. Can the world be saved in this action packed RPG that'll blow your mind!?",
           description:
-            "Low resources, famine, war, and too much death. The world of Nethis is on the brink of an apocalypse. But a determined, Roland Maximoff, is working to prevent this in our Action packed shooter, beat-em up, hack n' slash game that'll blow your mind!",
+            "Low resources, famine, war, and too much death plague the, once peaceful, world of Aethis. But a determined, Roland Maximoff, defies fate in an attempt to save his world from an apocalyptic end.",
           genre: "Action RPG",
           deadline: new Date("05-15-2027"),
           release: new Date("06-01-2027"),
@@ -37,19 +41,21 @@ module.exports = {
         {
           ownerId: 3,
           name: "The Lost Ones",
+          caption: "Darkness lurks in the halls of Eve's Garden Elementary.",
           description:
-            "Bestfriends Taylor, Joshua, Abrahim, Lexi, and Peter find themselves trapped within a twisted version of their elementary school fighting for survival. Darkness lurks in the halls of this version Milkonovich Elementary. Will they survive and make it out? Or succumb to the evil and become a permanent student like the others?",
+            "Bestfriends Taylor, Joshua, Abrahim, Lexi, and Peter find themselves trapped within a twisted version of their elementary school fighting for survival. Will they survive and make it out or succumb to the evil and madness within and become a permanent student like the others?",
           genre: "Horror",
           deadline: new Date("09-24-2026"),
           release: new Date("12-15-2026"),
-          country: "Unite Kingdom",
+          country: "United Kingdom",
           imgUrl: "https://i.imgur.com/pXeF0jN.png",
         },
         {
           ownerId: 4,
           name: "Piper the Decipherer",
+          caption: "The Greatest Puzzle Solver has been captured and needs your help!",
           description:
-            "Piper the Great Decipherer is in trouble! Think you can solve all these puzzles and help Piper escape her puzzling prison?",
+            "Piper the Great Decipherer is in trouble! Her greatest rival, Diana the Puzzler, has trapped her within a complex series of puzzles. Think you can solve all her mind-boggling challenges and help Piper escape her puzzling prison?",
           genre: "Puzzle",
           deadline: new Date("10-15-2028"),
           release: new Date("11-15-2028"),

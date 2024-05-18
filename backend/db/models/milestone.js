@@ -3,9 +3,9 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Milestone extends Model {
     static associate(models) {
-     Milestone.belongsTo(models.Project, {
-      foreignKey: "ProjectId"
-     })
+      Milestone.belongsTo(models.Project, {
+        foreignKey: "ProjectId",
+      });
     }
   }
   Milestone.init(
@@ -16,10 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       description: { type: DataTypes.STRING, allowNull: false },
-      progress: DataTypes.INTEGER,
+      progress: { type: DataTypes.INTEGER, defaultValue: 0 },
       goal: { type: DataTypes.INTEGER, allowNull: false },
       type: DataTypes.STRING,
-      achieved: DataTypes.BOOLEAN,
+      achieved: { type: DataTypes.BOOLEAN, defaultValue: false },
     },
     {
       sequelize,

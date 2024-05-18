@@ -111,7 +111,7 @@ font-size: 12px;
     #ff4040,
     rgb(255, 0, 0)
   );
-  width: 15%;
+  width: max-content;
   border-radius: 20px;
   margin-right: 5px;
   margin-top: 5px;

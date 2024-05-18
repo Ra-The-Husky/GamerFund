@@ -22,14 +22,21 @@ const ProjectDetails = () => {
   return (
     <div className="Project">
       <div className="projectBio">
-        <h1 className="title">{projectDeets?.name}</h1>
-        <div className="projectDescription">
-          <div>{projectDeets?.description}</div>
+        <h1 className="projectTitle">{projectDeets?.name}</h1>
+        <div className="mediaContainer">
+          <img src={projectDeets?.imgUrl} className="detailsMedia" />
+        </div>
+        <div className="projectDetails">
+          <div className="projectDescription">{projectDeets?.description}</div>
+          <div>Genre: {projectDeets?.genre} </div>
           <div className="projectDemographics">
-            <div>Genre: {projectDeets?.genre} </div>
             <div>
               Deadline:{" "}
               {projectDeets?.deadline.split("T").splice(0, 1).join("")}
+            </div>
+            <div>
+              Est. Release Date:{" "}
+              {projectDeets?.release.split("T").splice(0, 1).join("")}
             </div>
           </div>
         </div>
@@ -112,7 +119,7 @@ const ProjectDetails = () => {
           </div>
           <div className="milestonesContainer">
             <div className="milestonesTitle">Milestones</div>
-            {!projectDeets?.Milestones.length ? (
+            {!projectDeets?.Milestones?.length ? (
               <div className="noMilestones">No Milestones...yet</div>
             ) : (
               <div className="milestones">
@@ -128,7 +135,7 @@ const ProjectDetails = () => {
                       <div className="milestoneAnalytics">
                         {!milestone.achieved ? (
                           <div className="milestoneBar">
-                            <label for="progress">
+                            <label htmlFor="progress">
                               {milestone.progress}/{milestone.goal}:{" "}
                             </label>
                             <progress

@@ -48,19 +48,33 @@ function LandingPage() {
                 >
                   <div className="topHalf">
                     <div className="projectTitle">{project.name}</div>
-                    <div className="projectDescription">
-                      {project.description}
-                    </div>
+                    <div className="projectCaption">{project.caption}</div>
                     <div className="projectMedia">
                       <img src={project.imgUrl} className="media" />
                     </div>
                   </div>
-                  <div className="dropdown-content">
-                    <div className="projectDemographic">
-                      <div>{project.country}</div>
-                      <div className="projectGenre">{project.genre}</div>
-                      <div>Deadline: {deadline}</div>
-                      <div>Est. Release Date: {release}</div>
+                  <div className="bottomHalf">
+                    <div className="projectDemographics">
+                      <div className="demographInfo">
+                        {" "}
+                        <div className="demographTitle">Country:</div>{" "}
+                        {project.country}
+                      </div>
+                      <div className="demographInfo">
+                        {" "}
+                        <div classname="demographTitle">Genre:</div>{" "}
+                        {project.genre}
+                      </div>
+                      <div className="demographInfo">
+                        <div className="demographTitle">Deadline:</div>{" "}
+                        {deadline}
+                      </div>
+                      <div className="demographInfo">
+                        <div className="demographTitle">
+                          Est. Release Date:{" "}
+                        </div>
+                        {release}
+                      </div>
                     </div>
                   </div>
                 </div>

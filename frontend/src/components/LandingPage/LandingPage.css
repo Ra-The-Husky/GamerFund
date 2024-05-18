@@ -31,7 +31,11 @@
 .project:hover {
   box-shadow: 0px 4px 10px 0px black;
 }
+.project:active{
+  box-shadow: 5px 5px 5px 0 green;
+  transform: translateY(4px);
 
+}
 .projectTile {
   display: flex;
   align-items: center;
@@ -50,23 +54,22 @@
   align-items: center;
 }
 .projectTitle {
-  font-size: 30px;
   font-weight: bolder;
 }
 .projectMedia {
-  width: 50%;
-  height: 50%;
-  border: 3px red solid;
-  margin-top: 25px;
+  width: 75%;
+  height: 75%;
+  margin-top: 20px;
+  box-shadow: 0px 4px 10px 0px black;
 }
 .media {
-  border: 2px green solid;
+  border: 2px black solid;
   width: 100%;
   height: 100%;
 }
-.projectDescription {
+.projectCaption {
   margin-bottom: 10px;
-  font-size: 10px;
+  font-size: 18px;
 
 }
 .projectDemographic {
@@ -74,6 +77,10 @@
   grid-template-areas: "a b";
   column-gap: 6px;
 }
-.projectGenre {
-  margin-top: 30%;
+.demographInfo{
+  display: flex;
+  column-gap: 3px;
+}
+.demographTitle {
+  font-weight: bold;
 }

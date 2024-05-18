@@ -75,7 +75,6 @@ export const editMilestone = (milestoneId, edits) => async (dispatch) => {
   });
   const data = await res.json();
   if (res.ok) {
-    dispatch(getOneProject(data));
     dispatch(updateMilestone(data));
     return data;
   }

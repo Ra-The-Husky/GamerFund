@@ -10,6 +10,11 @@ const validateProject = [
   check("name")
     .exists({ checkFalsy: true })
     .withMessage("Name of project required"),
+  check("caption")
+    .exists({ checkFalsy: true })
+    .withMessage("Project caption required")
+    .isLength({ min: 20 })
+    .withMessage("Project caption needs to be atleast 20 characters long"),
   check("description")
     .exists({ checkFalsy: true })
     .withMessage("Project information required")
@@ -18,13 +23,15 @@ const validateProject = [
   check("genre")
     .exists({ checkFalsy: true })
     .withMessage("Please pick a genre"),
-  check("country").exists({ checkFalsy: true }).withMessage("Country required"),
   check("release")
     .exists({ checkFalsy: true })
     .withMessage("Project's estimate release date required"),
   check("deadline")
     .exists({ checkFalsy: true })
     .withMessage("Project contribution deadline required"),
+  check("release")
+    .exists({ checkFalsy: true })
+    .withMessage("Project's estimated release date required"),
   handleValidationErrors,
 ];
 
@@ -37,10 +44,23 @@ const validateDiscussion = [
   handleValidationErrors,
 ];
 
-// const validateMilestone = [
-//   check().exists().withMessage(),
-//   handleValidationErrors
-// ]
+const validateMilestone = [
+  check("name")
+    .exists({ checkFalsy: true })
+    .withMessage("Milestone name required"),
+  check("description")
+    .exists({ checkFalsy: true })
+    .withMessage("Milestone description required"),
+  check("goal")
+    .exists({ checkFalsy: true })
+    .withMessage("Milestone goal required")
+    .isNumeric({ gt: 0 }),
+  check("type")
+    .exists({ checkFalsy: true })
+    .withMessage("Milestone type must selected"),
+
+  handleValidationErrors,
+];
 
 // Get all Projects
 router.get("/", async (req, res, next) => {
@@ -89,6 +109,7 @@ router.get("/:projectId", async (req, res) => {
           "description",
           "progress",
           "goal",
+          "type",
           "achieved",
         ],
       },
@@ -112,7 +133,9 @@ router.get("/:projectId", async (req, res) => {
     description: project.description,
     genre: project.genre,
     country: project.country,
+    release: project.release,
     deadline: project.deadline,
+    imgUrl: project.imgUrl,
     numDiscussions: numDiscussions,
     Milestones: project.Milestones,
   };
@@ -123,19 +146,21 @@ router.get("/:projectId", async (req, res) => {
 // Adds new project
 router.post("/new-project", requireAuth, validateProject, async (req, res) => {
   const userId = req.user.id;
-  const { name, description, genre, release, deadline, imgUrl } = req.body;
+  const { name, caption, description, genre, release, deadline, imgUrl } =
+    req.body;
 
-  const user = await User.findOne(userId)
+  const user = await User.findByPk(userId);
 
   const newProject = Project.build({
     ownerId: userId,
     name: name,
+    caption: caption,
     description: description,
     genre: genre,
     country: user.country,
     release: release,
     deadline: deadline,
-    imgUrl: imgUrl
+    imgUrl: imgUrl,
   });
 
   await newProject.save();
@@ -143,11 +168,20 @@ router.post("/new-project", requireAuth, validateProject, async (req, res) => {
   return res.json(newProject);
 });
 
-// Update a user's project
+// Update a dev's project
 router.put("/:projectId", requireAuth, validateProject, async (req, res) => {
   const projectId = req.params.projectId;
 
-  const { ownerId, name, description, genre, country, deadline } = req.body;
+  const {
+    ownerId,
+    name,
+    caption,
+    description,
+    genre,
+    country,
+    deadline,
+    release,
+  } = req.body;
 
   const updateProject = await Project.findOne({
     where: { id: projectId },
@@ -163,9 +197,11 @@ router.put("/:projectId", requireAuth, validateProject, async (req, res) => {
   updateProject.set({
     ownerId: ownerId,
     name: name,
+    caption: caption,
     description: description,
     genre: genre,
     country: country,
+    release: release,
     deadline: deadline,
   });
   await updateProject.save();
@@ -260,7 +296,7 @@ router.get("/:projectId/devPosts", async (req, res) => {
   );
 });
 
-// Create new discussion (nonDev)
+// Create new discussion
 router.post(
   "/:projectId/discussions",
   requireAuth,
@@ -321,12 +357,39 @@ router.get("/:projectId/milestones", async (req, res) => {
     });
   }
 
-  // let allDiscussions = [];
-  // discussions.forEach((discussion) => {
-  //   allDiscussions.push(discussion.toJSON());
-  // });
-
   return res.json(milestones);
 });
 
+router.post(
+  "/:projectId/milestones",
+  validateMilestone,
+  async (req, res) => {
+    const userId = req.user.id;
+    const projectId = req.params.projectId;
+    let { name, description, goal, type} = req.body;
+
+    const project = await Project.findByPk(projectId);
+
+    if (!project) {
+      res.status(404);
+      return res.json({ message: "Project not found" });
+    }
+    if (userId !== project.ownerId) {
+      res.status(403);
+      return res.json({ message: "Forbidden" });
+    }
+
+    const newMilestone = Milestone.build({
+      projectId: +projectId,
+      userId: userId,
+      name: name,
+      description: description,
+      goal: goal,
+      type: type,
+    });
+
+    await newMilestone.save();
+    return res.json(newMilestone);
+  }
+);
 module.exports = router;

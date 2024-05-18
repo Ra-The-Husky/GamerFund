@@ -27,6 +27,7 @@ module.exports = {
         },
         progress: {
           type: Sequelize.INTEGER,
+          defaultValue: 0
         },
         goal: {
           type: Sequelize.INTEGER,

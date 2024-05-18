@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { disliked, getAllDiscussions, liked } from "../../../store/discussions";
 import { useParams, useNavigate } from "react-router-dom";
 import { getOneProject } from "../../../store/projects";
@@ -14,7 +14,6 @@ import "../ProjectDiscussions/ProjectDiscussions.css";
 
 function AllDiscussions() {
   const { projectId } = useParams();
-  const navigate = useNavigate();
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const projectDeets = useSelector((state) => state.projects?.project);
@@ -40,7 +39,10 @@ function AllDiscussions() {
     <div className="ProjectDiscussions">
       <div className="projectHeader">
         <div className="projectBio">
-          <h1 className="title">{projectDeets?.name}</h1>
+          <h1 className="projectTitle">{projectDeets?.name}</h1>
+          <div className="mediaContainer">
+          <img src={projectDeets?.imgUrl} className="detailsMedia" />
+        </div>
           <div className="projectDescription">
             <div>{projectDeets?.description}</div>
             <div className="projectDemographics">
@@ -84,10 +86,10 @@ function AllDiscussions() {
                     <div className="postHeader">
                       <div className="title-author">
                         <div className="postTitle">{discussion?.title}</div>
-                        <div className="author">
+                        {/* <div className="author">
                           {discussion.Users &&
-                            discussion.Users?.map((user) => user.username)}
-                        </div>
+                            discussion.Users?.find((user) => user.id === discussion?.userId)}
+                        </div> */}
                       </div>
                       <div className="flagContainer">
                         {discussion?.flag === "Comment" ? (

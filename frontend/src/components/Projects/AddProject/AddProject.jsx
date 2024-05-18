@@ -2,16 +2,17 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { addProject } from "../../../store/projects";
 import { useNavigate } from "react-router-dom";
-import countryListAllIsoData from "../../../countries";
 import dateHelper from "../../../dateHelper";
 import genres from "../../../genres";
 import "../AddProject/AddProject.css";
 
 function AddProject() {
   const [name, setName] = useState("");
+  const [caption, setCaption] = useState("");
   const [description, setDescription] = useState("");
   const [genre, setGenre] = useState("");
   const [release, setRelease] = useState();
+  const [country, setCountry] = useState();
   let allowedDeadline = new Date();
   allowedDeadline.setDate(allowedDeadline.getDate() + 1);
   allowedDeadline = allowedDeadline
@@ -20,20 +21,23 @@ function AddProject() {
     .splice(0, 1)
     .join("");
   const [deadline, setDeadline] = useState(allowedDeadline);
-  const [img, setImg] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const testGame = () => {
     setName("Big City Beatdown");
+    setCaption(
+      "The Big Boss of the underworld mysteriously disappeared. Who will become the next Big Boss?"
+    );
     setDescription(
-      "The streets are tough in Big City but the fighter's are tougher. Fight, Prosper, and Conquer in Big City and become the next Big City Kingpin."
+      "A power vacuum has put Big City in a lethal civil war. With nothing to lose and everything to gain, fight, prosper, and conquer Big City's underworld and become the next Big City Boss!"
     );
     setGenre("Fighting");
     setRelease(dateHelper(new Date("01-01-2030")));
     setDeadline(dateHelper(new Date("12-24-2029")));
-    setImg("https://i.imgur.com/IQoXNGS.jpg");
+    setImgUrl("https://i.imgur.com/IQoXNGS.jpg");
   };
 
   const submitProject = async (e) => {
@@ -55,18 +59,20 @@ function AddProject() {
     if (deadline === new Date()) {
       errs.deadline = "Vestor deadline cannot be current day";
     }
-    if (!img.includes(formats)) {
-      errs.img = "Only .jpg, .jpeg, .png, or .mp4 formats allowed";
-    }
+    // if (!img.includes(formats)) {
+    //   errs.img = "Only .jpg, .jpeg, .png, or .mp4 formats allowed";
+    // }
     setErrors(errs);
 
     const project = {
       name,
+      caption,
       description,
       genre,
+      country,
       release,
       deadline,
-      img,
+      imgUrl,
     };
 
     if (Object.values(errors).length) {
@@ -101,6 +107,24 @@ function AddProject() {
         </div>
         {Object.keys(errors) && !name && (
           <div className="errors">{errors.name}</div>
+        )}
+
+        <h3 className="newProjectHeader">Game Caption</h3>
+        <div className="subheader">
+          Catch potential vestor&apos;s attention with an interesting caption for you
+          game
+        </div>
+        <div className="fields">
+          <input
+            className="addCaption"
+            type="text"
+            placeholder="Caption"
+            value={caption}
+            onChange={(e) => setCaption(e.target.value)}
+          ></input>
+        </div>
+        {Object.keys(errors) && !caption && (
+          <div className="errors">{errors.caption}</div>
         )}
 
         <h3 className="newProjectHeader">Game Description</h3>
@@ -146,6 +170,27 @@ function AddProject() {
         )}
 
         <div>
+          <h3 className="newProjectHeader">Vestor Deadline</h3>
+          <div className="subheader">
+            How long do potential vestors have before you stop accepting
+            contributions?
+          </div>
+          <div className="fields">
+            <input
+              className="addDeadline"
+              selected={deadline}
+              type="date"
+              min={allowedDeadline}
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)}
+            ></input>
+          </div>
+        </div>
+        {Object.keys(errors) && deadline && (
+          <div className="errors">{errors.deadline}</div>
+        )}
+
+        <div>
           <h3 className="newProjectHeader">Est. Release Date</h3>
           <div className="subheader">
             Unfortunately, projects have to end and the game needs to be
@@ -168,27 +213,6 @@ function AddProject() {
         )}
 
         <div>
-          <h3 className="newProjectHeader">Vestor Deadline</h3>
-          <div className="subheader">
-            How long do potential vestors have before you stop accepting
-            contributions?
-          </div>
-          <div className="fields">
-            <input
-              className="addDeadline"
-              selected={deadline}
-              type="date"
-              min={allowedDeadline}
-              value={deadline}
-              onChange={(e) => setDeadline(e.target.value)}
-            ></input>
-          </div>
-        </div>
-        {Object.keys(errors) && deadline && (
-          <div className="errors">{errors.deadline}</div>
-        )}
-
-        <div>
           <h3 className="newProjectHeader">Intro Image</h3>
           <div className="subheader">
             Spice up your game&apos;s page with an intro image or video
@@ -196,13 +220,13 @@ function AddProject() {
           <div className="">
             <input
               className="addImg"
-              value={img}
-              onChange={(e) => setImg(e.target.value)}
+              value={imgUrl}
+              onChange={(e) => setImgUrl(e.target.value)}
             ></input>
           </div>
         </div>
-        {Object.keys(errors) && img && (
-          <div className="errors">{errors.img}</div>
+        {Object.keys(errors) && imgUrl && (
+          <div className="errors">{errors.imgUrl}</div>
         )}
 
         <div className="submitLine">
