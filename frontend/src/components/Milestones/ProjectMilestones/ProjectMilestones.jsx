@@ -9,7 +9,7 @@ import "./ProjectMilestones.css";
 function AllMilestones() {
   const { projectId } = useParams();
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.user);
+  // const sessionUser = useSelector((state) => state.user);
   const milestones = useSelector((state) => state.milestones?.milestones);
   const projectDeets = useSelector((state) => state.projects?.project);
   const completed =
@@ -96,7 +96,6 @@ function AllMilestones() {
         <div className="addMilestone">
         <i
           className="fa-solid fa-square-plus"
-          onClick={() => navigate("/new-milestone")}
         ></i>
         <div className="addText">Add Milestone</div>
       </div>

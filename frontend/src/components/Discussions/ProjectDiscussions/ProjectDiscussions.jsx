@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect} from "react";
 import { disliked, getAllDiscussions, liked } from "../../../store/discussions";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { getOneProject } from "../../../store/projects";
 import OpenModalAdd from "../../OpenModal/OpenModalAdd";
 import OpenModalEdit from "../../OpenModal/OpenModalEdit";

@@ -37,6 +37,7 @@ function EditProject() {
       setName(project?.name);
       setCaption(project?.caption);
       setDescription(project?.description);
+      setCountry(project?.country)
       setGenre(project?.genre);
       setRelease(project?.release);
       setDeadline(project?.deadline);
@@ -54,7 +55,7 @@ function EditProject() {
   const submitEdits = async (e) => {
     e.preventDefault();
     const errs = {};
-    const formats = ["jpg", "png", "jpeg", "mp4"];
+    // const formats = ["jpg", "png", "jpeg", "mp4"];
 
     if (!name) {
       errs.name = "Name of your game is required";
@@ -126,13 +127,13 @@ function EditProject() {
           Thought of a new caption to reel in those vestors?
         </div>
         <div className="fields">
-          <input
+          <textarea
             className="addCaption"
             type="text"
             placeholder="Caption"
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
-          ></input>
+          ></textarea>
         </div>
         {Object.keys(errors) && !caption && (
           <div className="errors">{errors.caption}</div>
@@ -216,10 +217,10 @@ function EditProject() {
           <div className="fields">
             <input
               className="addRelease"
-              selected={release}
+              selected={release?.split("T").splice(0, 1).join("")}
               type="date"
               min={allowedDeadline}
-              value={release}
+              value={release?.split("T").splice(0, 1).join("")}
               onChange={(e) => setRelease(e.target.value)}
             ></input>
           </div>

@@ -27,6 +27,9 @@ const ProjectDetails = () => {
           <img src={projectDeets?.imgUrl} className="detailsMedia" />
         </div>
         <div className="projectDetails">
+          <div>
+            
+          </div>
           <div className="projectDescription">{projectDeets?.description}</div>
           <div>Genre: {projectDeets?.genre} </div>
           <div className="projectDemographics">

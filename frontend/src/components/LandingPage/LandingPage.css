@@ -57,8 +57,8 @@
   font-weight: bolder;
 }
 .projectMedia {
-  width: 75%;
-  height: 75%;
+  width: 50%;
+  height: 50%;
   margin-top: 20px;
   box-shadow: 0px 4px 10px 0px black;
 }
@@ -78,6 +78,7 @@
   column-gap: 6px;
 }
 .demographInfo{
+  margin-top: 15px;
   display: flex;
   column-gap: 3px;
 }

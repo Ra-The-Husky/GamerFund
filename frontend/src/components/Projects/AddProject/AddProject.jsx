@@ -12,7 +12,7 @@ function AddProject() {
   const [description, setDescription] = useState("");
   const [genre, setGenre] = useState("");
   const [release, setRelease] = useState();
-  const [country, setCountry] = useState();
+  // const sessionUser = useState((state) => state.user)
   let allowedDeadline = new Date();
   allowedDeadline.setDate(allowedDeadline.getDate() + 1);
   allowedDeadline = allowedDeadline
@@ -35,6 +35,7 @@ function AddProject() {
       "A power vacuum has put Big City in a lethal civil war. With nothing to lose and everything to gain, fight, prosper, and conquer Big City's underworld and become the next Big City Boss!"
     );
     setGenre("Fighting");
+    // setCountry(sessionUser.country)
     setRelease(dateHelper(new Date("01-01-2030")));
     setDeadline(dateHelper(new Date("12-24-2029")));
     setImgUrl("https://i.imgur.com/IQoXNGS.jpg");
@@ -43,7 +44,7 @@ function AddProject() {
   const submitProject = async (e) => {
     e.preventDefault();
     const errs = {};
-    const formats = ["jpg", "png", "jpeg", "mp4"];
+    // const formats = ["jpg", "png", "jpeg", "mp4"];
 
     if (!name) {
       errs.name = "Name of your game is required";
@@ -69,7 +70,6 @@ function AddProject() {
       caption,
       description,
       genre,
-      country,
       release,
       deadline,
       imgUrl,

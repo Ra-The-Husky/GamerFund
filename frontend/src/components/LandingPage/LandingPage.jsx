@@ -49,10 +49,10 @@ function LandingPage() {
                   <div className="topHalf">
                     <div className="projectTitle">{project.name}</div>
                     <div className="projectCaption">{project.caption}</div>
+                  </div>
                     <div className="projectMedia">
                       <img src={project.imgUrl} className="media" />
                     </div>
-                  </div>
                   <div className="bottomHalf">
                     <div className="projectDemographics">
                       <div className="demographInfo">
@@ -62,7 +62,7 @@ function LandingPage() {
                       </div>
                       <div className="demographInfo">
                         {" "}
-                        <div classname="demographTitle">Genre:</div>{" "}
+                        <div className="demographTitle">Genre:</div>{" "}
                         {project.genre}
                       </div>
                       <div className="demographInfo">

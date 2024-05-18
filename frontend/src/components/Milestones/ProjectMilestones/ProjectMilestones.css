@@ -49,6 +49,10 @@
   align-items: center;
   justify-content: center;
 }
+.addMilestone{
+  display: flex;
+  column-gap: 5px;
+}
 .grants {
   margin-bottom: 10px;
 }
