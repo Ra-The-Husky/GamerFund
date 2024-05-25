@@ -35,7 +35,7 @@ function LandingPage() {
         <h2>Games That Are Being Made As We SPEAK...</h2>
       </div>
       <div>
-        <div className="projects">
+        <div className="projects animate__animated animate__fadeInUp">
           {allProjects &&
             allProjects.map((project) => {
               const deadline = dateHelper(new Date(project.deadline));

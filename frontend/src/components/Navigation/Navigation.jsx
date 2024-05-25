@@ -64,7 +64,6 @@ function Navigation() {
               <div>
                 <img
                   className="icon"
-                  src="https://i.imgur.com/RpBGZE1.png"
                   alt="userIcon"
                   onClick={() => navigate("/account")}
                 />

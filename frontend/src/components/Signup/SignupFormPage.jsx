@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-import * as sessionActions from '../../store/session';
-import "./SignupForm.css"
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import * as sessionActions from "../../store/session";
+import "./SignupForm.css";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ function SignupFormPage() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [image, setImage] = useState(null);
   const [errors, setErrors] = useState({});
 
   if (sessionUser) return <Navigate to="/" replace={true} />;
@@ -27,7 +28,8 @@ function SignupFormPage() {
           username,
           firstName,
           lastName,
-          password
+          password,
+          image,
         })
       ).catch(async (res) => {
         const data = await res.json();
@@ -37,9 +39,14 @@ function SignupFormPage() {
       });
     }
     return setErrors({
-      confirmPassword: "Confirm Password field must be the same as the Password field"
+      confirmPassword:
+        "Confirm Password field must be the same as the Password field",
     });
   };
+const updateFile = e => {
+const file = e.target.files[0]
+if (file) setImage(file)
+}
 
   return (
     <>
@@ -105,6 +112,10 @@ function SignupFormPage() {
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        <label>
+          Avatar
+          <input type="file" onChange={updateFile} />
+        </label>
         <button type="submit">Sign Up</button>
       </form>
     </>

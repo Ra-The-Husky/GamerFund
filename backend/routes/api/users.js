@@ -1,3 +1,4 @@
+const { singleFileUpload, singleMulterUpload } = require("../../awsS3");
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const { check } = require("express-validator");
@@ -31,42 +32,52 @@ const validateSignup = [
 ];
 
 // Sign up
-router.post("/", validateSignup, async (req, res) => {
-  const {
-    firstName,
-    lastName,
-    email,
-    password,
-    username,
-    developer,
-    companyName,
-  } = req.body;
-  const hashedPassword = bcrypt.hashSync(password);
-  const user = await User.create({
-    firstName,
-    lastName,
-    email,
-    username,
-    hashedPassword,
-    developer,
-    companyName,
-  });
+router.post(
+  "/",
+  singleMulterUpload("image"),
+  validateSignup,
+  async (req, res) => {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      username,
+      developer,
+      companyName,
+    } = req.body;
+    const profileImageUrl = req.file
+      ? await singleFileUpload({ file: req.file, public: true })
+      : null;
+    const hashedPassword = bcrypt.hashSync(password);
+    const user = await User.create({
+      firstName,
+      lastName,
+      email,
+      username,
+      hashedPassword,
+      developer,
+      companyName,
+      profileImageUrl,
+    });
 
-  const safeUser = {
-    firstName: user.firstName,
-    lastName: user.lastName,
-    id: user.id,
-    email: user.email,
-    username: user.username,
-    developer: user.developer,
-    companyName: user.companyName,
-  };
+    const safeUser = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      developer: user.developer,
+      companyName: user.companyName,
+      profileImage: user.profileImageUrl,
+    };
 
-  await setTokenCookie(res, safeUser);
+    await setTokenCookie(res, safeUser);
 
-  return res.json({
-    user: safeUser,
-  });
-});
+    return res.json({
+      user: safeUser,
+    });
+  }
+);
 
 module.exports = router;

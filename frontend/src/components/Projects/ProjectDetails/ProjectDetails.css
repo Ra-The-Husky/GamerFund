@@ -165,7 +165,7 @@
     blue,
     purple
   );
-  animation: colorAnimation 5s infinite;
+  animation: colorAnimation 2s infinite;
 }
 
 @keyframes colorAnimation {

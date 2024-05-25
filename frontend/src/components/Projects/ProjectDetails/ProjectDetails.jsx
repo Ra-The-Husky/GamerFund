@@ -7,6 +7,7 @@ import ProjectNavBar from "../ProjectNavBar/ProjectNavBar";
 import DeleteProjectModal from "../DestroyProject/DestroyProjectModal";
 // import dateHelper from "../../../dateHelper";
 import "./ProjectDetails.css";
+import "animate.css";
 
 const ProjectDetails = () => {
   const dispatch = useDispatch();
@@ -27,9 +28,7 @@ const ProjectDetails = () => {
           <img src={projectDeets?.imgUrl} className="detailsMedia" />
         </div>
         <div className="projectDetails">
-          <div>
-            
-          </div>
+          <div></div>
           <div className="projectDescription">{projectDeets?.description}</div>
           <div>Genre: {projectDeets?.genre} </div>
           <div className="projectDemographics">
@@ -128,42 +127,44 @@ const ProjectDetails = () => {
               <div className="milestones">
                 {projectDeets?.Milestones &&
                   projectDeets.Milestones.map((milestone) => (
-                    <div key={milestone.id} className="milestoneTile">
-                      <div className="milestoneName">
-                        <div>{milestone.name}</div>
-                      </div>
-                      <div className="milestoneDescription">
-                        <div>{milestone.description}</div>
-                      </div>
-                      <div className="milestoneAnalytics">
-                        {!milestone.achieved ? (
-                          <div className="milestoneBar">
-                            <label htmlFor="progress">
-                              {milestone.progress}/{milestone.goal}:{" "}
-                            </label>
-                            <progress
-                              className="progressBar"
-                              id="progress"
-                              value={milestone.progress}
-                              max={milestone.goal}
-                            >
-                              {milestone.progress}
-                            </progress>
-                            <div className="progressPercentage">
-                              ({(milestone.progress / milestone.goal) * 100}%)
+                    <div key={milestone.id} className="milestoneTile ">
+                      <div className="milestone ">
+                        <div className="milestoneName">
+                          <div>{milestone.name}</div>
+                        </div>
+                        <div className="milestoneDescription">
+                          <div>{milestone.description}</div>
+                        </div>
+                        <div className="milestoneAnalytics">
+                          {!milestone.achieved ? (
+                            <div className="milestoneBar">
+                              <label htmlFor="progress">
+                                {milestone.progress}/{milestone.goal}:{" "}
+                              </label>
+                              <progress
+                                className="progressBar"
+                                id="progress"
+                                value={milestone.progress}
+                                max={milestone.goal}
+                              >
+                                {milestone.progress}
+                              </progress>
+                              <div className="progressPercentage">
+                                ({(milestone.progress / milestone.goal) * 100}%)
+                              </div>
                             </div>
-                          </div>
-                        ) : (
-                          <div className="milestoneComplete">
-                            <div className="completeNums">
-                              {milestone.progress}/{milestone.goal}
+                          ) : (
+                            <div className="milestoneComplete">
+                              <div className="completeNums">
+                                {milestone.progress}/{milestone.goal}
+                              </div>
+                              <div className="completeBar"></div>
+                              <div className="progressPercentage">
+                                ({(milestone.progress / milestone.goal) * 100}%)
+                              </div>
                             </div>
-                            <div className="completeBar"></div>
-                            <div className="progressPercentage">
-                              ({(milestone.progress / milestone.goal) * 100}%)
-                            </div>
-                          </div>
-                        )}
+                          )}
+                        </div>
                       </div>
                     </div>
                   ))}
