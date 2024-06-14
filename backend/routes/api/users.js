@@ -43,6 +43,7 @@ router.post(
       email,
       password,
       username,
+      country,
       developer,
       companyName,
     } = req.body;
@@ -56,6 +57,7 @@ router.post(
       email,
       username,
       hashedPassword,
+      country,
       developer,
       companyName,
       profileImageUrl,

@@ -52,6 +52,9 @@ module.exports = {
           type: Sequelize.STRING(),
           unique: true,
         },
+        avatar: {
+          type: Sequelize.STRING(),
+        },
         createdAt: {
           allowNull: false,
           type: Sequelize.DATE,

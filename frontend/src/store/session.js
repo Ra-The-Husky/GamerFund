@@ -51,12 +51,12 @@ export const signup = (user) => async (dispatch) => {
   } = user;
   const formData = new FormData();
   formData.append("username", username);
-  formData.append("password", firstName);
-  formData.append("password", lastName);
-  formData.append("password", email);
-  formData.append("password", country);
-  formData.append("password", developer);
-  formData.append("password", companyName);
+  formData.append("firstName", firstName);
+  formData.append("lastName", lastName);
+  formData.append("email", email);
+  formData.append("country", country);
+  formData.append("developer", developer);
+  formData.append("companyName", companyName);
   formData.append("password", password);
 
   if (image) formData.append("image", image);

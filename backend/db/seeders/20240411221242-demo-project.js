@@ -24,7 +24,7 @@ module.exports = {
           deadline: new Date("03-25-2025"),
           release: new Date("04-25-2025"),
           country: "United States of America",
-          imgUrl: "https://i.imgur.com/voPU80u.jpg",
+          imgUrl: "https://rl-gamerfund.s3.us-east-2.amazonaws.com/Crisiis+Nexus.jpg",
         },
         {
           ownerId: 2,
@@ -36,7 +36,7 @@ module.exports = {
           deadline: new Date("05-15-2027"),
           release: new Date("06-01-2027"),
           country: "United States of America",
-          imgUrl: "https://i.imgur.com/Jxn0xzY.png",
+          imgUrl: "https://rl-gamerfund.s3.us-east-2.amazonaws.com/Edge+of+Chaos.png",
         },
         {
           ownerId: 3,
@@ -48,7 +48,7 @@ module.exports = {
           deadline: new Date("09-24-2026"),
           release: new Date("12-15-2026"),
           country: "United Kingdom",
-          imgUrl: "https://i.imgur.com/pXeF0jN.png",
+          imgUrl: "https://rl-gamerfund.s3.us-east-2.amazonaws.com/The+Lost+Ones.png",
         },
         {
           ownerId: 4,
@@ -60,7 +60,7 @@ module.exports = {
           deadline: new Date("10-15-2028"),
           release: new Date("11-15-2028"),
           country: "Japan",
-          imgUrl: "https://i.imgur.com/kedReTu.jpg",
+          imgUrl: "https://rl-gamerfund.s3.us-east-2.amazonaws.com/Piper+the+Decipherer.jpg",
         },
       ],
       { validate: true }

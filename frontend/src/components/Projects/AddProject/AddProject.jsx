@@ -38,7 +38,7 @@ function AddProject() {
     // setCountry(sessionUser.country)
     setRelease(dateHelper(new Date("01-01-2030")));
     setDeadline(dateHelper(new Date("12-24-2029")));
-    setImgUrl("https://i.imgur.com/IQoXNGS.jpg");
+    setImgUrl("https://rl-gamerfund.s3.us-east-2.amazonaws.com/Big+City+Beatdown.jpg");
   };
 
   const submitProject = async (e) => {

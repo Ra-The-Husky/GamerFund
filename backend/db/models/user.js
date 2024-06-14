@@ -77,6 +77,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         allowNull: true,
       },
+      avatar: DataTypes.STRING
     },
     {
       sequelize,

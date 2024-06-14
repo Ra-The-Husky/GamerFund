@@ -21,6 +21,7 @@ module.exports = {
           hashedPassword: bcrypt.hashSync("password"),
           developer: true,
           companyName: "DemoDev Team",
+          avatar: "https://rl-gamerfund.s3.us-east-2.amazonaws.com/Sona+profile.jpg"
         },
         {
           firstName: "Randy",
@@ -31,6 +32,7 @@ module.exports = {
           hashedPassword: bcrypt.hashSync("password2"),
           developer: true,
           companyName: "TwoTangled Entertainment",
+          avatar: "https://rl-gamerfund.s3.us-east-2.amazonaws.com/Seraphine+profile.jpg"
         },
         {
           firstName: "Charleston",
@@ -40,6 +42,7 @@ module.exports = {
           country: "United Kingdom",
           developer: true,
           companyName: "AwesomerDevelopments",
+          avatar: "https://rl-gamerfund.s3.us-east-2.amazonaws.com/Lux+profile.jpg",
           hashedPassword: bcrypt.hashSync("password3"),
         },
         {
@@ -50,6 +53,7 @@ module.exports = {
           country: "Japan",
           developer: true,
           companyName: "Shiba Games",
+          avatar: "https://rl-gamerfund.s3.us-east-2.amazonaws.com/_4df9fd70-b3d6-4449-9899-426379d1ce08.jpg",
           hashedPassword: bcrypt.hashSync("password3"),
         },
       ],

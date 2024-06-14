@@ -64,6 +64,7 @@
 }
 .icon {
   /* border: 5px purple solid; */
+  border-radius: 100px;
   height: 8vh;
 }
 .icon:hover{
