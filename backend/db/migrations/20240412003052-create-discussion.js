@@ -26,7 +26,7 @@ module.exports = {
           type: Sequelize.STRING
         },
         post: {
-          type: Sequelize.Text,
+          type: Sequelize.TEXT,
           allowNull: false,
         },
         likes: {
