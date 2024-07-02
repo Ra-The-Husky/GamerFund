@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       post: {
-        type: DataTypes.STRING,
+        type: DataTypes.Text,
         allowNull: false,
       },
       likes: { type: DataTypes.INTEGER, defaultValue: 0 },
