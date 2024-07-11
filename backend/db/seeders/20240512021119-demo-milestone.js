@@ -11,12 +11,12 @@ if (process.env.NODE_ENV === "production") {
 module.exports = {
   async up(queryInterface, Sequelize) {
     await Milestone.bulkCreate(
-
       [
         {
           projectId: 1,
           name: "The Journey Begins!",
-          description: "Added our game to GamerFund and gained our first vestor",
+          description:
+            "Added our game to GamerFund and gained our first vestor",
           progress: 1,
           goal: 1,
           type: "Developer Milestone",
@@ -97,7 +97,8 @@ module.exports = {
         {
           projectId: 1,
           name: "The Stage is Set",
-          description: "Fully created, tested, and added all base game levels for the game",
+          description:
+            "Fully created, tested, and added all base game levels for the game",
           progress: 0,
           goal: 1,
           type: "Developer Milestone",
@@ -121,10 +122,9 @@ module.exports = {
           type: "Financial Milestone",
           achieved: false,
         },
-
       ],
       { validate: true }
-    )
+    );
   },
 
   async down(queryInterface, Sequelize) {

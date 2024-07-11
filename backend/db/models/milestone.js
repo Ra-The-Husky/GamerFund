@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   class Milestone extends Model {
     static associate(models) {
       Milestone.belongsTo(models.Project, {
-        foreignKey: "ProjectId",
+        foreignKey: "projectId",
       });
     }
   }

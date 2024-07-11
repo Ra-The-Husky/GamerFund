@@ -27,14 +27,14 @@ module.exports = {
         },
         progress: {
           type: Sequelize.INTEGER,
-          defaultValue: 0
+          defaultValue: 0,
         },
         goal: {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
         type: {
-          type: Sequelize.STRING
+          type: Sequelize.STRING,
         },
         achieved: {
           type: Sequelize.BOOLEAN,
