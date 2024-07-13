@@ -7,7 +7,7 @@ import "../DiscussionModal.css";
 function EditDiscussionModal({ discussion, discussionId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
-  const [title, setTitle] = useState(discussion?.title)
+  const [title, setTitle] = useState(discussion?.title);
   const [post, setPost] = useState(discussion?.post);
   const [flag, setFlag] = useState(discussion?.flag);
   const [errors, setErrors] = useState("");
@@ -71,36 +71,43 @@ function EditDiscussionModal({ discussion, discussionId }) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         ></input>
+
         <textarea
           className="addPost"
           type="text"
-          placeholder="What would you like to say?"
+          placeholder="What's on your mind?"
           value={post}
           onChange={(e) => setPost(e.target.value)}
         ></textarea>
-        {Object.keys(errors) && !post && (
-          <div className="errors">{errors.post}</div>
-        )}
-        <div className="flagSelect">
-          <select className="flags" onChange={(e) => setFlag(e.target.value)}>
-            <option selected disabled hidden>
-              flag
-            </option>
-            {flags &&
-              flags.map((flag2) => (
-                <option
-                  key={flag2.id}
-                  selected={flag2.name === discussion.flag}
-                  value={flag2.name}
-                >
-                  {flag2.name}
-                </option>
-              ))}
-          </select>
+
+        <div className="flagSelectContainer">
+          <div className="flagHelper">Change the flag if necessary</div>
+
+          {Object.keys(errors) && !post && (
+            <div className="errors">{errors.post}</div>
+          )}
+          <div className="flagSelect">
+            <select className="flags" onChange={(e) => setFlag(e.target.value)}>
+              <option selected disabled hidden>
+                flag
+              </option>
+              {flags &&
+                flags.map((flag2) => (
+                  <option
+                    key={flag2.id}
+                    selected={flag2.name === discussion.flag}
+                    value={flag2.name}
+                  >
+                    {flag2.name}
+                  </option>
+                ))}
+            </select>
+          </div>
         </div>
-        <div className="buttonContainer">
+
+        <div className="discussionButtonContainer">
           <button
-            className="button"
+            className="discussionButton"
             disabled={Object.values(errors).length}
             type="submit"
           >

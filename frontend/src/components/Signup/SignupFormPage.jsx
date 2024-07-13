@@ -49,8 +49,8 @@ if (file) setImage(file)
 }
 
   return (
-    <>
-      <h1>Sign Up</h1>
+    <div className="signupForm">
+      <h1 className="title">Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Email
@@ -118,7 +118,7 @@ if (file) setImage(file)
         </label>
         <button type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

@@ -74,34 +74,46 @@ function AddDiscussionModal({ projectId }) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         ></input>
+
         <textarea
           className="addPost"
           type="text"
-          placeholder="What would you like to say?"
+          placeholder="What's on your mind?"
           value={post}
           onChange={(e) => setPost(e.target.value)}
         ></textarea>
-        {Object.keys(errors) && !post && (
-          <div className="errors">{errors.post}</div>
-        )}
-        <div className="flagSelect">
-          <option selected disabled hidden>
-            Flag
-          </option>
-          <select className="flags" onChange={(e) => setFlag(e.target.value)}>
-            {flags &&
-              flags.map((flag) => (
-                <option key={flag.id} value={flag.name}>
-                  {flag.name}
-                </option>
-              ))}
-          </select>
+
+        <div className="flagSelectContainer">
+          <div className="flagHelper">Please Choose the flag that best respresnts your discussion</div>
+          <div className="flagHelperSecond">
+            <div className="flagHelper">
+              If no flag is chosen, the <div className="flagDefault">&quot;Comment&quot;</div>flag will be set by
+              default
+            </div>
+          </div>
+          {Object.keys(errors) && !post && (
+            <div className="errors">{errors.post}</div>
+          )}
+          <div className="flagSelect">
+            <option selected disabled hidden>
+              Flag
+            </option>
+            <select className="flags" onChange={(e) => setFlag(e.target.value)}>
+              {flags &&
+                flags.map((flag) => (
+                  <option key={flag.id} value={flag.name}>
+                    {flag.name}
+                  </option>
+                ))}
+            </select>
+          </div>
         </div>
-        <div className="buttonContainer">
-          <button className="button" type="submit">
+
+        <div className="discussionButtonContainer">
+          <button className="discussionButton" type="submit">
             Post
           </button>
-          <button className="button" onClick={testPost} type="submit">
+          <button className="discussionButton" onClick={testPost} type="submit">
             Test Post
           </button>
         </div>

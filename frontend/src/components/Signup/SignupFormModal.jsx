@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
@@ -12,13 +12,24 @@ function SignupFormModal() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [country, setCountry] = useState("");
-  const [developer, setDeveloper] = useState(false);
+  const [developer, setDeveloper] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [checked, setChecked] = useState(false)
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+
+  console.log(developer, checked, "checking its status")
+
+  useEffect(() => {
+    if (developer === true && checked === true) {
+      setDeveloper(false)
+      setChecked(false)
+    }
+    console.log(developer, checked, "new status")
+  }, [developer, checked])
 
   const updateFile = (e) => {
     const file = e.target.files[0];
@@ -26,9 +37,8 @@ function SignupFormModal() {
   };
 
   const handleSubmit = (e) => {
-
     e.preventDefault();
-    
+
     if (password === confirmPassword) {
       setErrors({});
 
@@ -59,78 +69,74 @@ function SignupFormModal() {
     });
   };
 
-
-
   return (
     <>
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-
-        <label>
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        {errors.username && <p>{errors.username}</p>}
-
-        <label>
-          First Name
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </label>
+        <input
+          className="formInput"
+          type="text"
+          placeholder="First Name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          required
+        />
         {errors.firstName && <p>{errors.firstName}</p>}
-        <label>
-          Last Name
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </label>
+
+        <input
+          className="formInput"
+          type="text"
+          placeholder="Last Name"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          required
+        />
         {errors.lastName && <p>{errors.lastName}</p>}
 
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
+        <input
+          className="formInput"
+          type="text"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        {errors.email && <p>{errors.email}</p>}
+
+        <input
+          className="formInput"
+          type="text"
+          placeholder="Desired Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        {errors.username && <p>{errors.username}</p>}
+
+        <input
+          className="formInput"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
         {errors.password && <p>{errors.password}</p>}
 
-        <label>
-          Confirm Password
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
+        <input
+          className="formInput"
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
 
-        <select onChange={(e) => setCountry(e.target.value)}>
+        <select
+          className="formInput"
+          onChange={(e) => setCountry(e.target.value)}
+        >
           <option selected disabled hidden>
             Please Select Your Country
           </option>
@@ -147,29 +153,46 @@ function SignupFormModal() {
         </select>
 
         <label>
-          Developer?
-          <input
-            type="checkbox"
-            value={developer}
-            onChange={(e) => setDeveloper(e.target.value)}
-          ></input>
+          <div className="signupTitles">Are you a Dev? </div>
+          <div className="devBox">
+            <div className="formHelper">Yes, I&apos;m def a dev</div>
+            <input
+              type="checkbox"
+              value={developer}
+              onChange={(e) => setDeveloper(e.target.value) && setChecked(true)}
+            ></input>
+          </div>
         </label>
 
-        <label>
-          Company Name
-          <div>This information can be entered later if not available now</div>
-          <input
-            type="text"
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
-          ></input>
+        <label className="companyInfo">
+          <div className="signupTitles">
+            What is your gaming company or team&apos;s name?
+          </div>
+          <div className="companyBox">
+            <div className="formHelper">
+              This information can be entered later if not available now
+            </div>
+            <input
+              className="formInput"
+              placeholder="Your Company/Team's Name Here"
+              type="text"
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+            ></input>
+          </div>
         </label>
 
-        <label>
-          Avatar
-          <input type="file" onChange={updateFile} />
+        <label className="avatarInfo">
+          <div className="signupTitles">Add an Avatar</div>
+
+          <div className="avatarBox">
+            <div className="formHelper">
+              This isn&apos;t required and can be added/changed later on
+            </div>
+            <input type="file" onChange={updateFile} />
+          </div>
         </label>
-        <button type="submit">Sign Up</button>
+        <button className="signupButton" type="submit">Sign Up</button>
       </form>
     </>
   );
