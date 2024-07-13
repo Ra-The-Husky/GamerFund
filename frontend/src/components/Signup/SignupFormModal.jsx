@@ -21,16 +21,6 @@ function SignupFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-  console.log(developer, checked, "checking its status")
-
-  useEffect(() => {
-    if (developer === true && checked === true) {
-      setDeveloper(false)
-      setChecked(false)
-    }
-    console.log(developer, checked, "new status")
-  }, [developer, checked])
-
   const updateFile = (e) => {
     const file = e.target.files[0];
     if (file) setImage(file);
