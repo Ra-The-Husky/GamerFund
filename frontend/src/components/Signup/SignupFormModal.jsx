@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
@@ -16,7 +16,6 @@ function SignupFormModal() {
   const [companyName, setCompanyName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [checked, setChecked] = useState(false)
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
@@ -149,7 +148,7 @@ function SignupFormModal() {
             <input
               type="checkbox"
               value={developer}
-              onChange={(e) => setDeveloper(e.target.value) && setChecked(true)}
+              onChange={(e) => setDeveloper(e.target.value)}
             ></input>
           </div>
         </label>

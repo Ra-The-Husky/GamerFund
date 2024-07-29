@@ -9,14 +9,14 @@ function AboutModal() {
           LinkedIn:
           <a
             href="https://www.linkedin.com/in/rasheed-lindsey-4a67a95a"
-            target="_blank"
+            
           >
             LinkedIn
           </a>
         </div>
         <div className="toGitHub">
           Github:
-          <a href="https://github.com/Ra-The-Husky" target="_blank">
+          <a href="https://github.com/Ra-The-Husky" >
             Github
           </a>
         </div>
