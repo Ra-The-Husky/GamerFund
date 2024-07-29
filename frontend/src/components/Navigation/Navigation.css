@@ -2,9 +2,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  justify-content: space-around;
+  justify-content: space-between;
   border-bottom: 1px black solid;
-
+}
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  column-gap: 5px;
 }
 .logo {
   height: 150px;
@@ -20,6 +24,37 @@
 }
 .logo:hover {
   cursor: pointer;
+}
+.about {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+.about:hover {
+  cursor: pointer;
+  color: green;
+  font-weight: bolder;
+  font-size: 30px;
+}
+.aboutModal {
+  padding: 5px;
+  height: fit-content;
+  width: max-content
+}
+.aboutTitle {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+.me {
+  display: flex;
+  flex-direction: column;
+  font-size: 30px;
+  align-items: center;
+  row-gap: 10px;
 }
 .projectControls {
   display: flex;
@@ -67,13 +102,13 @@
   border-radius: 100px;
   height: 8vh;
 }
-.icon:hover{
+.icon:hover {
   cursor: pointer;
 }
-.logout{
+.logout {
   font-size: 30px;
 }
-.logout:hover{
+.logout:hover {
   cursor: pointer;
   color: rgb(207, 34, 34);
   font-weight: bolder;

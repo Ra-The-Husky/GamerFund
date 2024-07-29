@@ -4,6 +4,7 @@ import * as sessionActions from "../../store/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal/LoginFormModal";
 import SignupFormModal from "../Signup/SignupFormModal";
+import AboutModal from "../Navigation/AboutModal";
 import "./Navigation.css";
 
 function Navigation() {
@@ -18,21 +19,26 @@ function Navigation() {
 
   return (
     <div className="navBar">
-      <div>
+      <div className="logoContainer">
         <img
           className="logo"
           src="https://rl-gamerfund.s3.us-east-2.amazonaws.com/GamerFund+Logo.jpg"
           alt="GamerFund Logo"
           onClick={() => navigate("/")}
         />
+      <div className="about">
+        <div>
+        </div>
+          <OpenModalMenuItem modalComponent={<AboutModal />} itemText="About Me" />
+      </div>
       </div>
       <div className="projectControls">
-        <div className="search">
+        {/* <div className="search">
           <div className="searchIcon">
             <i className="fa-solid fa-magnifying-glass"></i>
           </div>
           <input placeholder="Search for projects"></input>
-        </div>
+        </div> */}
         {!sessionUser ? (
           <></>
         ) : (
@@ -69,7 +75,9 @@ function Navigation() {
                   onClick={() => navigate("/account")}
                 />
               </div>
-              <div className="logout" onClick={logout}>Logout</div>
+              <div className="logout" onClick={logout}>
+                Logout
+              </div>
             </div>
           )}
         </div>
