@@ -8,26 +8,35 @@ function AccountPage() {
 
   return (
     <>
-      <h1>Welcome Back {sessionUser?.username}!</h1>
-      <div className="accountControlBox">
-        <div className="projectControlBox">
-          <div className="controlTitle">Projects</div>
-          <div className="dropdownItems">
-            <ul>
-              <div onClick={() => navigate("/account/projects")}>
-                Your Active Projects
+      {!sessionUser ? (
+        <>
+          Hey you&apos;r not logged in! Log in or signup to view your user
+          portal.
+        </>
+      ) : (
+        <>
+          <h1>Welcome Back {sessionUser?.username}!</h1>
+          <div className="accountControlBox">
+            <div className="projectControlBox">
+              <div className="controlTitle">Projects</div>
+              <div className="dropdownItems">
+                <ul>
+                  <div onClick={() => navigate("/account/projects")}>
+                    Your Active Projects
+                  </div>
+                  <div onClick={() => alert("Vestor Information Coming Soon!")}>
+                    Projects You&apos;re Vested In
+                  </div>
+                </ul>
               </div>
-              <div onClick={() => alert("Vestor Information Coming Soon!")}>
-                Projects You&apos;re Vested In
-              </div>
-            </ul>
+            </div>
+            <div className="postsControlBox">
+              <div className="controlTitle">Posts</div>
+              <div></div>
+            </div>
           </div>
-        </div>
-        <div className="postsControlBox">
-          <div className="controlTitle">Posts</div>
-          <div></div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 }
