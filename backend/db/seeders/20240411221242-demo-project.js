@@ -23,7 +23,6 @@ module.exports = {
           genre: "Strategy",
           deadline: new Date("03-25-2025"),
           release: new Date("04-25-2025"),
-          country: "United States of America",
           imgUrl: "https://rl-gamerfund.s3.us-east-2.amazonaws.com/Crisiis+Nexus.jpg",
         },
         {
@@ -35,7 +34,6 @@ module.exports = {
           genre: "Action RPG",
           deadline: new Date("05-15-2027"),
           release: new Date("06-01-2027"),
-          country: "United States of America",
           imgUrl: "https://rl-gamerfund.s3.us-east-2.amazonaws.com/Edge+of+Chaos.png",
         },
         {
@@ -47,7 +45,6 @@ module.exports = {
           genre: "Horror",
           deadline: new Date("09-24-2026"),
           release: new Date("12-15-2026"),
-          country: "United Kingdom",
           imgUrl: "https://rl-gamerfund.s3.us-east-2.amazonaws.com/The+Lost+Ones.png",
         },
         {
@@ -59,7 +56,6 @@ module.exports = {
           genre: "Puzzle",
           deadline: new Date("10-15-2028"),
           release: new Date("11-15-2028"),
-          country: "Japan",
           imgUrl: "https://rl-gamerfund.s3.us-east-2.amazonaws.com/Piper+the+Decipherer.jpg",
         },
       ],

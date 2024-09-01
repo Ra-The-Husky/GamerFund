@@ -66,15 +66,35 @@ const validateMilestone = [
 router.get("/", async (req, res, next) => {
   let allProjects;
 
-  allProjects = await Project.findAll();
+  allProjects = await Project.findAll({
+    include: {
+      model: User,
+      attributes: ["country"],
+    },
+  });
   let projectsList = [];
   allProjects.forEach((project) => {
     projectsList.push(project.toJSON());
   });
+  console.log(projectsList)
+
+  const data = {
+    id: allProjects.id,
+    ownerId: projectsList.ownerId,
+    name: projectsList.name,
+    caption: projectsList.caption,
+    description: projectsList.description,
+    genre: projectsList.genre,
+    country: User.country,
+    release: projectsList.release,
+    deadline: projectsList.deadline,
+    imgUrl: projectsList.imgUrl,
+  };
 
   return res.json({
     Projects: projectsList,
   });
+
 });
 
 //Get all user projects
@@ -361,36 +381,32 @@ router.get("/:projectId/milestones", async (req, res) => {
   return res.json(milestones);
 });
 
-router.post(
-  "/:projectId/milestones",
-  validateMilestone,
-  async (req, res) => {
-    const userId = req.user.id;
-    const projectId = req.params.projectId;
-    let { name, description, goal, type} = req.body;
+router.post("/:projectId/milestones", validateMilestone, async (req, res) => {
+  const userId = req.user.id;
+  const projectId = req.params.projectId;
+  let { name, description, goal, type } = req.body;
 
-    const project = await Project.findByPk(projectId);
+  const project = await Project.findByPk(projectId);
 
-    if (!project) {
-      res.status(404);
-      return res.json({ message: "Project not found" });
-    }
-    if (userId !== project.ownerId) {
-      res.status(403);
-      return res.json({ message: "Forbidden" });
-    }
-
-    const newMilestone = Milestone.build({
-      projectId: +projectId,
-      userId: userId,
-      name: name,
-      description: description,
-      goal: goal,
-      type: type,
-    });
-
-    await newMilestone.save();
-    return res.json(newMilestone);
+  if (!project) {
+    res.status(404);
+    return res.json({ message: "Project not found" });
   }
-);
+  if (userId !== project.ownerId) {
+    res.status(403);
+    return res.json({ message: "Forbidden" });
+  }
+
+  const newMilestone = Milestone.build({
+    projectId: +projectId,
+    userId: userId,
+    name: name,
+    description: description,
+    goal: goal,
+    type: type,
+  });
+
+  await newMilestone.save();
+  return res.json(newMilestone);
+});
 module.exports = router;
