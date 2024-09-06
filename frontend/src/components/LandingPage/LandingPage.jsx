@@ -58,7 +58,7 @@ function LandingPage() {
                       <div className="demographInfo">
                         {" "}
                         <div className="demographTitle">Country:</div>{" "}
-                        {project.country}
+                        {project.User.country}
                       </div>
                       <div className="demographInfo">
                         {" "}

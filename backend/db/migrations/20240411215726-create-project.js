@@ -37,7 +37,7 @@ module.exports = {
           type: Sequelize.TEXT(),
           allowNull: false,
         },
-        country: {
+        rules: {
           type: Sequelize.STRING(),
         },
         deadline: {
