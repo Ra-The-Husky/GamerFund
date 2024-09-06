@@ -37,9 +37,9 @@ module.exports = {
           type: Sequelize.STRING(),
           allowNull: false,
         },
-        // country: {
-        //   type: Sequelize.STRING(),
-        // },
+        rules: {
+          type: Sequelize.STRING(),
+        },
         deadline: {
           type: Sequelize.DATE(),
         },

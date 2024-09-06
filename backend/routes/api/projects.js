@@ -76,20 +76,6 @@ router.get("/", async (req, res, next) => {
   allProjects.forEach((project) => {
     projectsList.push(project.toJSON());
   });
-  console.log(projectsList)
-
-  const data = {
-    id: allProjects.id,
-    ownerId: projectsList.ownerId,
-    name: projectsList.name,
-    caption: projectsList.caption,
-    description: projectsList.description,
-    genre: projectsList.genre,
-    country: User.country,
-    release: projectsList.release,
-    deadline: projectsList.deadline,
-    imgUrl: projectsList.imgUrl,
-  };
 
   return res.json({
     Projects: projectsList,

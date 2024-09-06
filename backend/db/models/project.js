@@ -28,18 +28,17 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-
       description: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      rules: {
+        type: DataTypes.STRING,
       },
       genre: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      // country: {
-      //   type: DataTypes.STRING,
-      // },
       release: {
         type: DataTypes.DATE,
         validate: {

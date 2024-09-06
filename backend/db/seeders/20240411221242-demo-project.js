@@ -17,9 +17,10 @@ module.exports = {
           ownerId: 1,
           name: "Crisiis Nexus",
           caption:
-            "Stop the dastardly Dr. R. Wright from changing history in out nextgen tower-defense game Crisiis Nexus.",
+            "Stop the dastardly Dr. R. Wright from changing history in our nextgen tower-defense game Crisiis Nexus.",
           description:
             "History as we know it is in danger! Travel throughout time and space to stop Dr. R. Wright and his evil henchmen, 'the wrighters', from altering history.",
+          rules: "",
           genre: "Strategy",
           deadline: new Date("03-25-2025"),
           release: new Date("04-25-2025"),
@@ -31,6 +32,7 @@ module.exports = {
           caption: "The world of Aethis is on the brink of an apocalypse. Can the world be saved in this action packed RPG that'll blow your mind!?",
           description:
             "Roland Maximoff, defies fate in an attempt to save his world from an apocalyptic end.",
+          rules: "",
           genre: "Action RPG",
           deadline: new Date("05-15-2027"),
           release: new Date("06-01-2027"),
@@ -42,6 +44,7 @@ module.exports = {
           caption: "Darkness lurks in the halls of Eve's Garden Elementary.",
           description:
             "Bestfriends Taylor, Joshua, Abrahim, Lexi, and Peter find themselves trapped within a twisted version of their elementary school fighting for survival.",
+          rules: "",
           genre: "Horror",
           deadline: new Date("09-24-2026"),
           release: new Date("12-15-2026"),
@@ -53,6 +56,7 @@ module.exports = {
           caption: "The Greatest Puzzle Solver has been captured and needs your help!",
           description:
             "Piper the Great Decipherer is in trouble! Her greatest rival, Diana the Puzzler, has trapped her within a complex series of puzzles.",
+          rules: "",
           genre: "Puzzle",
           deadline: new Date("10-15-2028"),
           release: new Date("11-15-2028"),
