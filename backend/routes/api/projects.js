@@ -80,7 +80,6 @@ router.get("/", async (req, res, next) => {
   return res.json({
     Projects: projectsList,
   });
-
 });
 
 //Get all user projects
@@ -119,9 +118,10 @@ router.get("/:projectId", async (req, res) => {
           "achieved",
         ],
       },
+      { model: User, attributes: ["country"] },
     ],
   });
-
+  console.log(project);
   if (!project) {
     res.status(404);
     return res.json({
@@ -139,7 +139,7 @@ router.get("/:projectId", async (req, res) => {
     caption: project.caption,
     description: project.description,
     genre: project.genre,
-    country: project.country,
+    country: project.User.country,
     release: project.release,
     deadline: project.deadline,
     imgUrl: project.imgUrl,
@@ -153,18 +153,25 @@ router.get("/:projectId", async (req, res) => {
 // Adds new project
 router.post("/new-project", requireAuth, validateProject, async (req, res) => {
   const userId = req.user.id;
-  const { name, caption, description, genre, release, deadline, imgUrl } =
-    req.body;
-
-  const user = await User.findByPk(userId);
+  const {
+    name,
+    caption,
+    description,
+    rules,
+    genre,
+    release,
+    deadline,
+    imgUrl,
+  } = req.body;
 
   const newProject = Project.build({
     ownerId: userId,
     name: name,
     caption: caption,
     description: description,
+    rules,
+    rules,
     genre: genre,
-    country: user.country,
     release: release,
     deadline: deadline,
     imgUrl: imgUrl,

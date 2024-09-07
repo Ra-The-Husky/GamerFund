@@ -10,6 +10,7 @@ function AddProject() {
   const [name, setName] = useState("");
   const [caption, setCaption] = useState("");
   const [description, setDescription] = useState("");
+  const [rules, setRules] = useState("");
   const [genre, setGenre] = useState("");
   const [release, setRelease] = useState();
   // const sessionUser = useState((state) => state.user)
