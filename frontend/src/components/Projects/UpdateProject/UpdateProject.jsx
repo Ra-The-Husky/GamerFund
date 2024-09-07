@@ -19,7 +19,6 @@ function EditProject() {
   const [caption, setCaption] = useState(projectInfo?.caption);
   const [description, setDescription] = useState(projectInfo?.description);
   const [genre, setGenre] = useState(projectInfo?.genre);
-  const [country, setCountry] = useState(projectInfo?.country);
   const [release, setRelease] = useState(projectInfo?.release);
   const [allowedDeadline, setAllowedDeadline] = useState();
   const [deadline, setDeadline] = useState(projectInfo?.deadline);
@@ -37,7 +36,6 @@ function EditProject() {
       setName(project?.name);
       setCaption(project?.caption);
       setDescription(project?.description);
-      setCountry(project?.country)
       setGenre(project?.genre);
       setRelease(project?.release);
       setDeadline(project?.deadline);
@@ -82,7 +80,6 @@ function EditProject() {
       caption,
       description,
       genre,
-      country,
       release,
       deadline,
       imgUrl,
