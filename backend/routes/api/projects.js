@@ -191,10 +191,11 @@ router.put("/:projectId", requireAuth, validateProject, async (req, res) => {
     name,
     caption,
     description,
+    rules,
     genre,
-    country,
-    deadline,
     release,
+    deadline,
+    imgUrl,
   } = req.body;
 
   const updateProject = await Project.findOne({
@@ -213,10 +214,11 @@ router.put("/:projectId", requireAuth, validateProject, async (req, res) => {
     name: name,
     caption: caption,
     description: description,
+    rules: rules,
     genre: genre,
-    country: country,
     release: release,
     deadline: deadline,
+    imgUrl: imgUrl
   });
   await updateProject.save();
   return res.json(updateProject);

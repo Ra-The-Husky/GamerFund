@@ -11,7 +11,7 @@ function ProjectNavBar({ projectId, discussionCount }) {
           <div onClick={() => navigate(`/${projectId}`)}>The Project</div>
         </div>
         <div className="devPostNav">
-          <div onClick={() => alert("Feature Coming Soon!")}>DevPosts</div>
+          <div onClick={() => navigate(`/${projectId}/devPosts`)}>DevPosts</div>
         </div>
         <div className="milestoneNav">
           <div onClick={() => navigate(`/${projectId}/milestones`)}>Milestones</div>

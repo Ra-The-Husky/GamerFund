@@ -248,3 +248,12 @@ background: linear-gradient(45deg, black 25%, rgb(255, 183, 0) 25% 50%,  black 5
   color: white;
   cursor: pointer;
 }
+
+.noPosts {
+  border-bottom: 2px solid yellow;
+  font-size: 30px;
+  margin-top: 10px;
+  padding: 3px;
+  box-shadow: 3px 3px 3px yellow;
+  border-radius: 5px;
+}

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { disliked, getAllDiscussions, liked } from "../../../store/discussions";
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getOneProject } from "../../../store/projects";
 import OpenModalAdd from "../../OpenModal/OpenModalAdd";
 import OpenModalEdit from "../../OpenModal/OpenModalEdit";
@@ -41,8 +41,8 @@ function AllDiscussions() {
         <div className="projectBio">
           <h1 className="projectTitle">{projectDeets?.name}</h1>
           <div className="mediaContainer">
-          <img src={projectDeets?.imgUrl} className="detailsMedia" />
-        </div>
+            <img src={projectDeets?.imgUrl} className="detailsMedia" />
+          </div>
           <div className="projectDescription">
             <div>{projectDeets?.description}</div>
             <div className="projectDemographics">
@@ -76,131 +76,142 @@ function AllDiscussions() {
           </div>
         )}
       </div>
-      <div className="discussionBoard">
-        <div className="discussions">
-          {discussions &&
-            discussions?.map((discussion) => (
-              <div key={discussion?.id} className="discussionTile">
-                <div className="discussion">
-                  <div onClick={() => alert("Discussion Modal Coming Soon!")}>
-                    <div className="postHeader">
-                      <div className="title-author">
-                        <div className="postTitle">{discussion?.title}</div>
-                        {/* <div className="author">
+      {!discussions.length ? (
+        <div className="noPosts">
+          It's pretty quiet in here. Be the first to break the silence!
+        </div>
+      ) : (
+        <div className="discussionBoard">
+          <div className="discussions">
+            {discussions &&
+              discussions?.map((discussion) => (
+                <div key={discussion?.id} className="discussionTile">
+                  <div className="discussion">
+                    <div onClick={() => alert("Discussion Modal Coming Soon!")}>
+                      <div className="postHeader">
+                        <div className="title-author">
+                          <div className="postTitle">{discussion?.title}</div>
+                          {/* <div className="author">
                           {discussion.Users &&
                             discussion.Users?.find((user) => user.id === discussion?.userId)}
                         </div> */}
-                      </div>
-                      <div className="flagContainer">
-                        {discussion?.flag === "Comment" ? (
-                          <div className="green-flag">{discussion?.flag}</div>
-                        ) : (
-                          <></>
-                        )}
-                        {discussion?.flag === "Question" ? (
-                          <div className="yellow-flag">{discussion?.flag}</div>
-                        ) : (
-                          <></>
-                        )}
-                        {discussion?.flag === "Praise" ? (
-                          <div className="pink-flag">{discussion?.flag}</div>
-                        ) : (
-                          <></>
-                        )}
-                        {discussion?.flag === "Criticism" ? (
-                          <div className="red-flag">{discussion?.flag}</div>
-                        ) : (
-                          <></>
-                        )}
-                        {discussion?.flag === "REMOVED" ? (
-                          <div className="removed-flag">{discussion?.flag}</div>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
-                    </div>
-
-                    {discussion?.flag === "REMOVED" ? (
-                      <div className="removedPost">
-                        The Post has been flag for deletion by the developer(s).
-                        Comment has been redacted for [insert reason]
-                      </div>
-                    ) : (
-                      <div className="discussionPost">{discussion?.post}</div>
-                    )}
-                  </div>
-                  <div className="control-votes">
-                    <div className="votes">
-                      <div className="likes">
-                        <i
-                          className="fa-solid fa-arrow-up"
-                          onClick={() =>
-                            dispatch(
-                              liked(discussion.id, {
-                                likes: discussion.likes,
-                                dislikes: discussion.dislikes,
-                              })
-                            )
-                          }
-                        ></i>
-                        Likes: {discussion?.likes}
+                        </div>
+                        <div className="flagContainer">
+                          {discussion?.flag === "Comment" ? (
+                            <div className="green-flag">{discussion?.flag}</div>
+                          ) : (
+                            <></>
+                          )}
+                          {discussion?.flag === "Question" ? (
+                            <div className="yellow-flag">
+                              {discussion?.flag}
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                          {discussion?.flag === "Praise" ? (
+                            <div className="pink-flag">{discussion?.flag}</div>
+                          ) : (
+                            <></>
+                          )}
+                          {discussion?.flag === "Criticism" ? (
+                            <div className="red-flag">{discussion?.flag}</div>
+                          ) : (
+                            <></>
+                          )}
+                          {discussion?.flag === "REMOVED" ? (
+                            <div className="removed-flag">
+                              {discussion?.flag}
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
                       </div>
 
-                      <div className="dislikes">
-                        <i
-                          className="fa-solid fa-arrow-down"
-                          onClick={() =>
-                            dispatch(
-                              disliked(discussion.id, {
-                                likes: discussion.likes,
-                                dislikes: discussion.dislikes,
-                              })
-                            )
-                          }
-                        ></i>
-                        Dislikes: {discussion?.dislikes}
-                      </div>
+                      {discussion?.flag === "REMOVED" ? (
+                        <div className="removedPost">
+                          The Post has been flag for deletion by the
+                          developer(s). Comment has been redacted for [insert
+                          reason]
+                        </div>
+                      ) : (
+                        <div className="discussionPost">{discussion?.post}</div>
+                      )}
                     </div>
-                    <div className="edit-delete">
-                      {discussion?.userId === sessionUser?.id ? (
-                        <>
-                          <div className="edit">
-                            <OpenModalEdit
-                              modalComponent={
-                                <EditDiscussionsModal
-                                  discussionId={discussion.id}
-                                  discussion={discussion}
-                                />
-                              }
-                            />
-                          </div>
-                          <div className="deleteContainer">
-                            <div className="delete">
-                              <OpenModalDestroy
+                    <div className="control-votes">
+                      <div className="votes">
+                        <div className="likes">
+                          <i
+                            className="fa-solid fa-arrow-up"
+                            onClick={() =>
+                              dispatch(
+                                liked(discussion.id, {
+                                  likes: discussion.likes,
+                                  dislikes: discussion.dislikes,
+                                })
+                              )
+                            }
+                          ></i>
+                          Likes: {discussion?.likes}
+                        </div>
+
+                        <div className="dislikes">
+                          <i
+                            className="fa-solid fa-arrow-down"
+                            onClick={() =>
+                              dispatch(
+                                disliked(discussion.id, {
+                                  likes: discussion.likes,
+                                  dislikes: discussion.dislikes,
+                                })
+                              )
+                            }
+                          ></i>
+                          Dislikes: {discussion?.dislikes}
+                        </div>
+                      </div>
+                      <div className="edit-delete">
+                        {discussion?.userId === sessionUser?.id ? (
+                          <>
+                            <div className="edit">
+                              <OpenModalEdit
                                 modalComponent={
-                                  <DeleteDiscussionsModal
+                                  <EditDiscussionsModal
                                     discussionId={discussion.id}
+                                    discussion={discussion}
                                   />
                                 }
                               />
                             </div>
-                          </div>
-                        </>
-                      ) : (
-                        <></>
-                      )}
+                            <div className="deleteContainer">
+                              <div className="delete">
+                                <OpenModalDestroy
+                                  modalComponent={
+                                    <DeleteDiscussionsModal
+                                      discussionId={discussion.id}
+                                    />
+                                  }
+                                />
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <></>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-        </div>
-        <div className="rulebox">
-          <div className="rules">
-            Discussion Rules: Will be added in the future!
+              ))}
+          </div>
+          <div className="rulebox">
+            <div className="rules">
+              Discussion Rules: Will be added in the future!
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
