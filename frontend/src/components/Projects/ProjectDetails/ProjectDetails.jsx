@@ -56,67 +56,11 @@ const ProjectDetails = () => {
             <div className="info">
               <div className="infoTitle">Project Information</div>
               <div className="infoSection">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque,
-                numquam aliquid, vero culpa itaque illum quod consequatur
-                nesciunt earum quisquam amet repudiandae corrupti accusantium
-                nam aliquam qui obcaecati rerum exercitationem?
-              </div>
-              <div className="infoSection">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime
-                mollitia ullam dicta minima corrupti nulla accusantium, tempora
-                consequuntur libero! Quia maiores nihil ea earum suscipit
-                praesentium quibusdam officiis blanditiis. Doloribus!
-              </div>
-
-              <div className="infoSection">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
-                magni eum tempore, eaque iusto alias nam, quos commodi nesciunt
-                dolorum similique, voluptatem esse! Eum doloremque veniam
-                inventore, porro sed unde. Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit. Distinctio mollitia veniam, enim
-                saepe magni eius quod natus consequuntur debitis expedita modi
-                optio reprehenderit est eligendi, dignissimos praesentium aut
-                perspiciatis assumenda. Lorem ipsum dolor, sit amet consectetur
-                adipisicing elit. Architecto sequi iste impedit natus id
-                exercitationem vitae laboriosam labore, dolore illum, iusto,
-                sint accusamus eaque? Similique, obcaecati? Nostrum quos
-                distinctio quia! Lorem ipsum dolor sit amet, consectetur
-                adipisicing elit. Alias quisquam non at dignissimos beatae sunt,
-                minus libero voluptas earum molestiae? Delectus aliquam
-                veritatis accusamus et repellendus eligendi debitis inventore
-                quasi?
-              </div>
-              <div className="infoSection">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque,
-                numquam aliquid, vero culpa itaque illum quod consequatur
-                nesciunt earum quisquam amet repudiandae corrupti accusantium
-                nam aliquam qui obcaecati rerum exercitationem?
-              </div>
-              <div className="infoSection">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime
-                mollitia ullam dicta minima corrupti nulla accusantium, tempora
-                consequuntur libero! Quia maiores nihil ea earum suscipit
-                praesentium quibusdam officiis blanditiis. Doloribus!
-              </div>
-
-              <div className="infoSection">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
-                magni eum tempore, eaque iusto alias nam, quos commodi nesciunt
-                dolorum similique, voluptatem esse! Eum doloremque veniam
-                inventore, porro sed unde. Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit. Distinctio mollitia veniam, enim
-                saepe magni eius quod natus consequuntur debitis expedita modi
-                optio reprehenderit est eligendi, dignissimos praesentium aut
-                perspiciatis assumenda. Lorem ipsum dolor, sit amet consectetur
-                adipisicing elit. Architecto sequi iste impedit natus id
-                exercitationem vitae laboriosam labore, dolore illum, iusto,
-                sint accusamus eaque? Similique, obcaecati? Nostrum quos
-                distinctio quia! Lorem ipsum dolor sit amet, consectetur
-                adipisicing elit. Alias quisquam non at dignissimos beatae sunt,
-                minus libero voluptas earum molestiae? Delectus aliquam
-                veritatis accusamus et repellendus eligendi debitis inventore
-                quasi?
-              </div>
+               <div>Project Info Chapters will be here...soon!</div>
+               <div>The developer should be able to create a "chapter" for their project</div>
+               <div>Developers should be able to upload some kind of media (img or vid) for each chapter</div>
+               <div>There should be a side chapter side navBar listing all chapters for the project</div>
+               <div>Users should be able to click on a title of a chapter and be directed to that chapter within the page</div>
             </div>
           </div>
           <div className="milestonesContainer">

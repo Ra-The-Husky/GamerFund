@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "projectId",
         onDelete: "CASCADE",
       });
+      Project.hasMany(models.Chapter, {
+        foreignKey: "projectId",
+        onDelete: "CASCADE",
+      });
     }
   }
   Project.init(

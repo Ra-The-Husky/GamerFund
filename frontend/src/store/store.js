@@ -4,12 +4,14 @@ import session from './session';
 import projects from './projects'
 import discussions from './discussions';
 import milestones from './milestones'
+import devPosts from './devPosts'
 
 const rootReducer = combineReducers({
   session,
   projects,
   discussions,
   milestones,
+  devPosts,
 });
 
 let enhancer;

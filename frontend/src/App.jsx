@@ -12,6 +12,7 @@ import UpdateProject from "./components/Projects/UpdateProject";
 import RemovedSuccess from "./components/Projects/DestroyProject";
 import ProjectMilestones from "./components/Milestones/ProjectMilestones";
 import AllDiscussions from "./components/Discussions/ProjectDiscussions/ProjectDiscussions";
+import AllDevPosts from "./components/DevPosts/ProjectDevPosts/ProjectDevPosts";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -51,10 +52,10 @@ const router = createBrowserRouter([
         path: "/:projectId",
         element: <ProjectDetails />,
       },
-      // {
-      //   path: '/:projectId/devPosts',
-      //   element: <ProjectDevPosts />
-      // },
+      {
+        path: '/:projectId/devPosts',
+        element: <AllDevPosts />
+      },
       {
         path: '/:projectId/milestones',
         element: <ProjectMilestones />
